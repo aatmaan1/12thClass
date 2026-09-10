@@ -27,7 +27,7 @@ Fifteen question types. Historically these have covered around 45 of 70 marks.
 | 9 | Bohr model: radius and energy of the nᵗʰ orbit; spectral series | 12 | 3–5 | 9/10 |
 | 10 | Diode as a half-wave / full-wave rectifier: circuit + waveform | 14 | 3–5 | 9/10 |
 | 11 | Biot–Savart applied to a circular loop's axis | 4 | 3–5 | 8/10 |
-| 12 | Ampere's circuital law → solenoid or toroid | 4 | 3 | 8/10 |
+| 12 | Ampere's circuital law → long straight wire (and the solenoid field) | 4 | 3 | 8/10 |
 | 13 | Binding energy per nucleon curve, and what it implies | 13 | 3 | 9/10 |
 | 14 | Transformer: principle, working, losses | 7 | 3–5 | 8/10 |
 | 15 | Moving-coil galvanometer → ammeter / voltmeter conversion | 4 | 3–5 | 8/10 |
@@ -114,7 +114,7 @@ R = ml/(ne²Aτ). The last step is where the marks are.
 | Topic | Marks | Freq | Priority |
 | --- | --- | --- | --- |
 | Biot–Savart law; field on the axis of a circular current loop | 3–5 | 8/10 | **P1** |
-| Ampere's circuital law; apply to a solenoid and a toroid | 3 | 8/10 | **P1** |
+| Ampere's circuital law; apply to a long straight wire; solenoid field B = μ₀nI | 3 | 8/10 | **P1** |
 | Moving-coil galvanometer: principle, construction, and conversion to ammeter/voltmeter | 3–5 | 8/10 | **P1** |
 | Force on a current-carrying conductor in a magnetic field; F = I(l × B) | 2–3 | 8/10 | **P1** |
 | Force between two parallel current-carrying conductors; definition of the ampere | 3 | 7/10 | P2 |
@@ -355,7 +355,7 @@ Every **P1** row above. In chapter order:
 - **Ch 1:** Gauss's law + three applications; dipole field; flux
 - **Ch 2:** parallel-plate capacitor ± dielectric; energy stored; series/parallel; potential; equipotentials
 - **Ch 3:** drift velocity → Ohm's law; resistivity vs temperature; Kirchhoff; Wheatstone; cells; internal resistance
-- **Ch 4:** Biot–Savart for a loop; Ampere's law → solenoid; galvanometer conversion; F = I(l×B); F = q(v×B)
+- **Ch 4:** Biot–Savart for a loop; Ampere's law → long straight wire; galvanometer conversion; F = I(l×B); F = q(v×B)
 - **Ch 5:** Earth's magnetic elements only
 - **Ch 6:** Faraday and Lenz; motional emf; self-inductance; AC generator; direction of induced current
 - **Ch 7:** series LCR + phasor; resonance and Q; transformer; power factor; pure L and pure C
