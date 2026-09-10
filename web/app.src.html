@@ -602,9 +602,20 @@ function unitName(u){ return (L() && L().units[u]) || u; }
 function docTitle(d){ return (L() && L().docs[d.id] && L().docs[d.id][0]) || d.title; }
 function docBlurb(d){ return (L() && L().docs[d.id] && L().docs[d.id][1]) || d.blurb; }
 function chIntro(c){ return (L() && L().intros[c.id]) || c.intro; }
-// shown above content that exists only in English
-function notrans(){
-  if (LANG === "en") return "";
+function qa(c){ return (L() && L().qa && L().qa[c.id]) || null; }
+// the board questions and their solutions, in the reader's language where they exist
+function chPyq(c){ return (qa(c) && qa(c).pyq) || c.s.pyq; }
+function chSol(c){ return (qa(c) && qa(c).sol) || c.s.sol; }
+// questions are re-parsed when the language changes, since the text differs
+var qsCache = {};
+function qsOf(c){
+  var k = LANG + ":" + c.id;
+  if (!qsCache[k]) qsCache[k] = parseQs(chPyq(c), chSol(c));
+  return qsCache[k];
+}
+// shown above content that exists only in English; pass true when it IS translated
+function notrans(translated){
+  if (LANG === "en" || translated) return "";
   return '<p class="notrans">' +
     '<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">' +
     '<path d="M8 1.6 15 14H1L8 1.6Z" fill="none" stroke="currentColor" stroke-width="1.4" ' +
@@ -629,14 +640,14 @@ var unitCount = {};
 CH.forEach(function(c){ var k = c.subj + c.unit; unitCount[k] = (unitCount[k] || 0) + 1; });
 CH.forEach(function(c){ c.share = c.unitMarks / unitCount[c.subj + c.unit]; });
 
-function parseQs(c){
+function parseQs(pyqText, solText){
   var sols = {};
-  c.s.sol.split(/\n(?=### Q\d+\b)/).forEach(function(b){
+  solText.split(/\n(?=### Q\d+\b)/).forEach(function(b){
     var m = b.match(/^### Q(\d+)\b[^\n]*\n?([\s\S]*)$/);
     if (m) sols[m[1]] = (m[2] || "").trim();
   });
   var out = [];
-  c.s.pyq.split(/\n(?=\*\*Q\d+\.\*\*)/).forEach(function(b){
+  pyqText.split(/\n(?=\*\*Q\d+\.\*\*)/).forEach(function(b){
     var m = b.match(/^\*\*Q(\d+)\.\*\*\s*(?:\*\(([^)]*)\)\*)?\s*([\s\S]*)$/);
     if (!m) return;
     out.push({ n:m[1], marks:(m[2] || "").replace(/\s*—[\s\S]*/,"").trim(),
@@ -644,7 +655,8 @@ function parseQs(c){
   });
   return out;
 }
-CH.forEach(function(c){ c.qs = parseQs(c); });
+// the count is the same in every language, so one eager parse still serves the dashboard
+CH.forEach(function(c){ c.qs = parseQs(c.s.pyq, c.s.sol); });
 
 var subject = "maths", route = { k:"home" }, prog = {};
 function P(id){ return prog[id] || {}; }
@@ -831,7 +843,7 @@ function chapterView(c, sec){
 
   if (sec === "scope"){
     body = '<div class="warn"><p class="warn-h">' + T("scope.warnH") + "</p>" +
-      '<div class="md">' + md(c.deleted) + "</div></div>" + notrans() +
+      '<div class="md">' + md(c.deleted) + "</div></div>" + notrans(false) +
       '<div class="md">' + md(c.s.scope.replace(/### Deleted[\s\S]*?(?=\n### |$)/, "")) + "</div>";
   } else if (sec === "brief"){
     var rest = c.s.brief
@@ -851,13 +863,14 @@ function chapterView(c, sec){
         : "") +
       (rest
         ? '<p class="detail-h"><b>' + T("brief.detailH") + "</b>" +
-          "<span>" + T("brief.detailSub") + "</span></p>" + notrans() +
+          "<span>" + T("brief.detailSub") + "</span></p>" + notrans(false) +
           '<div class="md">' + md(rest) + "</div>"
         : "");
   } else if (sec === "pyq"){
-    body = '<p class="sub" style="margin:0 0 18px">' + T("pyq.lead", {n:c.qs.length}) + "</p>" +
-      notrans() + '<div class="qlist">';
-    c.qs.forEach(function(q){
+    var qs = qsOf(c);
+    body = '<p class="sub" style="margin:0 0 18px">' + T("pyq.lead", {n:qs.length}) + "</p>" +
+      notrans(!!qa(c)) + '<div class="qlist">';
+    qs.forEach(function(q){
       var k = c.id + "-" + q.n;
       body += '<article class="q"><div class="q-h"><span class="q-n">Q' + q.n + "</span>" +
         (q.marks ? '<span class="q-m">' + esc(q.marks) + "</span>" : "") + "</div>" +
@@ -869,12 +882,12 @@ function chapterView(c, sec){
     });
     body += "</div>";
   } else if (sec === "sol"){
-    body = '<p class="sub" style="margin:0 0 18px">' + T("sol.lead") + "</p>" + notrans() +
-      '<div class="md">' + md(c.s.sol) + "</div>";
+    body = '<p class="sub" style="margin:0 0 18px">' + T("sol.lead") + "</p>" +
+      notrans(!!qa(c)) + '<div class="md">' + md(chSol(c)) + "</div>";
   } else if (sec === "test"){
     var cut = c.s.test.split(/\n### Answer key\s*\n/);
     var sc = P(c.id).score;
-    body = notrans() + '<div class="md">' + md(cut[0]) + "</div>" +
+    body = notrans(false) + '<div class="md">' + md(cut[0]) + "</div>" +
       '<div class="keybar"><p><strong>' + T("test.keybarH") + "</strong> " + T("test.keybar") +
       "</p>" +
       '<button class="reveal" data-sol="key-' + c.id + '" aria-expanded="false" ' +
@@ -887,7 +900,7 @@ function chapterView(c, sec){
         '" aria-label="' + esc(T("test.scoreAria")) + '">' +
       "<span>" + T("test.scoreNote") + "</span></div>";
   } else {
-    body = notrans() + '<div class="md">' + md(c.s.tips) + "</div>";
+    body = notrans(false) + '<div class="md">' + md(c.s.tips) + "</div>";
   }
 
   var passes = "";
@@ -921,7 +934,7 @@ function docView(d){
   return backbar() +
     '<p class="eyebrow">' + T("doc.eyebrow") + "</p>" +
     '<h1 class="pt">' + esc(docTitle(d)) + "</h1>" +
-    '<p class="sub">' + esc(docBlurb(d)) + "</p>" + notrans() +
+    '<p class="sub">' + esc(docBlurb(d)) + "</p>" + notrans(false) +
     '<div class="md" style="margin-top:28px">' + md(d.body) + "</div>" +
     backfoot();
 }
@@ -941,7 +954,9 @@ function searchView(term){
   CH.forEach(function(c){
     SECS.forEach(function(x){
       push(chTitle(c), subjLabel(SUBJ[c.subj]) + " &middot; " + T("nx.ch") + " " + c.num +
-        " &middot; " + T("sec." + x), c.s[x], JSON.stringify({ k:"ch", id:c.id, sec:x }));
+        " &middot; " + T("sec." + x),
+        x === "pyq" ? chPyq(c) : x === "sol" ? chSol(c) : c.s[x],
+        JSON.stringify({ k:"ch", id:c.id, sec:x }));
     });
   });
   DATA.docs.forEach(function(d){

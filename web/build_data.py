@@ -107,11 +107,35 @@ for lang in sorted(os.listdir(I18N)) if os.path.isdir(I18N) else []:
             intros[c["id"]] = re.sub(r"^\s*###[^\n]*\n", "", t).strip()
         else:
             missing.append(c["id"])
+
+    # Board questions and their solutions, translated per chapter. One file per chapter,
+    # split by two machine markers so the headings never reach a reader. The Q numbering
+    # markers (**Q1.** and ### Q1) MUST survive translation — the app pairs each question
+    # with its solution by that number.
+    qa, qamiss = {}, []
+    for c in chapters:
+        f = os.path.join(d, "qa", "%s%02d.md" % (c["id"][0], c["num"]))
+        if not os.path.exists(f):
+            qamiss.append(c["id"])
+            continue
+        t = io.open(f, encoding="utf-8").read()
+        m = re.search(r"<!--\s*QUESTIONS\s*-->(.*?)<!--\s*SOLUTIONS\s*-->(.*)$", t, re.S)
+        assert m, "%s: needs both <!-- QUESTIONS --> and <!-- SOLUTIONS --> markers" % f
+        pyq, sol = m.group(1).strip(), m.group(2).strip()
+        want = re.findall(r"^\*\*Q(\d+)\.\*\*", c["s"]["pyq"], re.M)
+        got = re.findall(r"^\*\*Q(\d+)\.\*\*", pyq, re.M)
+        assert got == want, "%s: question numbers %s do not match the English %s" % (f, got, want)
+        gotsol = re.findall(r"^### Q(\d+)\b", sol, re.M)
+        assert gotsol == want, "%s: solution numbers %s do not match the questions %s" % (
+            f, gotsol, want)
+        qa[c["id"]] = {"pyq": pyq, "sol": sol}
+
     langs[lang] = {"ui": ui, "titles": titles, "units": units, "docs": docnames,
-                   "intros": intros}
-    print("%s: %d ui strings, %d chapter names, %d units, %d intros%s"
-          % (lang, len(ui), len(titles), len(units), len(intros),
-             ("  MISSING intros: " + ",".join(missing)) if missing else ""))
+                   "intros": intros, "qa": qa}
+    print("%s: %d ui strings, %d chapter names, %d units, %d intros, %d Q&A sets%s%s"
+          % (lang, len(ui), len(titles), len(units), len(intros), len(qa),
+             ("  no intro: " + ",".join(missing)) if missing else "",
+             ("  no Q&A: " + ",".join(qamiss)) if qamiss else ""))
     for c in chapters:
         assert c["id"] in titles, "%s: no chapter name for %s" % (lang, c["id"])
         assert c["unit"] in units, "%s: no unit name for %s" % (lang, c["unit"])
