@@ -6,8 +6,10 @@ one HTML file, no framework, no build step on the server, no dependencies to ins
 - **`../index.html`** — the deployable site, at the **repository root**. Generated; do not edit by
   hand. It sits at the root because Vercel serves a repository root as a static site with no
   configuration at all — no rewrites to misfire.
-- **`app.src.html`** — the app template (markup, CSS, JS). Edit this.
-- **`build_data.py`** — extracts the chapters and reference docs from the markdown into `data.json`.
+- **`app.src.html`** — the app template (markup, CSS, JS). Edit this. English UI strings live in
+  the `EN` object near the top of its script.
+- **`build_data.py`** — extracts the chapters and reference docs from the markdown into `data.json`,
+  and folds in every translation under `../i18n/`.
 - **`build.py`** — runs the extractor, bundles the data into the template, writes `index.html`.
 - **`data.json`** — generated content bundle.
 
@@ -102,6 +104,45 @@ Open it as a `file://` URL and it works too — there is nothing that needs a se
 | Deleted topics as a red banner at the top of every chapter | The highest-value warning in the whole guide |
 | Search across all 27 chapters and 9 reference documents | Press `/` to focus it |
 | Light and dark themes, both designed | Follows the OS, with a manual override |
+| **English / हिन्दी** switch at the top right | Hindi-medium candidates sit the same paper |
+
+---
+
+## Languages
+
+The switch at the top right offers **English** and **हिन्दी**. The choice is remembered per device
+(`localStorage`), and sets `<html lang>` so the right font and line-height apply.
+
+**Hindi is a partial translation, on purpose.** Translated:
+
+- the whole interface — tabs, labels, buttons, the dashboard, the search results
+- every chapter and unit name, and every reference document's title and blurb, using the
+  terminology of the **NCERT Hindi-medium textbooks** (`lhph*`, `lhmh*`) rather than literal
+  translation — so आव्यूह, सारणिक, विभव, धारिता, अपवाह वेग, ह्रासी क्षेत्र
+- the **Start here** plain-English introduction for all 27 chapters, with the Hindi NCERT chapter
+  PDFs linked in place of the English ones
+
+Still English: the exam-language detail under *The full detail*, the board questions, the solutions,
+the self-tests, the answering tips, and the nine reference documents. Wherever that happens the app
+shows a notice in Hindi saying so, rather than pretending otherwise. Anything with no translation
+falls back to English silently.
+
+### Adding to the Hindi translation, or adding a language
+
+Everything lives under `i18n/<code>/`:
+
+```
+i18n/hi/ui.json            every UI string, plus chapter names, unit names, document names
+i18n/hi/chapters/p01.md    the "Start here" text for Physics ch 1 — same shape as the English
+i18n/hi/chapters/m13.md    ... and Maths ch 13
+```
+
+Add a directory with the same two pieces and it appears in the switch on the next build, named by
+its own `lang.name`. `build_data.py` **fails the build** if a language is missing a chapter name, a
+unit name or a document name, so a half-wired language cannot ship; a missing chapter intro is
+allowed and falls back to English.
+
+---
 
 **Progress is stored in the browser** (`localStorage`), per device. It is not sent anywhere and
 there is no account. Clearing site data clears it. On a phone and a laptop you will have two

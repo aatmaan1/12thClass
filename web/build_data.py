@@ -84,7 +84,41 @@ for did, dtitle, path, blurb in DOCS:
     body = re.sub(r'^# [^\n]*\n', '', body, count=1)  # drop the H1, the UI shows the title
     docs.append({"id": did, "title": dtitle, "blurb": blurb, "body": body.strip()})
 
-out = {"chapters": chapters, "docs": docs}
+# ---------------- translations ----------------
+# Hindi is a partial translation by design: the UI, the chapter and unit names, and the
+# plain-English "Start here" intro for every chapter. The exam-language detail, the board
+# questions, the solutions and the reference documents stay in English, and the app says so
+# where they appear. Anything missing here simply falls back to English.
+I18N = os.path.join(ROOT, "i18n")
+langs = {}
+for lang in sorted(os.listdir(I18N)) if os.path.isdir(I18N) else []:
+    d = os.path.join(I18N, lang)
+    if not os.path.isdir(d):
+        continue
+    ui = json.load(io.open(os.path.join(d, "ui.json"), encoding="utf-8"))
+    ui.pop("_note", None)
+    titles, units, docnames = ui.pop("chapters", {}), ui.pop("units", {}), ui.pop("docs", {})
+    intros, missing = {}, []
+    for c in chapters:
+        f = os.path.join(d, "chapters", "%s%02d.md" % (c["id"][0], c["num"]))
+        if os.path.exists(f):
+            t = io.open(f, encoding="utf-8").read()
+            # drop the "### ..." heading line; the app supplies its own heading
+            intros[c["id"]] = re.sub(r"^\s*###[^\n]*\n", "", t).strip()
+        else:
+            missing.append(c["id"])
+    langs[lang] = {"ui": ui, "titles": titles, "units": units, "docs": docnames,
+                   "intros": intros}
+    print("%s: %d ui strings, %d chapter names, %d units, %d intros%s"
+          % (lang, len(ui), len(titles), len(units), len(intros),
+             ("  MISSING intros: " + ",".join(missing)) if missing else ""))
+    for c in chapters:
+        assert c["id"] in titles, "%s: no chapter name for %s" % (lang, c["id"])
+        assert c["unit"] in units, "%s: no unit name for %s" % (lang, c["unit"])
+    for dd in docs:
+        assert dd["id"] in docnames, "%s: no doc name for %s" % (lang, dd["id"])
+
+out = {"chapters": chapters, "docs": docs, "langs": langs}
 js = json.dumps(out, ensure_ascii=False, separators=(",", ":"))
 io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json"), "w", encoding="utf-8").write(js)
 

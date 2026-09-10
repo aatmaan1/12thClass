@@ -1,6 +1,6 @@
 <title>Marks First</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap">
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -15,8 +15,8 @@
   --crit:#9E2C2C; --crit-soft:#FBECEC;
   --shadow:0 1px 2px rgba(22,35,61,.06),0 4px 14px rgba(22,35,61,.05);
   --shadow-lift:0 2px 6px rgba(22,35,61,.09),0 12px 32px rgba(22,35,61,.10);
-  --sans:'Public Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:'Public Sans','Noto Sans Devanagari',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Newsreader','Noto Serif Devanagari',Georgia,'Times New Roman',serif;
   --mono:'JetBrains Mono','DejaVu Sans Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --rail:288px;
 }
@@ -54,6 +54,9 @@ body{margin:0;background:var(--ground);color:var(--body);
   font:400 15px/1.6 var(--sans);font-variant-numeric:tabular-nums}
 :focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:3px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+html[lang="hi"] body{line-height:1.72}
+html[lang="hi"] .md{line-height:1.8}
+html[lang="hi"] .chname,html[lang="hi"] .nxt{line-height:1.35}
 
 /* ============ SHELL ============ */
 .shell{display:grid;grid-template-columns:var(--rail) minmax(0,1fr);min-height:100vh}
@@ -110,6 +113,19 @@ body{margin:0;background:var(--ground);color:var(--body);
 .mbar-h:hover strong{color:var(--accent)}
 
 /* ============ BACK TO DASHBOARD ============ */
+/* ============ LANGUAGE SWITCH ============ */
+.topbar{display:flex;justify-content:flex-end;margin:0 0 4px}
+.langsw{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--line);
+  background:var(--surface);border-radius:9px;padding:2px}
+.langsw button{border:0;background:none;cursor:pointer;color:var(--muted);
+  border-radius:7px;padding:6px 11px;font:600 12px/1 var(--sans)}
+.langsw button:hover{color:var(--ink)}
+.langsw button[aria-pressed="true"]{background:var(--inset);color:var(--ink)}
+.notrans{display:flex;gap:9px;align-items:flex-start;margin:0 0 18px;padding:11px 14px;
+  background:var(--warn-soft);border:1px solid var(--warn);border-radius:9px;
+  font-size:12.5px;color:var(--warn);line-height:1.55}
+.notrans svg{flex:none;margin-top:1px}
+
 .backbar{display:flex;align-items:center;gap:9px;margin:0 0 18px;flex-wrap:wrap}
 .homebtn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;
   border:1px solid var(--line);background:var(--surface);color:var(--body);
@@ -239,10 +255,11 @@ h2.sec{font:600 19px/1.25 var(--serif);color:var(--ink);letter-spacing:-.012em;m
 summary.recall-h{cursor:pointer;list-style:none;display:flex;align-items:center;
   justify-content:space-between;gap:12px}
 summary.recall-h::-webkit-details-marker{display:none}
-summary.recall-h::after{content:"Show";font:600 10px/1 var(--sans);letter-spacing:.06em;
-  text-transform:none;border:1px solid var(--accent);border-radius:5px;padding:4px 7px;flex:none}
-.recall[open] summary.recall-h::after{content:"Hide"}
-summary.recall-h:hover::after{background:var(--accent);color:var(--surface)}
+.rcx{font:600 10px/1 var(--sans);letter-spacing:.06em;text-transform:none;font-style:normal;
+  border:1px solid var(--accent);border-radius:5px;padding:4px 7px;flex:none}
+.rcx::before{content:attr(data-show)}
+.recall[open] .rcx::before{content:attr(data-hide)}
+summary.recall-h:hover .rcx{background:var(--accent);color:var(--surface)}
 
 /* ============ PLAIN-ENGLISH INTRO ============ */
 .intro{margin:0 0 30px;padding-bottom:26px;border-bottom:1px solid var(--line)}
@@ -355,7 +372,7 @@ summary.recall-h:hover::after{background:var(--accent);color:var(--surface)}
   <aside class="rail" id="rail" aria-label="Chapters">
     <button class="brand" id="brand" aria-label="Go to the dashboard">
       <span class="brand-t">Marks First</span>
-      <span class="brand-s">CBSE Class 12 &middot; Maths 041 &middot; Physics 042</span>
+      <span class="brand-s" id="brandSub"></span>
     </button>
     <div class="sfield">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6" stroke="currentColor" stroke-width="1.6"></circle><path d="M10.4 10.4 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
@@ -379,6 +396,9 @@ summary.recall-h:hover::after{background:var(--accent);color:var(--surface)}
         <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.2 7.4 8 2.4l5.8 5M3.9 6.6v6.2a.6.6 0 0 0 .6.6h7a.6.6 0 0 0 .6-.6V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         <strong>Marks First</strong>
       </button>
+    </div>
+    <div class="topbar">
+      <div class="langsw" id="langsw" role="group" aria-label="Language / भाषा"></div>
     </div>
     <div id="view"></div>
   </main>
@@ -495,18 +515,113 @@ function md(src){
   return h;
 }
 
+/* ================= language ================= */
+// English lives here as the default; every other language overrides by key from DATA.langs.
+// A key with no translation falls back to English rather than disappearing.
+var EN = {
+  "lang.name":"English", "lang.short":"EN",
+  "lang.notTranslated":"This part is not translated yet — the English text is below.",
+  "brand.sub":"CBSE Class 12 &middot; Maths 041 &middot; Physics 042",
+  "search.ph":"Search all 27 chapters\u2026", "search.aria":"Search the guide",
+  "subj.maths":"Mathematics", "subj.physics":"Physics", "subj.aria":"Subject",
+  "rail.marks":"marks", "rail.chaptersAria":"Chapters", "rail.passesDone":"{n} of 3 passes done",
+  "sync.local":"Saved on this device", "sync.cloud":"Synced across your devices",
+  "btn.theme":"Theme", "btn.themeAria":"Switch colour theme",
+  "btn.chapters":"Chapters", "btn.chaptersAria":"Open chapter list",
+  "btn.home":"Home", "btn.backHome":"Back to home", "btn.homeAria":"Go to the dashboard",
+  "nav.crumbAria":"Breadcrumb",
+  "home.subjectCode":"Subject code", "home.title":"{total} marks, {n} chapters",
+  "home.sub":"Everything here is counted in marks, because that is the only unit the board " +
+    "pays in. Work the chapters this page pushes to the top and you are buying marks rather " +
+    "than covering pages.",
+  "home.docsH":"Read before you start", "home.docsPill":"Start here",
+  "tile.marks":"Marks in hand", "tile.marksN":"Counting all three passes per chapter",
+  "tile.chaptersDone":"Chapters finished", "tile.chaptersDoneN":"{n} more part-done",
+  "tile.p1":"P1 chapters done", "tile.p1N":"The highest-return chapters",
+  "tile.qs":"Board questions", "tile.qsN":"Each with a worked solution",
+  "home.nextH":"Study these next", "home.nextPill":"Priority, then marks at stake",
+  "home.allDoneH":"All {n} chapters finished",
+  "home.allDoneSub":"Three passes on every chapter. Move to the formula sheet and {x} from here.",
+  "home.allDonePhys":"the derivations list", "home.allDoneMaths":"full past papers",
+  "nx.ch":"Ch", "nx.passes":"/3 passes", "nx.marks":"marks",
+  "foot.caveatH":"A caveat carried over from the source notes.",
+  "foot.caveat1":"The frequency bands (\u201cevery year\u201d, \u201c8&ndash;9/10\u201d) are " +
+    "well-informed pattern estimates, not a machine count of past papers. Two scope points are " +
+    "flagged rather than asserted: polarisation in Wave Optics, and the magnetic-materials " +
+    "block in Physics Ch 5.",
+  "foot.caveat2":"Check the deletion list against the current CBSE syllabus PDF at the start " +
+    "of the session. Notes go stale; the board circular does not.",
+  "tag.unitMarks":"{n} marks in this unit", "tag.prio":"Priority P",
+  "tag.stake":"marks at stake", "tag.passes":"/3 passes",
+  "sec.scope":"Scope", "sec.brief":"Brief", "sec.pyq":"Questions",
+  "sec.sol":"Solutions", "sec.test":"Self-test", "sec.tips":"Tips",
+  "pass.p1t":"Pass 1 &middot; Learn",
+  "pass.p1d":"Read Scope and Brief, then reproduce the recall box from memory.",
+  "pass.p2t":"Pass 2 &middot; Apply",
+  "pass.p2d":"Work the board questions with the solutions hidden.",
+  "pass.p3t":"Pass 3 &middot; Test", "pass.p3d":"Do the self-test under time, then score it.",
+  "ch.chapter":"Chapter", "scope.warnH":"Deleted &mdash; do not study this",
+  "brief.recallH":"Quick recall &middot; for revision",
+  "brief.show":"Show", "brief.hide":"Hide",
+  "brief.introH":"Start here",
+  "brief.introSub":"No prior knowledge assumed &middot; plain English",
+  "brief.detailH":"The full detail",
+  "brief.detailSub":"Formulae, statements and tables, in exam language",
+  "pyq.lead":"{n} board questions. Attempt each one on paper first &mdash; the solution stays " +
+    "hidden until you ask for it.",
+  "pyq.show":"Show solution", "pyq.hide":"Hide solution", "pyq.solLabel":"Solution",
+  "sol.lead":"Every solution in one place, for review after you have attempted the set. To " +
+    "take them one at a time, use the Questions tab.",
+  "test.keybarH":"The answer key is hidden.",
+  "test.keybar":"Finish the whole set under time first &mdash; a key you have already glanced " +
+    "at turns this into a reading exercise.",
+  "test.reveal":"Reveal answer key", "test.hideKey":"Hide answer key", "test.keyH":"Answer key",
+  "test.scoreLabel":"Score for this set",
+  "test.scoreNote":"%  &middot; below 70 means redo Pass 1 for the sub-topics you dropped",
+  "test.scoreAria":"Percentage score",
+  "search.eyebrow":"Search", "search.n1":"{n} result", "search.n":"{n} results",
+  "search.for":"for &ldquo;{q}&rdquo;, across all 27 chapters and {d} reference documents.",
+  "search.none":"Nothing matched. Try a formula name, a chapter title, or a term like " +
+    "&ldquo;Bayes&rdquo;, &ldquo;drift velocity&rdquo; or &ldquo;minimum deviation&rdquo;.",
+  "search.first60":"Showing the first 60. Narrow the term for fewer.",
+  "search.ref":"Reference", "doc.eyebrow":"Reference"
+};
+var LANG = "en";
+var LANGS = ["en"].concat(Object.keys(DATA.langs || {}));
+function L(){ return (DATA.langs || {})[LANG] || null; }
+function T(k, vars){
+  var t = L() && L().ui[k];
+  if (t == null) t = EN[k];
+  if (t == null) return k;
+  if (vars) Object.keys(vars).forEach(function(v){ t = t.split("{" + v + "}").join(vars[v]); });
+  return t;
+}
+// chapter, unit and document names are translated as data, not as UI strings
+function chTitle(c){ return (L() && L().titles[c.id]) || c.title; }
+function unitName(u){ return (L() && L().units[u]) || u; }
+function docTitle(d){ return (L() && L().docs[d.id] && L().docs[d.id][0]) || d.title; }
+function docBlurb(d){ return (L() && L().docs[d.id] && L().docs[d.id][1]) || d.blurb; }
+function chIntro(c){ return (L() && L().intros[c.id]) || c.intro; }
+// shown above content that exists only in English
+function notrans(){
+  if (LANG === "en") return "";
+  return '<p class="notrans">' +
+    '<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">' +
+    '<path d="M8 1.6 15 14H1L8 1.6Z" fill="none" stroke="currentColor" stroke-width="1.4" ' +
+    'stroke-linejoin="round"></path><path d="M8 6v3.4" stroke="currentColor" ' +
+    'stroke-width="1.5" stroke-linecap="round"></path>' +
+    '<circle cx="8" cy="11.6" r=".85" fill="currentColor"></circle></svg>' +
+    "<span>" + T("lang.notTranslated") + "</span></p>";
+}
+
 /* ================= model ================= */
 var SUBJ = {
-  maths:   { label:"Mathematics", code:"041", total:80, cls:"maths",   pill:"pm" },
-  physics: { label:"Physics",     code:"042", total:70, cls:"physics", pill:"pp" }
+  maths:   { code:"041", total:80, cls:"maths",   pill:"pm", k:"subj.maths" },
+  physics: { code:"042", total:70, cls:"physics", pill:"pp", k:"subj.physics" }
 };
-var SECS = [["scope","Scope"],["brief","Brief"],["pyq","Questions"],
-            ["sol","Solutions"],["test","Self-test"],["tips","Tips"]];
-var PASSES = [
-  ["p1","Pass 1 &middot; Learn","Read Scope and Brief, then reproduce the recall box from memory."],
-  ["p2","Pass 2 &middot; Apply","Work the board questions with the solutions hidden."],
-  ["p3","Pass 3 &middot; Test","Do the self-test under time, then score it."]
-];
+function subjLabel(x){ return T(x.k); }
+var SECS = ["scope","brief","pyq","sol","test","tips"];
+var PASSES = ["p1","p2","p3"];
 var CH = DATA.chapters, byId = {};
 CH.forEach(function(c){ byId[c.id] = c; });
 
@@ -535,7 +650,7 @@ var subject = "maths", route = { k:"home" }, prog = {};
 function P(id){ return prog[id] || {}; }
 function passCount(id){
   var p = P(id), n = 0;
-  PASSES.forEach(function(x){ if (p[x[0]]) n++; });
+  PASSES.forEach(function(x){ if (p[x]) n++; });
   return n;
 }
 
@@ -552,11 +667,13 @@ function save(){
     }, 450);
   }
 }
-function setSync(ok, text){
+var syncKey = "sync.local";
+function setSync(ok, key){
+  syncKey = key;
   var el = document.getElementById("sync");
   if (!el) return;
   el.className = "sync" + (ok ? " ok" : "");
-  el.querySelector("span").textContent = text;
+  el.querySelector("span").textContent = T(key);
 }
 (function(){
   if (!window.claude || !window.claude.use) return;
@@ -575,9 +692,9 @@ function setSync(ok, text){
           });
           if (changed){ persistLocal(); render(); }
         }
-        setSync(true, "Synced across your devices");
-      }, function(){ setSync(false, "Saved on this device"); });
-    } catch(e){ setSync(false, "Saved on this device"); }
+        setSync(true, "sync.cloud");
+      }, function(){ setSync(false, "sync.local"); });
+    } catch(e){ setSync(false, "sync.local"); }
   }).catch(function(){});
 })();
 
@@ -589,16 +706,18 @@ function drawRail(){
   CH.filter(function(c){ return c.subj === subject; }).forEach(function(c){
     if (c.unit !== unit){
       unit = c.unit;
-      h += '<div class="unitlab"><span>' + esc(unit.replace(/^Units? /,"")) +
-           "</span><b>" + c.unitMarks + " marks</b></div>";
+      h += '<div class="unitlab"><span>' +
+           esc(unitName(unit).replace(/^(Units? |इकाई )/,"")) +
+           "</span><b>" + c.unitMarks + " " + T("rail.marks") + "</b></div>";
     }
     var n = passCount(c.id), dots = "";
     PASSES.forEach(function(_,k){ dots += '<i class="dot' + (k < n ? " on" : "") + '"></i>'; });
     h += '<button class="chrow" data-ch="' + c.id + '" ' +
          (route.k === "ch" && route.id === c.id ? 'aria-current="page"' : "") + ">" +
          '<span class="chnum">' + c.num + "</span>" +
-         '<span class="chname">' + esc(c.title) + "</span>" +
-         '<span class="dots" aria-label="' + n + ' of 3 passes done">' + dots + "</span></button>";
+         '<span class="chname">' + esc(chTitle(c)) + "</span>" +
+         '<span class="dots" aria-label="' + esc(T("rail.passesDone", {n:n})) + '">' +
+         dots + "</span></button>";
   });
   var nav = document.getElementById("chlist");
   nav.innerHTML = h;
@@ -609,17 +728,19 @@ function drawRail(){
 
 /* ================= back to the dashboard ================= */
 function backbar(){
-  return '<nav class="backbar" aria-label="Breadcrumb">' +
+  return '<nav class="backbar" aria-label="' + esc(T("nav.crumbAria")) + '">' +
     '<button class="homebtn" data-home>' +
     '<svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true">' +
     '<path d="M9.6 2.9 4.5 8l5.1 5.1" fill="none" stroke="currentColor" stroke-width="1.9" ' +
-    'stroke-linecap="round" stroke-linejoin="round"></path></svg>Home</button></nav>';
+    'stroke-linecap="round" stroke-linejoin="round"></path></svg>' + T("btn.home") +
+    "</button></nav>";
 }
 function backfoot(){
   return '<div class="backfoot"><button class="homebtn" data-home>' +
     '<svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true">' +
     '<path d="M9.6 2.9 4.5 8l5.1 5.1" fill="none" stroke="currentColor" stroke-width="1.9" ' +
-    'stroke-linecap="round" stroke-linejoin="round"></path></svg>Back to home</button></div>';
+    'stroke-linecap="round" stroke-linejoin="round"></path></svg>' + T("btn.backHome") +
+    "</button></div>";
 }
 
 /* ================= dashboard ================= */
@@ -640,80 +761,77 @@ function homeView(){
     .sort(function(a,b){ return a.prio - b.prio || b.share - a.share || a.num - b.num; })
     .slice(0,4);
 
-  var h = '<p class="eyebrow">' + s.label + " &middot; Subject code " + s.code + "</p>" +
-    '<h1 class="pt">' + s.total + " marks, " + list.length + " chapters</h1>" +
-    '<p class="sub">Everything here is counted in marks, because that is the only unit the board ' +
-    'pays in. Work the chapters this page pushes to the top and you are buying marks rather than ' +
-    'covering pages.</p>';
+  var h = '<p class="eyebrow">' + subjLabel(s) + " &middot; " + T("home.subjectCode") + " " +
+      s.code + "</p>" +
+    '<h1 class="pt">' + T("home.title", {total:s.total, n:list.length}) + "</h1>" +
+    '<p class="sub">' + T("home.sub") + "</p>";
 
-  h += '<div class="panel"><div class="panel-h"><h2 class="sec">Read before you start</h2>' +
-       '<span class="pill p3">Start here</span></div><div class="dgrid">';
+  h += '<div class="panel"><div class="panel-h"><h2 class="sec">' + T("home.docsH") + "</h2>" +
+       '<span class="pill p3">' + T("home.docsPill") + '</span></div><div class="dgrid">';
   DATA.docs.forEach(function(d){
-    h += '<button class="dcard" data-doc="' + d.id + '"><b>' + esc(d.title) +
-         "</b><span>" + esc(d.blurb) + "</span></button>";
+    h += '<button class="dcard" data-doc="' + d.id + '"><b>' + esc(docTitle(d)) +
+         "</b><span>" + esc(docBlurb(d)) + "</span></button>";
   });
   h += "</div></div>";
 
   h += '<div class="tiles">' +
-    '<div class="tile"><p class="tile-k">Marks in hand</p>' +
+    '<div class="tile"><p class="tile-k">' + T("tile.marks") + "</p>" +
       '<p class="tile-v">' + done.toFixed(1) + "<small> / " + s.total + "</small></p>" +
       '<div class="meter"><i class="m-' + s.cls + '" style="width:' +
         (100*done/s.total).toFixed(1) + '%"></i></div>' +
-      '<p class="tile-n">Counting all three passes per chapter</p></div>' +
-    '<div class="tile"><p class="tile-k">Chapters finished</p>' +
+      '<p class="tile-n">' + T("tile.marksN") + "</p></div>" +
+    '<div class="tile"><p class="tile-k">' + T("tile.chaptersDone") + "</p>" +
       '<p class="tile-v">' + full + "<small> / " + list.length + "</small></p>" +
       '<div class="meter"><i class="m-' + s.cls + '" style="width:' +
         (100*full/list.length).toFixed(1) + '%"></i></div>' +
-      '<p class="tile-n">' + (started - full) + " more part-done</p></div>" +
-    '<div class="tile"><p class="tile-k">P1 chapters done</p>' +
+      '<p class="tile-n">' + T("tile.chaptersDoneN", {n:(started - full)}) + "</p></div>" +
+    '<div class="tile"><p class="tile-k">' + T("tile.p1") + "</p>" +
       '<p class="tile-v">' + p1done + "<small> / " + p1.length + "</small></p>" +
       '<div class="meter"><i style="width:' + (100*p1done/p1.length).toFixed(1) + '%"></i></div>' +
-      '<p class="tile-n">The highest-return chapters</p></div>' +
-    '<div class="tile"><p class="tile-k">Board questions</p>' +
+      '<p class="tile-n">' + T("tile.p1N") + "</p></div>" +
+    '<div class="tile"><p class="tile-k">' + T("tile.qs") + "</p>" +
       '<p class="tile-v">' + totalQ + "</p>" +
-      '<p class="tile-n">Each with a worked solution</p></div></div>';
+      '<p class="tile-n">' + T("tile.qsN") + "</p></div></div>";
 
   if (next.length){
-    h += '<div class="panel"><div class="panel-h"><h2 class="sec">Study these next</h2>' +
-         '<span class="pill p3">Priority, then marks at stake</span></div><div class="nx">';
+    h += '<div class="panel"><div class="panel-h"><h2 class="sec">' + T("home.nextH") + "</h2>" +
+         '<span class="pill p3">' + T("home.nextPill") + '</span></div><div class="nx">';
     next.forEach(function(c,k){
       h += '<button class="nxi" data-ch="' + c.id + '"><span class="nxr">' + (k+1) + "</span>" +
-        '<span><span class="nxt">' + esc(c.title) + "</span>" +
-        '<span class="nxm">Ch ' + c.num + " &middot; " + esc(c.unit) + " &middot; " +
-        passCount(c.id) + "/3 passes</span></span>" +
-        '<span class="nxw">&#8776;' + c.share.toFixed(1) + " marks</span></button>";
+        '<span><span class="nxt">' + esc(chTitle(c)) + "</span>" +
+        '<span class="nxm">' + T("nx.ch") + " " + c.num + " &middot; " + esc(unitName(c.unit)) +
+        " &middot; " + passCount(c.id) + T("nx.passes") + "</span></span>" +
+        '<span class="nxw">&#8776;' + c.share.toFixed(1) + " " + T("nx.marks") +
+        "</span></button>";
     });
     h += "</div></div>";
   } else {
-    h += '<div class="panel"><h2 class="sec">All ' + list.length + " chapters finished</h2>" +
-      '<p class="sub">Three passes on every chapter. Move to the formula sheet and ' +
-      (subject === "physics" ? "the derivations list" : "full past papers") + " from here.</p></div>";
+    h += '<div class="panel"><h2 class="sec">' + T("home.allDoneH", {n:list.length}) + "</h2>" +
+      '<p class="sub">' + T("home.allDoneSub", {x: T(subject === "physics"
+        ? "home.allDonePhys" : "home.allDoneMaths")}) + "</p></div>";
   }
 
-  h += '<div class="foot"><p><strong>A caveat carried over from the source notes.</strong> ' +
-    'The frequency bands ("every year", "8&ndash;9/10") are well-informed pattern estimates, not a ' +
-    'machine count of past papers. Two scope points are flagged rather than asserted: polarisation ' +
-    'in Wave Optics, and the magnetic-materials block in Physics Ch 5.</p>' +
-    '<p>Check the deletion list against the current CBSE syllabus PDF at the start of the session. ' +
-    'Notes go stale; the board circular does not.</p></div>';
+  h += '<div class="foot"><p><strong>' + T("foot.caveatH") + "</strong> " + T("foot.caveat1") +
+    "</p><p>" + T("foot.caveat2") + "</p></div>";
   return h;
 }
 
 /* ================= chapter ================= */
 function tagRow(c){
   var s = SUBJ[c.subj], n = passCount(c.id);
-  return '<span class="pill ' + s.pill + '">' + c.unitMarks + " marks in this unit</span>" +
+  return '<span class="pill ' + s.pill + '">' + T("tag.unitMarks", {n:c.unitMarks}) +
+      "</span>" +
     '<span class="pill ' + (c.prio === 1 ? "p1" : c.prio === 2 ? "p2" : "p3") +
-      '">Priority P' + c.prio + "</span>" +
-    '<span class="pill p3">&#8776;' + c.share.toFixed(1) + " marks at stake</span>" +
-    '<span class="pill ' + (n === 3 ? "pg" : "p3") + '">' + n + "/3 passes</span>";
+      '">' + T("tag.prio") + c.prio + "</span>" +
+    '<span class="pill p3">&#8776;' + c.share.toFixed(1) + " " + T("tag.stake") + "</span>" +
+    '<span class="pill ' + (n === 3 ? "pg" : "p3") + '">' + n + T("tag.passes") + "</span>";
 }
 function chapterView(c, sec){
   var s = SUBJ[c.subj], body = "";
 
   if (sec === "scope"){
-    body = '<div class="warn"><p class="warn-h">Deleted &mdash; do not study this</p>' +
-      '<div class="md">' + md(c.deleted) + "</div></div>" +
+    body = '<div class="warn"><p class="warn-h">' + T("scope.warnH") + "</p>" +
+      '<div class="md">' + md(c.deleted) + "</div></div>" + notrans() +
       '<div class="md">' + md(c.s.scope.replace(/### Deleted[\s\S]*?(?=\n### |$)/, "")) + "</div>";
   } else if (sec === "brief"){
     var rest = c.s.brief
@@ -723,75 +841,74 @@ function chapterView(c, sec){
       .trim();
     body =
       // collapsed, because it is only useful once you have read the chapter at least once
-      '<details class="recall"><summary class="recall-h">Quick recall &middot; for revision' +
-        "</summary>" + md(c.recall) + "</details>" +
-      (c.intro
-        ? '<section class="intro"><p class="intro-h"><b>Start here</b>' +
-          "<span>No prior knowledge assumed &middot; plain English</span></p>" +
-          '<div class="md">' + md(c.intro) + "</div></section>"
+      '<details class="recall"><summary class="recall-h"><span>' + T("brief.recallH") +
+        '</span><i class="rcx" data-show="' + esc(T("brief.show")) + '" data-hide="' +
+        esc(T("brief.hide")) + '"></i></summary>' + md(c.recall) + "</details>" +
+      (chIntro(c)
+        ? '<section class="intro"><p class="intro-h"><b>' + T("brief.introH") + "</b>" +
+          "<span>" + T("brief.introSub") + "</span></p>" +
+          '<div class="md">' + md(chIntro(c)) + "</div></section>"
         : "") +
       (rest
-        ? '<p class="detail-h"><b>The full detail</b>' +
-          "<span>Formulae, statements and tables, in exam language</span></p>" +
+        ? '<p class="detail-h"><b>' + T("brief.detailH") + "</b>" +
+          "<span>" + T("brief.detailSub") + "</span></p>" + notrans() +
           '<div class="md">' + md(rest) + "</div>"
         : "");
   } else if (sec === "pyq"){
-    body = '<p class="sub" style="margin:0 0 18px">' + c.qs.length + " board questions. Attempt each " +
-      "one on paper first &mdash; the solution stays hidden until you ask for it.</p>" +
-      '<div class="qlist">';
+    body = '<p class="sub" style="margin:0 0 18px">' + T("pyq.lead", {n:c.qs.length}) + "</p>" +
+      notrans() + '<div class="qlist">';
     c.qs.forEach(function(q){
       var k = c.id + "-" + q.n;
       body += '<article class="q"><div class="q-h"><span class="q-n">Q' + q.n + "</span>" +
         (q.marks ? '<span class="q-m">' + esc(q.marks) + "</span>" : "") + "</div>" +
         '<div class="q-b"><div class="md">' + md(q.body) + "</div></div>" +
         '<div class="q-f"><button class="reveal" data-sol="' + k + '" aria-expanded="false" ' +
-          'aria-controls="sol-' + k + '">Show solution</button></div>' +
-        '<div class="sol" id="sol-' + k + '" hidden><p class="sol-l">Solution</p>' +
+          'aria-controls="sol-' + k + '">' + T("pyq.show") + "</button></div>" +
+        '<div class="sol" id="sol-' + k + '" hidden><p class="sol-l">' + T("pyq.solLabel") + "</p>" +
         '<div class="md">' + md(q.sol) + "</div></div></article>";
     });
     body += "</div>";
   } else if (sec === "sol"){
-    body = '<p class="sub" style="margin:0 0 18px">Every solution in one place, for review after you ' +
-      "have attempted the set. To take them one at a time, use the Questions tab.</p>" +
+    body = '<p class="sub" style="margin:0 0 18px">' + T("sol.lead") + "</p>" + notrans() +
       '<div class="md">' + md(c.s.sol) + "</div>";
   } else if (sec === "test"){
     var cut = c.s.test.split(/\n### Answer key\s*\n/);
     var sc = P(c.id).score;
-    body = '<div class="md">' + md(cut[0]) + "</div>" +
-      '<div class="keybar"><p><strong>The answer key is hidden.</strong> Finish the whole set under ' +
-      "time first &mdash; a key you have already glanced at turns this into a reading exercise.</p>" +
+    body = notrans() + '<div class="md">' + md(cut[0]) + "</div>" +
+      '<div class="keybar"><p><strong>' + T("test.keybarH") + "</strong> " + T("test.keybar") +
+      "</p>" +
       '<button class="reveal" data-sol="key-' + c.id + '" aria-expanded="false" ' +
-        'aria-controls="key-' + c.id + '">Reveal answer key</button></div>' +
-      '<div id="key-' + c.id + '" hidden><div class="md"><h3>Answer key</h3>' +
+        'aria-controls="key-' + c.id + '">' + T("test.reveal") + "</button></div>" +
+      '<div id="key-' + c.id + '" hidden><div class="md"><h3>' + T("test.keyH") + "</h3>" +
         md(cut[1] || "") + "</div></div>" +
-      '<div class="scorebox"><label for="score-' + c.id + '">Score for this set</label>' +
+      '<div class="scorebox"><label for="score-' + c.id + '">' + T("test.scoreLabel") + "</label>" +
       '<input id="score-' + c.id + '" type="text" inputmode="numeric" placeholder="&mdash;" value="' +
         (sc == null ? "" : esc(String(sc))) + '" data-score="' + c.id +
-        '" aria-label="Percentage score">' +
-      "<span>%  &middot; below 70 means redo Pass 1 for the sub-topics you dropped</span></div>";
+        '" aria-label="' + esc(T("test.scoreAria")) + '">' +
+      "<span>" + T("test.scoreNote") + "</span></div>";
   } else {
-    body = '<div class="md">' + md(c.s.tips) + "</div>";
+    body = notrans() + '<div class="md">' + md(c.s.tips) + "</div>";
   }
 
   var passes = "";
   PASSES.forEach(function(x){
-    passes += '<label class="pass' + (P(c.id)[x[0]] ? " done" : "") + '">' +
-      '<input type="checkbox" data-pass="' + c.id + ":" + x[0] + '"' +
-      (P(c.id)[x[0]] ? " checked" : "") + ">" +
-      '<span><span class="pass-t">' + x[1] + '</span><span class="pass-d">' + x[2] +
-      "</span></span></label>";
+    passes += '<label class="pass' + (P(c.id)[x] ? " done" : "") + '">' +
+      '<input type="checkbox" data-pass="' + c.id + ":" + x + '"' +
+      (P(c.id)[x] ? " checked" : "") + ">" +
+      '<span><span class="pass-t">' + T("pass." + x + "t") + '</span><span class="pass-d">' +
+      T("pass." + x + "d") + "</span></span></label>";
   });
   var tabs = "";
   SECS.forEach(function(x){
-    var badge = x[0] === "pyq" ? c.qs.length : "";
-    tabs += '<button class="tab" role="tab" data-sec="' + x[0] + '" aria-selected="' +
-      (x[0] === sec) + '">' + x[1] + (badge ? "<u>" + badge + "</u>" : "") + "</button>";
+    var badge = x === "pyq" ? c.qs.length : "";
+    tabs += '<button class="tab" role="tab" data-sec="' + x + '" aria-selected="' +
+      (x === sec) + '">' + T("sec." + x) + (badge ? "<u>" + badge + "</u>" : "") + "</button>";
   });
 
   return backbar() +
-    '<header class="chead"><p class="crumb"><b>' + s.label + "</b> &middot; Chapter " + c.num +
-    " &middot; " + esc(c.unit) + "</p>" +
-    '<h1 class="pt">' + esc(c.title) + "</h1>" +
+    '<header class="chead"><p class="crumb"><b>' + subjLabel(s) + "</b> &middot; " +
+    T("ch.chapter") + " " + c.num + " &middot; " + esc(unitName(c.unit)) + "</p>" +
+    '<h1 class="pt">' + esc(chTitle(c)) + "</h1>" +
     '<div class="tagrow">' + tagRow(c) + "</div>" +
     '<div class="passes">' + passes + "</div></header>" +
     '<div class="tabs" role="tablist">' + tabs + "</div>" +
@@ -802,8 +919,9 @@ function chapterView(c, sec){
 /* ================= docs + search ================= */
 function docView(d){
   return backbar() +
-    '<p class="eyebrow">Reference</p><h1 class="pt">' + esc(d.title) + "</h1>" +
-    '<p class="sub">' + esc(d.blurb) + "</p>" +
+    '<p class="eyebrow">' + T("doc.eyebrow") + "</p>" +
+    '<h1 class="pt">' + esc(docTitle(d)) + "</h1>" +
+    '<p class="sub">' + esc(docBlurb(d)) + "</p>" + notrans() +
     '<div class="md" style="margin-top:28px">' + md(d.body) + "</div>" +
     backfoot();
 }
@@ -822,22 +940,21 @@ function searchView(term){
   }
   CH.forEach(function(c){
     SECS.forEach(function(x){
-      push(c.title, SUBJ[c.subj].label + " &middot; Ch " + c.num + " &middot; " + x[1],
-        c.s[x[0]], JSON.stringify({ k:"ch", id:c.id, sec:x[0] }));
+      push(chTitle(c), subjLabel(SUBJ[c.subj]) + " &middot; " + T("nx.ch") + " " + c.num +
+        " &middot; " + T("sec." + x), c.s[x], JSON.stringify({ k:"ch", id:c.id, sec:x }));
     });
   });
   DATA.docs.forEach(function(d){
-    push(d.title, "Reference", d.body, JSON.stringify({ k:"doc", id:d.id }));
+    push(docTitle(d), T("search.ref"), d.body, JSON.stringify({ k:"doc", id:d.id }));
   });
 
   var h = backbar() +
-    '<p class="eyebrow">Search</p><h1 class="pt">' + hits.length + " result" +
-    (hits.length === 1 ? "" : "s") + "</h1>" +
-    '<p class="sub">for &ldquo;' + esc(term) + '&rdquo;, across all 27 chapters and ' +
-    DATA.docs.length + " reference documents.</p>";
+    '<p class="eyebrow">' + T("search.eyebrow") + "</p>" +
+    '<h1 class="pt">' + T(hits.length === 1 ? "search.n1" : "search.n", {n:hits.length}) +
+      "</h1>" +
+    '<p class="sub">' + T("search.for", {q:esc(term), d:DATA.docs.length}) + "</p>";
   if (!hits.length){
-    return h + '<p class="sub">Nothing matched. Try a formula name, a chapter title, or a term ' +
-      "like &ldquo;Bayes&rdquo;, &ldquo;drift velocity&rdquo; or &ldquo;minimum deviation&rdquo;.</p>";
+    return h + '<p class="sub">' + T("search.none") + "</p>";
   }
   h += '<div class="hits">';
   hits.slice(0,60).forEach(function(x){
@@ -847,7 +964,7 @@ function searchView(term){
       '<span class="hit-w">' + x.where + "</span></button>";
   });
   h += "</div>";
-  if (hits.length > 60) h += '<p class="sub">Showing the first 60. Narrow the term for fewer.</p>';
+  if (hits.length > 60) h += '<p class="sub">' + T("search.first60") + "</p>";
   return h;
 }
 
@@ -923,8 +1040,8 @@ function wire(){
       var t = document.getElementById(b.getAttribute("aria-controls"));
       if (t) t.hidden = open;
       var isKey = b.dataset.sol.indexOf("key-") === 0;
-      b.textContent = open ? (isKey ? "Reveal answer key" : "Show solution")
-                           : (isKey ? "Hide answer key"   : "Hide solution");
+      b.textContent = open ? T(isKey ? "test.reveal" : "pyq.show")
+                           : T(isKey ? "test.hideKey" : "pyq.hide");
     };
   });
   view.querySelectorAll("[data-pass]").forEach(function(cb){
@@ -952,6 +1069,44 @@ function wire(){
 }
 
 /* ================= chrome ================= */
+function setLang(l){
+  LANG = LANGS.indexOf(l) === -1 ? "en" : l;
+  try { localStorage.setItem("mf.lang", LANG); } catch(e){}
+  document.documentElement.setAttribute("lang", LANG);
+  paintChrome();
+  render();
+}
+function paintChrome(){
+  setSync(document.getElementById("sync").className.indexOf("ok") !== -1, syncKey);
+  document.getElementById("brandSub").innerHTML = T("brand.sub");
+  document.getElementById("brand").setAttribute("aria-label", T("btn.homeAria"));
+  var q = document.getElementById("q");
+  q.setAttribute("placeholder", T("search.ph"));
+  q.setAttribute("aria-label", T("search.aria"));
+  document.getElementById("tabM").textContent = T("subj.maths");
+  document.getElementById("tabP").textContent = T("subj.physics");
+  document.getElementById("rail").setAttribute("aria-label", T("rail.chaptersAria"));
+  var tb = document.getElementById("themeBtn");
+  tb.textContent = T("btn.theme");
+  tb.setAttribute("aria-label", T("btn.themeAria"));
+  var nb = document.getElementById("navBtn");
+  nb.innerHTML = "&#9776; " + T("btn.chapters");
+  nb.setAttribute("aria-label", T("btn.chaptersAria"));
+  document.getElementById("homeBtn").setAttribute("aria-label", T("btn.homeAria"));
+  // each language is named in its own language, so the switch itself never needs translating
+  var sw = "";
+  LANGS.forEach(function(l){
+    var name = l === "en" ? EN["lang.name"] : (DATA.langs[l].ui["lang.name"] || l);
+    sw += '<button data-lang="' + l + '" aria-pressed="' + (l === LANG) + '">' +
+      esc(name) + "</button>";
+  });
+  var el = document.getElementById("langsw");
+  el.innerHTML = sw;
+  el.querySelectorAll("[data-lang]").forEach(function(x){
+    x.onclick = function(){ setLang(x.dataset.lang); };
+  });
+}
+
 document.getElementById("tabM").onclick = function(){ subject = "maths";   go({ k:"home" }); };
 document.getElementById("tabP").onclick = function(){ subject = "physics"; go({ k:"home" }); };
 document.getElementById("brand").onclick = function(){ go({ k:"home" }); closeNav(); };
@@ -1001,5 +1156,11 @@ document.addEventListener("keydown", function(e){
   }
 });
 
+try {
+  var savedLang = localStorage.getItem("mf.lang");
+  if (savedLang && LANGS.indexOf(savedLang) !== -1) LANG = savedLang;
+} catch(e){}
+document.documentElement.setAttribute("lang", LANG);
+paintChrome();
 apply(parseHash(), false);
 </script>
