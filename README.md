@@ -3,6 +3,12 @@
 A complete, exam-first study system for **CBSE Class 12 Mathematics (Code 041)** and
 **Physics (Code 042)**, built around what the board actually asks.
 
+The notes in this repository are in English. The study site built from them
+([`web/`](web/README.md)) also offers **हिन्दी** — the whole interface, all 27 chapter and unit
+names in NCERT Hindi-medium terminology, and the plain-English *Start here* introduction for every
+chapter. Hindi text lives under [`i18n/hi/`](i18n/hi/); the site says so wherever a section is
+still English only.
+
 Every chapter note follows the same six-part shape:
 
 1. **Scope** — exactly what is in the syllabus, and what has been deleted (so no time is wasted).
