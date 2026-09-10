@@ -122,6 +122,34 @@ arrow over the letter, since the marking scheme distinguishes vector from scalar
 
 ---
 
+## The paid edition
+
+There is a commercial build of this guide, in the private `aatmaan1/sidehussle`
+repository under `products/marks-first/`. It takes the notes here and adds a paywall, a
+licence layer and a checkout funnel: the free site gives away the syllabus scope, the
+deleted-topics warning and the plain-English introduction for all 27 chapters plus two
+chapters in full, and the questions, solutions, self-tests, tips and reference documents are
+sold as one payment.
+
+**These notes remain the source of truth for the content.** The paid build holds a copy under
+`products/marks-first/content/` and is regenerated from it, so a chapter edited here has to be
+copied across and the build re-run before it reaches anyone who paid:
+
+```bash
+# from the sidehussle checkout, with 12thClass beside it
+rsync -a --delete ../12thClass/{maths,physics,docs,analysis,i18n} products/marks-first/content/
+python -m paywall.cli build products/marks-first
+```
+
+Editing an existing chapter needs nothing more than that. *Adding* one also means adding a row
+to the chapter table in `products/marks-first/extract.py`, which is where the unit, the
+weightage and the priority live on that side.
+
+Nothing has been deployed and no payment has been processed. `Marks First` at the repository
+root here stays free and complete, and is not affected by any of it.
+
+---
+
 ## Sources for syllabus and pattern
 
 Syllabus scope, unit weightage, deleted topics and question-paper design in these notes were checked
