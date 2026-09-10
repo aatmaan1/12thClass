@@ -246,14 +246,21 @@ instrument questions and is marked independently of the algebra.
 | Interference vs diffraction: distinguish | 2–3 | 7/10 | P2 |
 | Huygens' principle; use it to explain reflection or refraction | 3 | 7/10 | P2 |
 | Effect on fringe width of changing λ, D, d, or immersing in a liquid | 2–3 | 8/10 | **P1** |
-| Polarisation; Brewster's law; Polaroids and their uses | 2–3 | 7/10 | P2 |
+| Polarisation; Polaroids; Brewster's law — **scope has been trimmed; verify for your year** | 2–3 | falling | P3 |
 | Intensity distribution graph for interference and for diffraction | 2 | 6/10 | P2 |
 | Path difference and phase difference; conditions for maxima/minima | 2 | 7/10 | P2 |
 
 **Pattern note.** Resolving power of a microscope and telescope, validity of ray optics, and
-polarisation by scattering are deleted. The chapter is now essentially YDSE + single-slit
-diffraction + polarisation basics. YDSE fringe width is the most reliably asked derivation in Wave
-Optics and one of the two or three most asked in the whole paper.
+polarisation by scattering are deleted. The chapter is now essentially **Huygens + YDSE +
+single-slit diffraction**, and YDSE fringe width is one of the two or three most reliably asked
+results in the whole paper.
+
+Two syllabus qualifiers matter here. The fringe width is listed as "**no derivation, final expression
+only**", and the width of the central maximum as "**qualitative treatment only**" — so the formulas
+and their consequences (what happens when λ, D, d or the slit width changes) are worth far more of
+your time than the derivations. The **polarisation block has been trimmed** across recent revisions
+and sources disagree on what survives; treat it as low priority and check the current syllabus PDF.
+See [`../physics/10-wave-optics.md`](../physics/10-wave-optics.md) §1.
 
 ---
 
