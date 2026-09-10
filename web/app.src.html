@@ -62,9 +62,11 @@ body{margin:0;background:var(--ground);color:var(--body);
 .main{grid-column:2;min-width:0;padding-block:34px 72px;padding-left:44px;padding-right:44px}
 
 /* ============ RAIL ============ */
-.brand{padding:20px 20px 14px;border-bottom:1px solid var(--line-soft);flex:none;cursor:pointer}
-.brand-t{font:700 20px/1.1 var(--serif);color:var(--ink);letter-spacing:-.015em;margin:0}
-.brand-s{font-size:11.5px;color:var(--muted);margin:3px 0 0;letter-spacing:.02em}
+.brand{padding:20px 20px 14px;border-bottom:1px solid var(--line-soft);flex:none;cursor:pointer;
+  width:100%;text-align:left;background:none;border-left:0;border-right:0;border-top:0;font:inherit}
+.brand:hover .brand-t{color:var(--accent)}
+.brand-t{display:block;font:700 20px/1.1 var(--serif);color:var(--ink);letter-spacing:-.015em;margin:0}
+.brand-s{display:block;font-size:11.5px;color:var(--muted);margin:3px 0 0;letter-spacing:.02em}
 .subjbar{display:flex;gap:6px;padding:12px 14px;flex:none}
 .subjbar button{flex:1;font:600 12.5px/1 var(--sans);padding:9px 6px;border-radius:7px;
   border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;
@@ -103,6 +105,17 @@ body{margin:0;background:var(--ground);color:var(--body);
   border-bottom:1px solid var(--line);padding:10px 14px;gap:10px;align-items:center;
   margin:-34px -44px 22px}
 .mbar strong{font:600 14px/1 var(--serif);color:var(--ink)}
+.mbar-h{display:inline-flex;align-items:center;gap:7px;border:0;background:none;padding:0;
+  cursor:pointer;color:var(--muted)}
+.mbar-h:hover strong{color:var(--accent)}
+
+/* ============ BACK TO DASHBOARD ============ */
+.backbar{display:flex;align-items:center;gap:9px;margin:0 0 18px;flex-wrap:wrap}
+.homebtn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  border:1px solid var(--line);background:var(--surface);color:var(--body);
+  border-radius:8px;padding:7px 12px 7px 9px;font:600 12px/1 var(--sans)}
+.homebtn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.backfoot{margin:38px 0 0;padding-top:22px;border-top:1px solid var(--line)}
 .scrim{display:none;position:fixed;inset:0;background:rgba(10,14,22,.44);z-index:45}
 
 /* ============ TYPE ============ */
@@ -316,10 +329,10 @@ h2.sec{font:600 19px/1.25 var(--serif);color:var(--ink);letter-spacing:-.012em;m
 
 <div class="shell">
   <aside class="rail" id="rail" aria-label="Chapters">
-    <div class="brand" id="brand">
-      <p class="brand-t">Marks First</p>
-      <p class="brand-s">CBSE Class 12 &middot; Maths 041 &middot; Physics 042</p>
-    </div>
+    <button class="brand" id="brand" aria-label="Go to the dashboard">
+      <span class="brand-t">Marks First</span>
+      <span class="brand-s">CBSE Class 12 &middot; Maths 041 &middot; Physics 042</span>
+    </button>
     <div class="sfield">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6" stroke="currentColor" stroke-width="1.6"></circle><path d="M10.4 10.4 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
       <input id="q" type="search" placeholder="Search all 27 chapters&hellip;" autocomplete="off" aria-label="Search the guide">
@@ -338,7 +351,10 @@ h2.sec{font:600 19px/1.25 var(--serif);color:var(--ink);letter-spacing:-.012em;m
   <main class="main">
     <div class="mbar">
       <button class="iconbtn" id="navBtn" aria-label="Open chapter list" aria-expanded="false">&#9776; Chapters</button>
-      <strong>Marks First</strong>
+      <button class="mbar-h" id="homeBtn" aria-label="Go to the dashboard">
+        <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.2 7.4 8 2.4l5.8 5M3.9 6.6v6.2a.6.6 0 0 0 .6.6h7a.6.6 0 0 0 .6-.6V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <strong>Marks First</strong>
+      </button>
     </div>
     <div id="view"></div>
   </main>
@@ -566,6 +582,21 @@ function drawRail(){
   });
 }
 
+/* ================= back to the dashboard ================= */
+function backbar(){
+  return '<nav class="backbar" aria-label="Breadcrumb">' +
+    '<button class="homebtn" data-home>' +
+    '<svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true">' +
+    '<path d="M9.6 2.9 4.5 8l5.1 5.1" fill="none" stroke="currentColor" stroke-width="1.9" ' +
+    'stroke-linecap="round" stroke-linejoin="round"></path></svg>Home</button></nav>';
+}
+function backfoot(){
+  return '<div class="backfoot"><button class="homebtn" data-home>' +
+    '<svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true">' +
+    '<path d="M9.6 2.9 4.5 8l5.1 5.1" fill="none" stroke="currentColor" stroke-width="1.9" ' +
+    'stroke-linecap="round" stroke-linejoin="round"></path></svg>Back to home</button></div>';
+}
+
 /* ================= dashboard ================= */
 function marksDone(subj){
   return CH.filter(function(c){ return c.subj === subj; })
@@ -589,6 +620,14 @@ function homeView(){
     '<p class="sub">Everything here is counted in marks, because that is the only unit the board ' +
     'pays in. Work the chapters this page pushes to the top and you are buying marks rather than ' +
     'covering pages.</p>';
+
+  h += '<div class="panel"><div class="panel-h"><h2 class="sec">Read before you start</h2>' +
+       '<span class="pill p3">Start here</span></div><div class="dgrid">';
+  DATA.docs.forEach(function(d){
+    h += '<button class="dcard" data-doc="' + d.id + '"><b>' + esc(d.title) +
+         "</b><span>" + esc(d.blurb) + "</span></button>";
+  });
+  h += "</div></div>";
 
   h += '<div class="tiles">' +
     '<div class="tile"><p class="tile-k">Marks in hand</p>' +
@@ -625,14 +664,6 @@ function homeView(){
       '<p class="sub">Three passes on every chapter. Move to the formula sheet and ' +
       (subject === "physics" ? "the derivations list" : "full past papers") + " from here.</p></div>";
   }
-
-  h += '<div class="panel"><div class="panel-h"><h2 class="sec">Read before you start</h2></div>' +
-       '<div class="dgrid">';
-  DATA.docs.forEach(function(d){
-    h += '<button class="dcard" data-doc="' + d.id + '"><b>' + esc(d.title) +
-         "</b><span>" + esc(d.blurb) + "</span></button>";
-  });
-  h += "</div></div>";
 
   h += '<div class="foot"><p><strong>A caveat carried over from the source notes.</strong> ' +
     'The frequency bands ("every year", "8&ndash;9/10") are well-informed pattern estimates, not a ' +
@@ -716,20 +747,24 @@ function chapterView(c, sec){
       (x[0] === sec) + '">' + x[1] + (badge ? "<u>" + badge + "</u>" : "") + "</button>";
   });
 
-  return '<header class="chead"><p class="crumb"><b>' + s.label + "</b> &middot; Chapter " + c.num +
+  return backbar() +
+    '<header class="chead"><p class="crumb"><b>' + s.label + "</b> &middot; Chapter " + c.num +
     " &middot; " + esc(c.unit) + "</p>" +
     '<h1 class="pt">' + esc(c.title) + "</h1>" +
     '<div class="tagrow">' + tagRow(c) + "</div>" +
     '<div class="passes">' + passes + "</div></header>" +
     '<div class="tabs" role="tablist">' + tabs + "</div>" +
-    '<div style="margin-top:26px">' + body + "</div>";
+    '<div style="margin-top:26px">' + body + "</div>" +
+    backfoot();
 }
 
 /* ================= docs + search ================= */
 function docView(d){
-  return '<p class="eyebrow">Reference</p><h1 class="pt">' + esc(d.title) + "</h1>" +
+  return backbar() +
+    '<p class="eyebrow">Reference</p><h1 class="pt">' + esc(d.title) + "</h1>" +
     '<p class="sub">' + esc(d.blurb) + "</p>" +
-    '<div class="md" style="margin-top:28px">' + md(d.body) + "</div>";
+    '<div class="md" style="margin-top:28px">' + md(d.body) + "</div>" +
+    backfoot();
 }
 function searchView(term){
   var t = term.toLowerCase(), hits = [];
@@ -754,7 +789,8 @@ function searchView(term){
     push(d.title, "Reference", d.body, JSON.stringify({ k:"doc", id:d.id }));
   });
 
-  var h = '<p class="eyebrow">Search</p><h1 class="pt">' + hits.length + " result" +
+  var h = backbar() +
+    '<p class="eyebrow">Search</p><h1 class="pt">' + hits.length + " result" +
     (hits.length === 1 ? "" : "s") + "</h1>" +
     '<p class="sub">for &ldquo;' + esc(term) + '&rdquo;, across all 27 chapters and ' +
     DATA.docs.length + " reference documents.</p>";
@@ -787,15 +823,48 @@ function render(){
   drawRail();
   wire();
 }
-function go(r, keepScroll){
+function hashOf(r){
+  if (r.k === "ch")     return "#/ch/" + r.id + "/" + (r.sec || "scope");
+  if (r.k === "doc")    return "#/doc/" + r.id;
+  if (r.k === "search") return "#/search/" + encodeURIComponent(r.term || "");
+  return "#/" + subject;
+}
+function parseHash(){
+  var p = (location.hash || "").replace(/^#\/?/, "").split("/");
+  if (p[0] === "ch" && byId[p[1]]) return { k:"ch", id:p[1], sec:p[2] || "scope" };
+  if (p[0] === "doc" && p[1])      return { k:"doc", id:decodeURIComponent(p[1]) };
+  if (p[0] === "search" && p[1])   return { k:"search", term:decodeURIComponent(p.slice(1).join("/")) };
+  if (p[0] === "maths" || p[0] === "physics") subject = p[0];
+  return { k:"home" };
+}
+function apply(r, keepScroll){
   route = r;
   if (r.k === "ch" && byId[r.id]) subject = byId[r.id].subj;
   render();
   if (!keepScroll) window.scrollTo(0, 0);
 }
+function go(r, keepScroll){
+  var h = hashOf(r);
+  // typing in the search box must not fill the history with a keystroke each
+  if (location.hash !== h){
+    try {
+      if (r.k === "search" && history.replaceState) history.replaceState(null, "", h);
+      else location.hash = h;
+    } catch(e){}
+  }
+  apply(r, keepScroll);
+}
+// Back on the browser or the phone returns to wherever you were, not out of the site.
+window.addEventListener("hashchange", function(){
+  if (location.hash === hashOf(route)) return;   // our own write, already rendered
+  apply(parseHash(), false);
+});
 function wire(){
   view.querySelectorAll("[data-ch]").forEach(function(b){
     b.onclick = function(){ go({ k:"ch", id:b.dataset.ch, sec:"scope" }); };
+  });
+  view.querySelectorAll("[data-home]").forEach(function(b){
+    b.onclick = function(){ go({ k:"home" }); };
   });
   view.querySelectorAll("[data-doc]").forEach(function(b){
     b.onclick = function(){ go({ k:"doc", id:b.dataset.doc }); };
@@ -844,7 +913,8 @@ function wire(){
 /* ================= chrome ================= */
 document.getElementById("tabM").onclick = function(){ subject = "maths";   go({ k:"home" }); };
 document.getElementById("tabP").onclick = function(){ subject = "physics"; go({ k:"home" }); };
-document.getElementById("brand").onclick = function(){ go({ k:"home" }); };
+document.getElementById("brand").onclick = function(){ go({ k:"home" }); closeNav(); };
+document.getElementById("homeBtn").onclick = function(){ go({ k:"home" }); };
 
 var sT = null;
 document.getElementById("q").oninput = function(e){
@@ -883,8 +953,12 @@ document.addEventListener("keydown", function(e){
     e.preventDefault();
     document.getElementById("q").focus();
   }
-  if (e.key === "Escape") closeNav();
+  if (e.key === "Escape"){
+    var wasOpen = document.body.classList.contains("nav");
+    closeNav();
+    if (!wasOpen && route.k !== "home" && !/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) go({ k:"home" });
+  }
 });
 
-render();
+apply(parseHash(), false);
 </script>
