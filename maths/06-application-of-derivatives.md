@@ -27,6 +27,66 @@
 
 ## 2. Brief
 
+### Start here — in plain English
+
+You now know how to find a derivative. This chapter is about what a derivative is *good for*, and
+the answer is: it tells you the rate at which something is changing, and where it stops changing.
+Those two facts cover every question in the chapter.
+
+**Rate of change** is the direct reading. dy/dx means "how fast y changes per unit change in x". If
+a balloon's radius is growing at 2 cm/s, how fast is its volume growing? Volume depends on radius,
+radius depends on time, so chain them: dV/dt = (dV/dr) × (dr/dt). Every related-rates question is
+that chain, and the method never varies — write down what you are given as a rate, write down the
+formula connecting the quantities, differentiate it with respect to time, substitute. The one
+habit that prevents most errors is writing the units next to each rate as you go; if the units of
+your answer are wrong, the chain is wrong.
+
+**Increasing and decreasing** is the sign of the derivative, and it is worth seeing physically. If
+the slope is positive the graph is heading uphill as you move right, so the function is increasing;
+negative slope, downhill, decreasing. So to find where a function increases: differentiate, find
+where the derivative is zero (these are the boundary points), and test the sign of the derivative in
+each interval between them. Present the answer as intervals, and be careful to test the sign rather
+than guess it — a factor like (x − 2)² is never negative, so it does not cause a sign change at all,
+and missing that is a classic trap.
+
+**Maxima and minima** is the chapter's heart and the source of its 5-mark question. At the top of a
+hill the ground is momentarily level; likewise at the bottom of a valley. So both maxima and minima
+occur where f′(x) = 0, which is why finding those points is only half the job — you then have to
+decide which kind you have. Two ways: check whether the derivative changes from positive to negative
+(a maximum, since you were going up and now go down) or negative to positive (a minimum); or use the
+second derivative, where f″ < 0 means the curve bends downwards, hence a maximum, and f″ > 0 means it
+bends upwards, hence a minimum. The second-derivative test is faster but says nothing when f″ = 0,
+in which case fall back to the sign change.
+
+One thing catches people out every year: on a **closed interval** the largest value need not occur
+where the slope is zero. It can occur at an endpoint — imagine a hill that is still climbing when
+the road ends. So for absolute maximum and minimum on [a, b], evaluate f at every critical point
+*and* at both endpoints, and compare the list. Forgetting the endpoints is a guaranteed lost mark.
+
+The **word problems** are where the marks actually are, and they are all one procedure. Something is
+to be made as large or as small as possible — the volume of an open box cut from a sheet, the area of
+a rectangle inscribed in a circle, the cost of a cylindrical can holding a fixed volume. Introduce a
+variable, write the quantity to be optimised in terms of it, use the constraint given in the problem
+to eliminate every other variable so you have a function of *one* variable, then differentiate and
+test. That elimination step is where the thinking lives; the calculus afterwards is routine.
+Practise it on the standard shapes — cone in a sphere, cylinder in a cone, box from a sheet, window
+of fixed perimeter — because the board recycles them.
+
+Two things you can safely deprioritise: **approximations** using differentials, and much of the old
+tangents-and-normals material, have been trimmed in the rationalised syllabus. Check §1 of this
+chapter before spending time on them.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: application of derivatives class 12 one shot](https://www.youtube.com/results?search_query=application+of+derivatives+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: applications of derivatives](https://www.khanacademy.org/math/differential-calculus/dc-context-app)
+- **The book the paper is set from** — [NCERT Maths Part I, Chapter 6 (PDF)](https://ncert.nic.in/textbook/pdf/lemh106.pdf)
+- **For extra problems** — the NCERT's own maxima–minima exercise and its miscellaneous exercise are
+  the closest thing to a list of the board's favourite word problems; work every one before moving to
+  the Exemplar.
+
+---
+
 ### Rate of change
 
 dy/dx is the rate of change of y with respect to x. When both vary with time, use the chain rule:

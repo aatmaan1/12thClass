@@ -35,6 +35,70 @@ single most likely source of a Section-D case study.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+A copper wire is full of electrons that are already moving — fast, in every direction, bouncing off
+the atoms like a swarm of flies in a jar. Connect a battery and almost nothing changes about that
+chaos. All that happens is that the whole swarm acquires a slight drift in one direction, a crawl of
+roughly a millimetre a second on top of speeds of hundreds of kilometres a second. That crawl is the
+**current**. It is the single most useful picture in this chapter, and it explains why the light
+comes on instantly even though the electrons themselves are so slow: the field that starts them
+drifting travels at nearly the speed of light, so every electron in the wire begins its crawl at
+once.
+
+So current I = q/t is the number of coulombs strolling past a point each second, and one ampere is
+one coulomb per second. Underneath it sits I = neAv_d — number of carriers per cubic metre, times
+the charge on each, times the cross-section, times the drift speed. That is just "how many pass per
+second", written out.
+
+**Why is there any resistance at all?** Because of the bouncing. An electron is accelerated by the
+field, then slams into the lattice and loses what it gained, then accelerates again. The average
+time between collisions is called τ, and it fixes everything: a longer τ means a freer run, a
+larger drift, a bigger current, a smaller resistance. **Ohm's law**, V = IR, is not a law of nature
+so much as a good description of what happens when τ does not itself depend on the voltage — true
+for a metal at fixed temperature, false for a diode, false for a filament that heats up.
+
+Distinguish **resistance** from **resistivity** and the chapter gets much easier. Resistivity ρ is
+a property of the material — copper has one value, nichrome another, and no amount of cutting or
+stretching changes it. Resistance R = ρl/A is a property of the *particular piece*: long and thin
+means high resistance, short and fat means low, exactly like water through a pipe. Heat a metal and
+ρ rises, because hotter atoms vibrate more and get in the way more often. Heat a semiconductor and ρ
+*falls*, because heat shakes loose more carriers than it adds obstruction — the opposite behaviour,
+and a favourite one-mark question.
+
+A **real battery** is not a pure voltage source. It has its own internal resistance r, so the
+voltage you actually get at the terminals, V = ε − Ir, sags as you draw more current. The **emf** ε
+is what it would give if you drew nothing. This is why a torch dims as the cells age: r has crept up.
+
+**Series and parallel** are worth understanding rather than memorising. In series, everything must
+pass through each resistor in turn, so resistances add. In parallel, you have added extra routes, so
+the total resistance must come *out lower than the smallest branch* — if that is not what your
+answer says, you have made an arithmetic slip.
+
+**Kirchhoff's two rules** cover everything the series/parallel shortcuts cannot. The junction rule
+says charge does not pile up at a junction, so what flows in flows out. The loop rule says if you
+walk all the way round a closed loop and return to where you started, you are back at the same
+potential, so the rises and drops must cancel. Every circuit problem in the paper is those two rules
+plus careful signs.
+
+The **Wheatstone bridge** is the elegant application: four resistors in a diamond with a
+galvanometer across the middle. When P/Q = R/S the two midpoints happen to sit at the same
+potential, so no current flows through the galvanometer at all, whatever the battery does. That
+lets you measure an unknown resistance by *balancing* rather than by reading a meter — and a null
+reading is far more accurate than a deflection, because it does not depend on the meter being
+calibrated.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: current electricity class 12 one shot](https://www.youtube.com/results?search_query=current+electricity+class+12+physics+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: current electricity](https://www.khanacademy.org/search?page_search_query=current%20electricity%20class%2012)
+- **The book the paper is set from** — [NCERT Physics Part I, Chapter 3 (PDF)](https://ncert.nic.in/textbook/pdf/leph103.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 32 *Electric Current in Conductors*, all of it.
+  §32.2–32.4 on drift speed and the origin of resistance is the clearest short account in print;
+  §32.11 onwards does Kirchhoff and the bridge.
+
+---
+
 ### Electric current
 
 ```

@@ -28,6 +28,65 @@ question on Bohr's postulates or the energy levels. Two memorised numbers do mos
 
 ## 2. Brief
 
+### Start here — in plain English
+
+What is inside an atom? In 1911 nobody knew, so Rutherford's group did the obvious thing: fired
+something small and fast at a thin gold foil and watched where it went. The something was alpha
+particles; the foil was a few thousand atoms thick.
+
+Almost all of them went straight through, barely deflected — so an atom is mostly empty space. But
+about one in eight thousand came *straight back*. Rutherford said it was as astonishing as firing a
+shell at tissue paper and having it bounce back at you. To turn a fast, heavy alpha particle around,
+all the atom's positive charge and nearly all its mass must be crammed into a tiny hard centre. That
+is the **nucleus**, and the experiment even gave its size: about 10⁻¹⁵ m, against 10⁻¹⁰ m for the
+atom. The atom is a hundred thousand times wider than its core — a cricket ball in the middle of a
+stadium, with electrons somewhere in the stands.
+
+Which immediately created a crisis. If electrons orbit the nucleus like planets, they are
+accelerating, and Chapter 8 says accelerating charges radiate. They would spiral in and the atom
+would collapse in a fraction of a nanosecond. Atoms plainly do not do this. Classical physics
+predicted that matter cannot exist.
+
+**Bohr's answer** was frankly a patch, and it is worth being honest about that, because it makes the
+three postulates easier to remember rather than harder. He said: electrons may only occupy certain
+special orbits, in which — by decree — they do not radiate; the allowed ones are those where the
+angular momentum is a whole-number multiple of h/2π; and radiation happens only when an electron
+*jumps* between two of them, carrying away exactly the energy difference as one photon, hν = E₂ − E₁.
+
+That last postulate is the one you can check against nature, and it works spectacularly. Because
+only certain energies exist, only certain jumps exist, so only certain photon energies come out —
+which is why a hot gas emits sharp coloured lines instead of a continuous glow, and why every
+element's set of lines is a fingerprint. Bohr's model gets hydrogen's energies exactly right:
+Eₙ = −13.6/n² eV.
+
+Read that formula properly, because two things about it are asked constantly. The **negative sign**
+means the electron is bound — you must supply energy to remove it, and zero energy corresponds to a
+free electron infinitely far away. And the **1/n²** means the levels crowd together as n rises: the
+gap from n = 1 to 2 is enormous, from 5 to 6 tiny. So 13.6 eV is the ionisation energy of hydrogen,
+the cost of getting the electron from n = 1 all the way out.
+
+The **spectral series** are then just families of jumps sorted by where they land. Everything falling
+to n = 1 is the Lyman series, and those are the biggest energy drops, hence ultraviolet. Everything
+falling to n = 2 is Balmer — smaller drops, and these are the four visible hydrogen lines you may
+have seen in a school discharge tube. Then Paschen to n = 3, Brackett to n = 4, in the infrared.
+You do not need to memorise wavelengths; you need to know which series is which landing level, and
+that a bigger drop means a shorter wavelength.
+
+Bohr's model is wrong, incidentally — it fails for every atom with more than one electron, and
+quantum mechanics replaced it. But it is right about hydrogen, and it introduced the idea that
+energy comes in levels, which survived. That is why it is still taught.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: atoms class 12 physics one shot Bohr model](https://www.youtube.com/results?search_query=atoms+class+12+physics+one+shot+bohr+model)
+- **Interactive lessons and practice** — [Khan Academy: Bohr's model of the atom](https://www.khanacademy.org/search?page_search_query=bohr%20model%20hydrogen%20atom)
+- **The book the paper is set from** — [NCERT Physics Part II, Chapter 12 (PDF)](https://ncert.nic.in/textbook/pdf/leph204.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 43 *Bohr's Model and Physics of the Atom*.
+  §43.1–43.5 derive the radius and energy from the postulates step by step, which is the derivation
+  the board asks for; §43.6 covers the series.
+
+---
+
 ### Rutherford's alpha-particle scattering experiment
 
 *Set-up:* a radioactive source emitting alpha particles, a narrow collimating slit, a **thin gold

@@ -32,6 +32,71 @@ marks from this chapter alone.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+**Continuity** is the mathematical version of "you can draw it without lifting your pen." That is
+genuinely all it means. A function is continuous at a point if there is no jump, no hole and no
+sudden flight off to infinity there.
+
+To make that precise you check three things at the point in question: what value the function
+actually takes there, and what it *approaches* from the left, and from the right. If all three agree,
+the graph passes through smoothly and the function is continuous. If the left and right approaches
+disagree, there is a jump. If they agree with each other but not with the function's value, there is
+a hole with a stray dot beside it. That is the whole test, and it is why every continuity question in
+the paper looks the same: compute the left-hand limit, the right-hand limit and the value, then set
+them equal. When a question says "find k such that f is continuous", it is asking you to do exactly
+that and solve for k.
+
+**Differentiability** is a stronger demand: not just no break, but no **corner**. The derivative is
+the slope of the graph, so for it to exist at a point the graph must have one definite slope there.
+Think of |x| at zero: perfectly continuous — you can draw it without lifting the pen — but it
+arrives at a sharp V. Coming from the left the slope is −1, from the right it is +1, so there is no
+single slope and the function is not differentiable there. This gives the chapter's most important
+one-way street: **differentiable implies continuous, but continuous does not imply
+differentiable**, and |x| at x = 0 is the counterexample to quote. Every year, some form of this is
+asked.
+
+The rest of the chapter is machinery for computing derivatives, and it is worth seeing what each
+rule is *for* rather than as a separate spell.
+
+The **chain rule** handles a function inside a function. Differentiate the outside, then multiply by
+the derivative of the inside. sin(x²) becomes cos(x²) × 2x. If you are ever unsure whether you have
+finished differentiating, ask whether anything is still nested; the commonest error in the whole
+chapter is stopping one layer early.
+
+**Implicit differentiation** is for equations you cannot untangle, like x² + y³ = xy. You do not
+need to solve for y. Differentiate every term with respect to x, remembering that y is secretly a
+function of x, so anything with a y in it produces a dy/dx by the chain rule. Then collect the dy/dx
+terms and divide. That is the entire technique.
+
+**Logarithmic differentiation** is the tool for towers and products — x^x, or (sin x)^(cos x), or a
+long product of factors. Take the log of both sides first, which turns powers into multipliers and
+products into sums, and only then differentiate. Without it, x^x is essentially intractable; with
+it, three lines.
+
+**Parametric** differentiation is for curves given as x = f(t), y = g(t): find dy/dt and dx/dt
+separately, then divide. And for a **second** derivative of a parametric curve, remember you must
+differentiate dy/dx with respect to t and then divide by dx/dt again — forgetting that last division
+is the single most frequent slip in this chapter's 3-markers.
+
+**Rolle's** and the **Mean Value Theorem** are the odd ones out — existence statements rather than
+computations. The MVT says that over any interval, at some point in between, the instantaneous slope
+must equal the average slope. If you averaged 60 km/h over an hour, then at some instant your
+speedometer read exactly 60. Rolle's theorem is the special case where you finish where you started,
+so the average slope is zero, so somewhere the tangent is flat. Both questions are marked mostly on
+whether you *verified the conditions* — continuity on the closed interval, differentiability on the
+open one — before applying the conclusion. State them explicitly.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: continuity and differentiability class 12 one shot](https://www.youtube.com/results?search_query=continuity+and+differentiability+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: limits and continuity](https://www.khanacademy.org/math/differential-calculus/dc-limits)
+- **The book the paper is set from** — [NCERT Maths Part I, Chapter 5 (PDF)](https://ncert.nic.in/textbook/pdf/lemh105.pdf)
+- **For extra problems** — NCERT Exemplar Chapter 5 for the piecewise-continuity type, and RD Sharma
+  for volume on logarithmic and parametric differentiation, which reward sheer repetition.
+
+---
+
 ### Continuity at a point
 
 f is **continuous at x = a** if all three exist and are equal:

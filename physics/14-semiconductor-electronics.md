@@ -42,6 +42,71 @@ That is five topics. There is nothing else.
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Everything in your phone is in this chapter. It is also the chapter students most often try to
+memorise and most often should not, because the whole thing follows from one idea: **you can control
+how well a material conducts, and if you can do that you can build a switch with no moving parts.**
+
+Start with why materials differ at all. In an isolated atom electrons sit at sharp energy levels.
+Bring 10²³ atoms together in a crystal and those levels smear into continuous **bands**, with gaps
+between them where no electron is allowed. Two bands matter: the **valence band**, full of the
+electrons holding the crystal together, and the **conduction band** above it, where an electron is
+free to roam and carry current. What decides everything is the gap between them.
+
+In a **metal** the bands overlap, or the upper one is half full, so electrons can move with almost
+no persuasion — hence good conduction. In an **insulator** the gap is large, several electronvolts,
+and at room temperature no electron can cross it. A **semiconductor** is the interesting middle
+case: a gap of about one electronvolt, small enough that thermal energy shakes a few electrons
+across. So it conducts a little — and, importantly, it conducts *better when heated*, opposite to a
+metal, because heat manufactures carriers rather than obstructing them.
+
+When an electron leaves the valence band it leaves behind a vacancy, and a neighbouring electron can
+slide into it, which moves the vacancy the other way. It is easier to keep track of the vacancy than
+of all the electrons shuffling, so we treat it as a positive particle called a **hole**. Holes are a
+bookkeeping convenience that behaves exactly like a real positive carrier.
+
+A pure semiconductor is not much use — too few carriers, and equal numbers of each. The trick is
+**doping**: replacing one atom in a million with a deliberate impurity. Silicon has four outer
+electrons. Substitute an atom with five (phosphorus) and there is one electron spare, free to
+conduct: an **n-type** semiconductor, carrying current mainly by electrons. Substitute one with
+three (boron) and there is one electron missing, a ready-made hole: **p-type**, carrying current
+mainly by holes. Both are still electrically neutral overall — this is a very common
+misunderstanding. You added a neutral atom; you changed which carriers are available, not the total
+charge.
+
+Now put a p-type region and an n-type region in contact, and the chapter's one real piece of
+machinery appears. Electrons wander across into the p-side, holes into the n-side, and they
+annihilate near the boundary — leaving a thin **depletion region** with no free carriers, and
+exposed fixed ions on either side. Those ions set up a small built-in voltage, the **barrier
+potential**, pointing so as to stop further diffusion. Equilibrium.
+
+Everything a diode does follows from what an external voltage does to that barrier. Connect the
+positive terminal to the p-side — **forward bias** — and you oppose the built-in field, the
+depletion region narrows, the barrier drops, and beyond about 0.7 V in silicon current flows
+freely. Reverse the battery and you *reinforce* the barrier: the depletion region widens and almost
+nothing flows. A diode is a one-way valve, and that is the entire content of its I–V graph.
+
+**Rectification** is the application: AC in, DC out. A half-wave rectifier simply blocks the
+half-cycles it does not like, wasting half the input. A full-wave rectifier uses two diodes (or four
+in a bridge) arranged so that both halves of the cycle are routed through the load in the same
+direction — so the output frequency is twice the input, a detail the board likes to ask about.
+
+> **Check your syllabus scope.** Transistors, logic gates and the Zener diode have been trimmed from
+> the rationalised syllabus. §1 of this chapter lists exactly what remains examinable; the reliable
+> core is bands, doping, the p–n junction, the diode's characteristics and rectification.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: semiconductor electronics class 12 one shot](https://www.youtube.com/results?search_query=semiconductor+electronics+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: semiconductors and p-n junction](https://www.khanacademy.org/search?page_search_query=semiconductor%20p-n%20junction%20diode)
+- **The book the paper is set from** — [NCERT Physics Part II, Chapter 14 (PDF)](https://ncert.nic.in/textbook/pdf/leph206.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 45 *Semiconductors and Semiconductor Devices*.
+  §45.1–45.6 for bands, doping and the junction; §45.7–45.8 for the diode and rectifier. Stop where
+  your syllabus does.
+
+---
+
 ### Energy bands
 
 In an isolated atom the electron energies are discrete levels. In a solid, the atoms are so close

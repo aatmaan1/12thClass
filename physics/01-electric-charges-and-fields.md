@@ -29,6 +29,63 @@ and **is** deleted.)
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Rub a comb through dry hair and it picks up bits of paper. That is the whole chapter in one
+sentence: something invisible got onto the comb, and it can pull on things it never touches.
+
+That something is **charge**. Ordinary matter has two kinds of it, and we call them positive and
+negative for bookkeeping reasons only — the names carry no meaning beyond "opposite". Every atom
+holds equal amounts of both, so it shows nothing to the outside world. Rubbing the comb scrapes a
+few electrons off the hair onto the comb, and now the comb has a little extra negative and the hair
+a little extra positive. Nothing was created; it was moved. That is what **conservation of charge**
+means. And you can only ever move whole electrons, never two-thirds of one, which is what
+**quantisation** means: every charge you will ever measure is a whole-number multiple of
+e = 1.6 × 10⁻¹⁹ C.
+
+**Coulomb's law** answers the obvious next question: how hard do two charges push or pull? Twice the
+charge on either one, twice the force. Twice as far apart, a *quarter* of the force — the 1/r²
+falls off fast. Same signs push apart, opposite signs pull together. That is all F = kq₁q₂/r² says.
+It is Newton's law of gravity with charge in place of mass, and one crucial difference: gravity
+only ever pulls, while this can do both.
+
+Now the idea the chapter is actually named after. A charge sitting alone in a room does something
+to the room: any *other* charge brought anywhere nearby immediately feels a push. Rather than
+recompute that push for every possible visitor, we describe the room itself. At each point we ask
+"what force would a unit positive charge feel here?" and store the answer. That map of answers is
+the **electric field**, E. Once you have the map, the force on any charge you drop in is just
+F = qE. The field is a bookkeeping device that turns out to behave like a real thing — Chapter 8
+will show it carrying energy across empty space as light.
+
+**Field lines** are how we draw that map: you follow the arrows to see which way a positive charge
+would be pushed, and where the lines crowd together the field is strong. They start on positive
+charge and end on negative, they never cross (a point cannot have two different "which way" answers),
+and they always meet a conductor's surface at a right angle.
+
+A **dipole** is the simplest interesting arrangement: +q and −q a small distance apart. Water
+molecules are dipoles, which is why water dissolves salt. Far away the two charges almost cancel,
+so a dipole's field dies off as 1/r³ instead of 1/r² — faster, because you are seeing a
+near-cancellation. Put a dipole in a uniform field and the two forces are equal and opposite, so it
+does not go anywhere; it just **twists** until it lines up. That twist is the torque τ = pE sin θ.
+
+Finally **Gauss's law**, the chapter's power tool. Picture the field lines as something streaming
+outward, and count how many pierce a closed surface you have drawn in the air. The count — the
+**flux** — depends only on how much charge you have wrapped up, never on the shape of the wrapper
+or where the charge sits inside it. Charges outside contribute exactly zero, because every line that
+enters must also leave. That is φ = q/ε₀, and it lets you get the field of a wire, a sheet or a
+sphere in three lines instead of a page of integration, provided you are clever enough to draw a
+surface that matches the symmetry.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: electric charges and fields class 12 one shot](https://www.youtube.com/results?search_query=electric+charges+and+fields+class+12+physics+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: electric charges and field](https://www.khanacademy.org/science/in-in-class-12th-physics-india/in-in-electric-charges-and-field)
+- **The book the paper is set from** — [NCERT Physics Part I, Chapter 1 (PDF)](https://ncert.nic.in/textbook/pdf/leph101.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 29 *Electric Field and Potential*, §29.1–29.8. Read
+  the worked examples on Coulomb's law and superposition before you touch Gauss's law in Ch 30.
+
+---
+
 ### Properties of electric charge
 
 | Property | Statement |

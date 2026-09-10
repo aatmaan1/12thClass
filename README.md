@@ -6,7 +6,9 @@ A complete, exam-first study system for **CBSE Class 12 Mathematics (Code 041)**
 Every chapter note follows the same six-part shape:
 
 1. **Scope** — exactly what is in the syllabus, and what has been deleted (so no time is wasted).
-2. **Brief** — the concept, compressed to what you need to answer questions.
+2. **Brief** — opens with *Start here*, a plain-English explanation that assumes no prior
+   knowledge, with links to a video lecture, Khan Academy, the NCERT chapter and (for Physics) the
+   matching HC Verma sections. Then the concept compressed to what you need to answer questions.
 3. **Previous years' questions** — real board question types, with the year(s) they appeared.
 4. **Solutions** — full working, in the form an examiner expects.
 5. **Test yourself** — a short diagnostic set with an answer key, to check understanding.
@@ -77,7 +79,8 @@ cover almost every 3- and 5-mark question, ranked by how often they are asked.
 
 **The 3-pass method.** Do not read a chapter once and move on.
 
-- **Pass 1 (learn):** Read *Scope* + *Brief*. Close the note. Reproduce the formula box on blank
+- **Pass 1 (learn):** Read *Scope*, then *Brief* — the *Start here* part first, and the full detail
+  only once that makes sense. Close the note. Reproduce the formula box on blank
   paper from memory. Anything you cannot reproduce, you have not learnt.
 - **Pass 2 (apply):** Work the *Previous years' questions* with the solutions covered. Compare
   against the solution — not for the answer, but for the *steps*. CBSE pays for steps.

@@ -109,7 +109,9 @@ def main():
     assert out.count("<script") == out.count("</script>")
     hosts = {h for h in re.findall(r"https?://([a-z0-9.-]+)", out)}
     allowed = {"fonts.googleapis.com", "fonts.gstatic.com", "github.com",
-               "www.w3.org", "claude.ai", "cbseacademic.nic.in"}
+               "www.w3.org", "claude.ai", "cbseacademic.nic.in",
+               # the "learn it elsewhere" links in each chapter's plain-English intro
+               "ncert.nic.in", "www.khanacademy.org", "www.youtube.com"}
     stray = sorted(hosts - allowed)
     if stray:
         print("  note: external hosts referenced:", stray)

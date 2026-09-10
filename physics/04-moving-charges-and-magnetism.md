@@ -36,6 +36,67 @@ galvanometer.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+In 1820 Oersted put a compass needle next to a wire, switched on the current, and the needle swung.
+Nobody had expected electricity and magnetism to have anything to do with each other. That accident
+is where this chapter starts: **a moving charge makes a magnetic field, and a magnetic field pushes
+on a moving charge.** Everything else is detail.
+
+Start with the push. The force on a charge moving through a magnetic field is F = qvB sin θ, and it
+behaves unlike any force you have met before in two ways. First, it vanishes if the charge is
+sitting still or moving straight along the field — only motion *across* the field counts. Second,
+and stranger, **it is always perpendicular to the motion**. A force at right angles to velocity can
+never speed anything up or slow it down; it can only bend. So a magnetic field does no work, never
+changes a particle's kinetic energy, and turns a free charge into a circle. Set qvB equal to
+mv²/r and you get r = mv/qB: heavier or faster particles curve wide, stronger fields curve them
+tight. That is the cyclotron in one line, and the reason the time for one lap, T = 2πm/qB, does not
+depend on the speed at all — which is the trick that makes a cyclotron possible.
+
+A current-carrying wire is just a lot of moving charges, so it feels the same push, F = BIl sin θ.
+This is a motor. Two parallel wires each sit in the other's field, so they attract when their
+currents run the same way and repel when they oppose — and that force is how the ampere itself was
+defined for over a century.
+
+Now the other direction: what field does a current *make*? The **Biot–Savart law** is the answer,
+and it is best read as the magnetic twin of Coulomb's law. A tiny piece of wire of length dl
+carrying current I contributes a field that grows with I and dl, falls off as 1/r², and — the new
+part — points at right angles to both the wire and the line joining it to your point. Nothing in
+electrostatics behaves that way; magnetic fields curl around their source instead of pointing away
+from it. Hence the right-hand rule, and hence a straight wire's field circles it, B = μ₀I/2πr, while
+a loop's field threads through it, B = μ₀I/2R at the centre.
+
+**Ampere's circuital law** is Gauss's law's counterpart, and it earns its place for the same reason:
+where there is symmetry, it replaces a hard integral with a short argument. Walk a closed loop
+through the field, adding up B along your path as you go, and the total depends only on how much
+current your loop encircles. Choose the loop to run along the field and it collapses to one
+multiplication. That gives you the long straight wire in two lines.
+
+The **solenoid** — a long coil — is where this becomes useful. Its fields add up inside and largely
+cancel outside, leaving a nearly uniform field down the middle, B = μ₀nI, that depends only on the
+turns per metre. It is a bar magnet you can switch off, and it is how you make a strong controlled
+field in a lab.
+
+Last, the **moving-coil galvanometer**, which is the chapter's ideas assembled into an instrument.
+A coil hangs in a radial field; a current through it feels a torque; a spring resists; the coil
+stops where the two balance, so the deflection reads the current. Its two weaknesses are its two
+standard questions: it is easily damaged by large currents, and it is a low-resistance device, so
+you turn it into an ammeter by hanging a *small* shunt across it and into a voltmeter by putting a
+*large* resistance in series. The logic is worth reasoning out each time rather than memorising —
+an ammeter goes in the path of the current, so it must barely resist; a voltmeter goes across a
+gap, so it must barely steal any current.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: moving charges and magnetism class 12 one shot](https://www.youtube.com/results?search_query=moving+charges+and+magnetism+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: moving charges and magnetism](https://www.khanacademy.org/science/in-in-class-12th-physics-india/moving-charges-and-magnetism)
+- **The book the paper is set from** — [NCERT Physics Part I, Chapter 4 (PDF)](https://ncert.nic.in/textbook/pdf/leph104.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 34 *Magnetic Field* for the force and circular
+  motion, Ch 35 *Magnetic Field due to a Current* for Biot–Savart and Ampere. Do the worked examples
+  in §35.4 (straight wire) and §35.6 (solenoid) before attempting the derivations.
+
+---
+
 ### Oersted's experiment
 
 A compass needle placed near a straight wire deflects when a current flows through the wire, and

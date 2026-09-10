@@ -31,6 +31,64 @@ paper.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Every square matrix has one number you can compute from it that tells you something essential, and
+that number is the **determinant**. Here is what it actually means, because knowing this makes the
+whole chapter cohere.
+
+A 2 × 2 matrix takes the unit square and turns it into a parallelogram. The determinant is the
+**area** of that parallelogram. A 3 × 3 matrix turns the unit cube into a slanted box, and the
+determinant is its **volume**. So a determinant measures how much a matrix stretches space.
+
+Which immediately explains the one fact everything else hangs on: **det A = 0 means the matrix
+squashes space flat.** The parallelogram has collapsed to a line, the box to a plane. And once
+something has been flattened you cannot un-flatten it — information is gone for good. That is why a
+matrix with zero determinant has no inverse, and why a system of equations whose determinant is zero
+does not have a unique solution. Not a rule to memorise: a consequence of collapse.
+
+Practically, you expand a 3 × 3 determinant along a row or column using **cofactors** — each entry
+times the smaller 2 × 2 determinant left when you delete its row and column, with signs alternating
++ − + in a checkerboard. Two pieces of advice that pay off immediately: expand along whichever row or
+column has the most zeros, since each zero kills a whole term; and remember you are free to add a
+multiple of one row to another without changing the value, which lets you manufacture those zeros
+before you start. Students who expand blindly along the first row every time do three times the
+arithmetic and make three times the slips.
+
+The **adjoint** is the matrix of cofactors, transposed, and its point is the identity
+A · adj A = |A| I. Divide through and you have the inverse: **A⁻¹ = adj A / |A|**, which is why the
+inverse exists exactly when |A| ≠ 0. In the transpose step lies the most common error in this
+chapter — computing the cofactor matrix and forgetting to flip it.
+
+The determinant also gives you **area of a triangle** from its three vertices, as half the
+determinant of a 3 × 3 array of their coordinates. And because a triangle with zero area is three
+points on a straight line, the same determinant set to zero is the **collinearity** test. That is a
+recurring one-marker and it is the area interpretation doing the work again.
+
+The chapter's payoff is solving simultaneous equations. **Cramer's rule** gives each unknown as a
+ratio of determinants, and the **matrix method** writes the system as AX = B and solves it as
+X = A⁻¹B. The board strongly prefers the matrix method — its 5-mark question is usually "solve these
+three equations using matrices", and it wants to see |A| computed, then adj A, then A⁻¹, then the
+multiplication. Show all four stages; the marks are distributed across them, so a correct final
+answer with the working skipped scores badly.
+
+The consistency analysis is worth getting straight as a decision tree, because it is short and often
+asked. If |A| ≠ 0 there is exactly one solution. If |A| = 0, look at (adj A)B: if it is not the zero
+matrix the system is **inconsistent** — no solution at all, the planes miss each other. If it is
+zero, the system is consistent with **infinitely many** solutions — the planes meet in a line. Two
+sentences, three cases, and full marks.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: determinants class 12 maths one shot](https://www.youtube.com/results?search_query=determinants+class+12+maths+one+shot)
+- **Why a determinant is an area** — [search: essence of linear algebra determinant 3Blue1Brown](https://www.youtube.com/results?search_query=3blue1brown+essence+of+linear+algebra+determinant).
+  Fifteen minutes here will make this chapter feel like one idea instead of ten formulae.
+- **The book the paper is set from** — [NCERT Maths Part I, Chapter 4 (PDF)](https://ncert.nic.in/textbook/pdf/lemh104.pdf)
+- **For extra problems** — NCERT Exemplar Chapter 4; then drill the 5-mark system-of-equations type
+  until the four stages are automatic, because it is nearly guaranteed to appear.
+
+---
+
 ### Determinant of a 2 × 2
 
 ```
