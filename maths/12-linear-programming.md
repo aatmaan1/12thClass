@@ -29,6 +29,66 @@
 
 ## 2. Brief
 
+### Start here — in plain English
+
+A factory can make chairs and tables. Each chair needs 2 hours of carpentry and 1 hour of polishing;
+each table needs 3 hours of carpentry and 1 of polishing. There are 60 carpentry hours and 24
+polishing hours available this week. A chair sells for a profit of ₹200 and a table ₹300. How many of
+each should you make?
+
+That is a **linear programming** problem, and it is the entire chapter. Notice its shape: you want
+to maximise something (profit) subject to limits you cannot exceed (hours available). The word
+"linear" means everything is proportional — twice the chairs takes twice the hours and gives twice
+the profit, with no bulk discounts or economies of scale. That assumption is what makes the problem
+solvable by drawing.
+
+The method has four steps and never varies.
+
+**Step 1 — name the variables.** Let x be the number of chairs and y the number of tables. Say so
+explicitly in your answer; marks are given for it.
+
+**Step 2 — write the constraints as inequalities.** Carpentry: 2x + 3y ≤ 60. Polishing: x + y ≤ 24.
+And, because you cannot make a negative number of chairs, x ≥ 0 and y ≥ 0. Those last two are easy
+to forget and they matter — they are what confine you to one quadrant.
+
+**Step 3 — draw.** Each inequality is a half-plane: draw the boundary line, then decide which side
+satisfies it (test the origin — it is usually quickest). The region satisfying *all* of them at once
+is the **feasible region**, and every point in it is a genuinely possible production plan. Shade it
+and label its corners.
+
+**Step 4 — evaluate at the corners.** Here is the theorem that makes this work, and it is worth
+knowing why rather than just using it. The profit function Z = 200x + 300y has straight parallel
+contour lines. Slide such a line across a polygon and the last point it touches on the way out is
+always a **corner** — never the middle of an edge, never the interior. So the maximum and minimum of
+Z must occur at vertices of the feasible region. You do not need to test infinitely many points;
+you test four or five. Tabulate the corners and their Z values, and state which is the answer.
+
+Two situations to be ready for, because the board tests them.
+
+An **unbounded** region — one that stretches away without a closing edge. It may still have a
+minimum but no maximum, or the reverse. The check is honest and simple: if the region is unbounded in
+the direction that increases Z, then no maximum exists, and you should say so rather than picking the
+largest corner you happened to plot.
+
+**Ties.** If two adjacent corners give the same Z, then every point on the edge between them is
+equally optimal, and there are infinitely many solutions. Say that; do not choose one arbitrarily.
+
+The chapter is worth around 5 marks, needs no memorised formulae, and is one of the highest
+marks-per-hour in the paper — provided your graph is drawn on actual graph paper with the axes
+scaled and the corners labelled. Most marks lost here are lost to sloppy drawing, not to
+misunderstanding.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: linear programming class 12 one shot](https://www.youtube.com/results?search_query=linear+programming+class+12+maths+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: graphing systems of inequalities](https://www.khanacademy.org/search?page_search_query=graphing%20systems%20of%20inequalities)
+- **The book the paper is set from** — [NCERT Maths Part II, Chapter 12 (PDF)](https://ncert.nic.in/textbook/pdf/lemh206.pdf)
+- **For extra problems** — the NCERT exercise is representative; note that the *formulation* of the
+  word problem is where the marks concentrate, so practise translating the story into inequalities
+  even when you do not finish the graph.
+
+---
+
 ### Terminology — know these words, they get asked directly
 
 | Term | Meaning |

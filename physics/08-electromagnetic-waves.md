@@ -29,6 +29,61 @@ wave equation from Maxwell's equations, only to know the properties and be able 
 
 ## 2. Brief
 
+### Start here — in plain English
+
+By 1860 there were four laws of electricity and magnetism, and Maxwell noticed that one of them was
+broken. Ampere's law said a magnetic field circles a current — but what about the gap between a
+capacitor's plates, where no charge crosses and yet the circuit plainly works? Follow the law
+literally and you get a magnetic field on one side of the gap and none on the other, which is
+absurd.
+
+Maxwell's fix was to say that a **changing electric field** is, for magnetic purposes, as good as a
+current. He called it the **displacement current**, I_d = ε₀ dφ_E/dt. In the capacitor gap the field
+between the plates is building up, and that build-up is exactly what keeps the magnetic field
+continuous. It is a small repair with an enormous consequence, and it is the one thing to remember
+from this short chapter.
+
+Because now look at what the laws say together. A changing magnetic field creates an electric field
+— that is Faraday, Chapter 6. And a changing electric field creates a magnetic field — that is
+Maxwell's new term. So a changing field of either kind creates the other, which is itself changing,
+which recreates the first. The two fields sustain each other and travel, needing no wire, no charge
+and no medium at all. That is an **electromagnetic wave**, and light is one.
+
+Maxwell could even compute how fast it goes, from two numbers already measured in laboratories with
+batteries and magnets: c = 1/√(μ₀ε₀), which comes out at 3 × 10⁸ m/s. That matched the measured
+speed of light, and settled what light was — a question that had been open for two centuries.
+
+The **structure** of the wave is worth picturing properly, because it is asked directly. E and B
+oscillate in step, both at right angles to each other *and* both at right angles to the direction
+of travel — the wave is transverse twice over. Their magnitudes are locked: E₀/B₀ = c, so the
+electric part is numerically much larger, which is why light interacts with matter mostly through
+its electric field. The direction of travel is along E × B.
+
+The wave carries energy, split equally between the electric and magnetic halves. It also carries
+**momentum**, which is why a light beam exerts a faint pressure — the principle behind solar sails.
+
+The **spectrum** is the same phenomenon across twenty-odd orders of magnitude of frequency, and the
+only reason the bands have different names is the history of how each was discovered. Radio waves,
+microwaves, infrared, visible, ultraviolet, X-rays, gamma rays — one family, in order of increasing
+frequency and decreasing wavelength. Learn that order, one production method and one use per band,
+and roughly where the boundaries sit; that is the whole of the chapter's factual load and it appears
+almost every year as a one- or two-marker. Visible light occupies a laughably narrow slice, about
+400 to 700 nm, and the ozone layer's job is absorbing the ultraviolet just above it.
+
+This is the shortest chapter in the book and among the most reliably rewarding: the questions are
+short, factual and repetitive. Do not skip it because it looks slight.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: electromagnetic waves class 12 one shot](https://www.youtube.com/results?search_query=electromagnetic+waves+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: electromagnetic waves](https://www.khanacademy.org/search?page_search_query=electromagnetic%20waves%20class%2012)
+- **The book the paper is set from** — [NCERT Physics Part I, Chapter 8 (PDF)](https://ncert.nic.in/textbook/pdf/leph108.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 40 *Electromagnetic Waves*. It is brief, which
+  suits the chapter; read §40.1–40.3 for the displacement current and how the wave equation falls
+  out, and use the NCERT for the spectrum table.
+
+---
+
 ### Displacement current — why Ampere's law needed fixing
 
 **The problem.** Consider a **capacitor being charged**. A current flows in the wires, but **no charge

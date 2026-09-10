@@ -31,6 +31,60 @@ That is all. This is now the smallest chapter in the book.
 
 ## 2. Brief
 
+### Start here — in plain English
+
+sin 30° = ½. So what angle has a sine of ½? Answer: 30°. That reverse question is all an inverse
+trigonometric function is — sin⁻¹(½) = 30°, or π/6 in radians. The notation is unfortunate: sin⁻¹
+does **not** mean 1/sin. It means "the angle whose sine is".
+
+But there is a genuine problem hiding in that innocent question, and the whole chapter exists to
+solve it. What angle has a sine of ½? Also 150°. And 390°. And 510°. Infinitely many. A function is
+not allowed to give many answers to one question, so as it stands sin⁻¹ is not a function at all.
+
+The fix is to choose, once and for all, one answer to hand back. For sine we agree to always return
+the angle in **[−π/2, π/2]** — so sin⁻¹(½) = π/6, full stop, and sin⁻¹(−½) = −π/6, not 330°. That
+agreed range is the **principal value branch**, and each inverse function has its own:
+
+- sin⁻¹ returns an angle in [−π/2, π/2]
+- cos⁻¹ returns an angle in [0, π]
+- tan⁻¹ returns an angle in (−π/2, π/2)
+
+Why are they different? Because the range has to be a stretch on which the original function does
+not repeat itself, and cosine's natural such stretch runs from 0 to π while sine's straddles zero.
+Note the practical consequence, which is the chapter's single biggest source of lost marks:
+**cos⁻¹ never returns a negative angle.** So cos⁻¹(−½) is 2π/3, not −π/3. Sine and tangent will give
+you negatives; cosine will not.
+
+Get that one point secure and most of the chapter's questions become mechanical. The typical
+one-marker is "find the principal value of sin⁻¹(−1/√2)", and the method is always the same three
+steps: find the reference angle whose sine is 1/√2 (that is π/4), decide the sign, then place the
+answer inside the correct branch. For sine, negative input means a negative answer, so −π/4. Had it
+been cos⁻¹(−1/√2), the answer would have to live in [0, π], giving 3π/4.
+
+Two identities are worth knowing cold because they appear constantly:
+sin⁻¹x + cos⁻¹x = π/2, and tan⁻¹x + cot⁻¹x = π/2. Both say the same geometric thing — in a right
+triangle the two non-right angles add to a right angle.
+
+The other reliable technique is **substitution**, and it turns ugly expressions into easy ones. Faced
+with something containing √(1 − x²), put x = sin θ; the root becomes cos θ and the whole expression
+usually collapses. With 1 + x², put x = tan θ. This is the standard route through the harder
+3-markers, and it is the same trick you will use again in Integrals.
+
+A caution on scope: this chapter used to include a long list of addition formulae for
+tan⁻¹x + tan⁻¹y and similar. Much of that has been trimmed. Check §1 of this chapter before
+memorising formulae you may not need — the examinable core is principal values, the domain and range
+of each function, the two complementary identities, and simple substitutions.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: inverse trigonometric functions class 12 one shot](https://www.youtube.com/results?search_query=inverse+trigonometric+functions+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: inverse trigonometric functions](https://www.khanacademy.org/search?page_search_query=inverse%20trigonometric%20functions)
+- **The book the paper is set from** — [NCERT Maths Part I, Chapter 2 (PDF)](https://ncert.nic.in/textbook/pdf/lemh102.pdf)
+- **For extra problems** — the NCERT exercises are unusually representative here; do every one,
+  then NCERT Exemplar Chapter 2 for the substitution-based questions.
+
+---
+
 ### Why inverse trig functions need restricted ranges
 
 sin x is not one-one on **R** — sin 0 = sin π = sin 2π = 0 — so it has no inverse on **R**. To invert

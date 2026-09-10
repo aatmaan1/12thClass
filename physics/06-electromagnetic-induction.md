@@ -26,6 +26,66 @@ Nothing substantial was removed from this chapter.
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Chapter 4 showed that a current makes a magnetic field. The obvious question — can a magnetic field
+make a current? — took eleven years and Michael Faraday to answer, and the answer turned out to be
+the basis of every power station on Earth.
+
+Here is the experiment you should keep in your head. A coil of wire, a galvanometer across it, and a
+bar magnet. Hold the magnet still inside the coil: nothing. Move it in: the needle kicks one way.
+Move it out: the needle kicks the other way. Move it faster: a bigger kick. **It is the changing
+that matters, not the field itself.** A steady field, however strong, induces nothing.
+
+To say "changing" precisely we need a way to count how much field is threading the coil. That count
+is the **flux**, φ = BA cos θ, and it is worth reading as three separate knobs. You can change the
+field strength B, or the area A the coil presents, or the angle θ at which the field meets it. Turn
+any one of those and the flux changes and a current appears. A generator turns θ; a transformer
+turns B; a rod sliding on rails turns A. Different machines, one idea.
+
+**Faraday's law** is then just "the emf equals how fast the flux is changing": ε = −dφ/dt. Note what
+this is *not* — the emf does not depend on how big the flux is, only on how quickly it is changing.
+A coil sitting in an enormous steady field has an enormous flux and zero emf.
+
+The minus sign is **Lenz's law**, and it deserves a paragraph of its own because it is the most
+commonly mishandled idea in the chapter. It says the induced current always flows in whatever
+direction *opposes the change that produced it*. Push the north pole of a magnet towards a coil and
+the coil generates a north pole to face it and push back. Pull the magnet away and the coil switches
+to a south pole to hold it. The coil always resists you. Why? Because if it helped you instead, the
+magnet would accelerate on its own, generating more current, accelerating further — free energy
+forever. Lenz's law is conservation of energy wearing a different hat. That is the answer to
+"justify the negative sign", and it is worth writing exactly that way.
+
+**Motional emf** is the same law from a different angle. Slide a conducting rod of length l along
+rails at speed v through a field B and you get ε = Blv. You can derive that from flux — the circuit's
+area is growing at a rate lv — or you can see it directly: each free electron in the moving rod is a
+charge moving through a field, so it feels a qvB push along the rod, and charge piles up at the ends
+until the voltage stops the pile-up. Both routes give the same answer, and being able to switch
+between them is the sign that you have understood the chapter rather than memorised it.
+
+**Eddy currents** are induced currents in a solid lump of metal instead of a wire. They obey Lenz
+too, so they oppose whatever motion made them — which makes them a brake. Trains use them; so do
+induction cooktops, where the currents are deliberately allowed to waste their energy as heat. In a
+transformer they are a nuisance, which is why the core is built from thin laminated sheets: the
+sheets break up the loops the currents want to run in.
+
+The chapter closes with **inductance**, the last piece before AC. A coil resists a *change* in its
+own current, because a changing current changes its own flux, which induces an emf opposing the
+change. The constant of proportionality is L, the self-inductance: ε = −L dI/dt. It is electrical
+inertia — the exact analogue of mass. A capacitor resists a change in voltage; an inductor resists a
+change in current; and once you see them as a pair, Chapter 7 becomes much less mysterious.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: electromagnetic induction class 12 one shot](https://www.youtube.com/results?search_query=electromagnetic+induction+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: electromagnetic induction](https://www.khanacademy.org/search?page_search_query=electromagnetic%20induction%20class%2012)
+- **The book the paper is set from** — [NCERT Physics Part I, Chapter 6 (PDF)](https://ncert.nic.in/textbook/pdf/leph106.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 38 *Electromagnetic Induction*, all of it. His
+  §38.4 on Lenz's law and §38.6 on motional emf are the two sections to read twice; the worked
+  examples on the sliding rod are exactly the board's favourite setup.
+
+---
+
 ### Magnetic flux
 
 ```

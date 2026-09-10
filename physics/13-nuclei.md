@@ -35,6 +35,67 @@ question, most often on the binding-energy-per-nucleon curve or a mass-defect nu
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Rutherford found the nucleus. This chapter asks what it is made of, why it holds together, and why
+some of them fall apart.
+
+It is made of protons and neutrons — collectively **nucleons** — packed into a sphere about
+10⁻¹⁵ m across. A quick calculation with R = R₀A^(1/3) gives a density of around 10¹⁷ kg/m³, which
+is roughly a hundred million tonnes per teaspoon. Notice also what that formula says: the radius
+grows as the cube root of the number of nucleons, so volume grows in proportion to A, so **nuclear
+density is the same for every nucleus**. Nucleons are packed like marbles in a bag, touching, not
+compressible.
+
+Which raises the obvious problem: a nucleus is a handful of protons, all positive, jammed together.
+Coulomb's law says they should blow apart violently. Something much stronger is holding them, and it
+is called the **strong nuclear force** — attractive, indifferent to charge, and with an extremely
+short range. Beyond a few femtometres it is simply absent, which is why very large nuclei are
+unstable: add enough protons and the electrostatic repulsion, which reaches across the whole
+nucleus, starts to beat a force that only acts between neighbours.
+
+Now the chapter's central and most beautiful fact. Weigh a helium nucleus and it comes out *lighter*
+than its two protons and two neutrons weighed separately. Mass has gone missing. It has become
+binding energy, via E = mc²: the **mass defect** Δm is the mass equivalent of the energy you would
+have to supply to pull the nucleus apart. Bound systems weigh less than their parts. The
+conventional unit here is the atomic mass unit, and the number to remember is that **1 u releases
+931.5 MeV**.
+
+Divide the binding energy by the number of nucleons and you get **binding energy per nucleon**,
+which measures how tightly each nucleon is held — and the graph of it against A is the single most
+important picture in the chapter. It rises steeply for light nuclei, peaks around A = 56 (iron), and
+then falls slowly. Everything about nuclear energy is on that graph. Nuclei to the left can move
+*up* the curve by joining together, releasing energy: that is **fusion**, and it is what the Sun
+does. Nuclei to the right can move up by splitting: that is **fission**, and it is what a reactor
+does. Both release energy because both end up with more tightly bound nucleons. Iron sits at the
+peak, which is why it is the ash of stellar burning and why you cannot extract energy from it by
+either route.
+
+**Radioactivity** is the other half of the chapter, and it is simpler than it looks. An unstable
+nucleus has three ways out. **Alpha** decay throws out a helium nucleus, dropping A by 4 and Z by 2
+— the route heavy nuclei take to shed bulk. **Beta** decay converts a neutron into a proton (or the
+reverse), changing Z by one while A stays put — the route for nuclei with the wrong neutron-to-proton
+balance. **Gamma** emission changes neither; it is just an excited nucleus dropping to a lower
+energy level, the nuclear version of Chapter 12's photon jump.
+
+The **decay law** is worth understanding rather than memorising, because it explains the half-life.
+Each nucleus has a fixed probability of decaying in the next second, and no memory of how long it
+has already waited. So the number decaying per second is proportional to how many are left:
+dN/dt = −λN, giving N = N₀e^(−λt). A fixed *fraction* goes per unit time, which is exactly what
+makes the **half-life** a constant — the time for half of whatever remains to go, the same whether
+you start with a kilogram or a microgram.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: nuclei class 12 physics one shot](https://www.youtube.com/results?search_query=nuclei+class+12+physics+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: nuclei, mass defect and binding energy](https://www.khanacademy.org/search?page_search_query=mass%20defect%20binding%20energy%20nuclei)
+- **The book the paper is set from** — [NCERT Physics Part II, Chapter 13 (PDF)](https://ncert.nic.in/textbook/pdf/leph205.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 46 *The Nucleus*. §46.2–46.5 on binding energy and
+  the BE-per-nucleon curve, then §46.6–46.9 for the decay law and the three decay modes. His
+  discussion of why the curve's shape permits both fission and fusion is the one to read.
+
+---
+
 ### Composition of the nucleus
 
 The nucleus contains **protons** and **neutrons**, collectively called **nucleons**.

@@ -46,6 +46,72 @@ its consequences** is what you must have.
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Chapter 9 treated light as rays travelling in straight lines, and got a very long way on it. This
+chapter is about the situations where that picture collapses — and what light turns out to be
+instead.
+
+Here is the experiment that settled it. Shine light through two very narrow slits, close together,
+onto a screen. Rays would predict two bright strips. What you actually get is a whole row of bright
+and dark bands, spread out across the screen. Where does the *dark* come from? Two lights cannot
+make a shadow — unless light is a wave.
+
+That is the key. A wave has a crest and a trough. Where a crest from one slit meets a crest from the
+other, they add and you get double brightness: **constructive interference**. Where a crest meets a
+trough, they cancel and you get darkness: **destructive interference**. Which one happens at a
+given point on the screen depends purely on how much further the light from one slit had to travel
+than from the other — the **path difference**. A whole number of wavelengths of extra path means
+crests still meet crests, so bright. A half-number means bright meets dark, so dark. Every formula
+in the chapter is that sentence with geometry attached: d sin θ = nλ for a bright fringe, and the
+fringe spacing β = λD/d.
+
+Look at what that spacing says, because it explains why nobody noticed this for so long. The
+fringes are wider if the wavelength is longer, if the screen is further away, or if the slits are
+closer together. Visible light's wavelength is around half a micron — so unless your slits are a
+fraction of a millimetre apart, the fringes are far too fine to see. Ray optics works in daily life
+not because light is not a wave, but because its wavelength is tiny compared with everything we
+put in its way.
+
+The setup only works if the two slits stay in step, crest for crest, moment to moment. That
+condition is **coherence**, and it is why the experiment uses one source split in two rather than
+two separate lamps: two independent lamps drift in and out of step millions of times a second, so
+the fringes wash out into an even glow. This is the standard "why must the sources be coherent"
+question, and the answer is that word "drift".
+
+**Huygens' principle** is the tool that makes all this calculable. It says: treat every point on a
+wavefront as a tiny source of new circular wavelets, and the next wavefront is the surface they all
+touch. It sounds like a strange bookkeeping trick, and it is, but it correctly produces reflection
+and refraction — including *why* light bends towards the normal when it slows down, which ray optics
+had to assume.
+
+**Diffraction** is the same wave nature showing up at a single slit. Light spreads into the
+geometrical shadow, giving a wide central bright band with weaker ones beside it. The central band's
+width goes as λ/a — narrow the slit and the pattern spreads *out*, which is the opposite of what
+rays would say and a good test of whether you are thinking in waves. This is also the hard limit on
+every telescope and microscope ever built: you cannot resolve detail finer than diffraction allows.
+
+The one thing rays and waves *both* fail to make obvious is that light's oscillation has a
+direction across the beam. Filter out all but one direction and you have **polarised** light — proof
+that light is a transverse wave, since a longitudinal wave like sound has no "across" to filter.
+
+> **Check the scope for your year.** Polarisation is the part of this chapter most affected by
+> syllabus rationalisation, and Brewster's law in particular. §1 of this chapter flags what to
+> verify against the current CBSE syllabus before spending time on it. Interference and single-slit
+> diffraction are the reliable core.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: wave optics class 12 one shot](https://www.youtube.com/results?search_query=wave+optics+class+12+physics+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: wave optics](https://www.khanacademy.org/science/in-in-class-12th-physics-india/in-in-wave-optics)
+- **The book the paper is set from** — [NCERT Physics Part II, Chapter 10 (PDF)](https://ncert.nic.in/textbook/pdf/leph202.pdf)
+- **HC Verma** — *Concepts of Physics* Part 1, Ch 17 *Light Waves*. §17.3–17.6 on Young's experiment
+  and the path-difference argument is the clearest short account available; §17.9 for diffraction.
+  Ch 16 *Sound Waves* §16.9 on interference is worth a look if the crest-and-trough picture has not
+  clicked yet — the same idea with something you can hear.
+
+---
+
 ### Wavefront
 
 A **wavefront** is the locus of all points of a medium that are vibrating **in the same phase** at a

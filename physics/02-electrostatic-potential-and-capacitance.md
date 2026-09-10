@@ -29,6 +29,67 @@ derivation.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Lifting a bucket up a staircase takes work, and the higher you take it the more work it took. You do
+not need to know the shape of the staircase — only the height. Gravity is like that, and so is
+electricity. This chapter is the electrical version of "height".
+
+Push a positive charge towards another positive charge and you have to work at it, because it fights
+you the whole way. That work does not vanish; it is stored, and released the instant you let go —
+the charge flies apart. **Potential energy** is the name for the stored amount. Divide it by the
+charge you were pushing and you get a property of the *place* rather than of the charge:
+**potential**, V, measured in volts. One volt means one joule of work per coulomb brought in from
+far away. Potential is a single number at each point, not an arrow — which is exactly why it is
+easier to work with than the field, and why the chapter leans on it so heavily.
+
+The link between the two is worth memorising as a picture, not a formula: **the field points
+downhill on the potential**, and the steeper the hill the stronger the field. E = −dV/dr is just
+that sentence in symbols. The minus sign is the word "downhill".
+
+An **equipotential surface** is a contour line on that hill — every point on it at the same
+potential. Walk along a contour and you climb nothing, so no work is done, so the field can have no
+component along it: **equipotentials and field lines always cross at right angles**. That single
+fact answers a surprising number of board questions.
+
+Now conductors. In a metal, charges are free to move, and they will keep moving as long as any
+field pushes them. So once things have settled, the field *inside* must be exactly zero — otherwise
+the charges would still be shuffling. Everything follows from that: all the excess charge sits on
+the outer surface, the whole body is at one potential, and the field just outside meets the surface
+perpendicularly. This is why a car is a safe place in a lightning storm.
+
+**Capacitance** is the chapter's second big idea, and it is a much humbler one than it looks. Take
+any two conductors, put +Q on one and −Q on the other, and a voltage V appears between them. The
+ratio C = Q/V turns out to depend only on their shape and spacing, never on how much charge you
+used. So C is a fixed property of the arrangement — a measure of how much charge it will swallow
+per volt. A capacitor is a bucket for charge, and C is the size of the bucket.
+
+Why does bringing the plates closer, or making them bigger, increase C? Because both make it easier
+to hold the charge: more area gives the charge more room to spread out, and a smaller gap means the
+opposite charge is nearby pulling it in, so less voltage builds up for the same Q. Hence
+C = ε₀A/d.
+
+Slide a slab of glass or plastic — a **dielectric** — into the gap and C goes up by a factor K. The
+reason is pretty: the slab's own molecules are dipoles, and they all swing round to point against
+the applied field, producing a weak field of their own that partly cancels it. Less net field means
+less voltage for the same charge, which means more capacitance.
+
+Charging a capacitor stores energy, U = ½CV², and the ½ trips people up. It is there because the
+first bit of charge goes on for free while the capacitor is still empty, and the last bit has to be
+forced in against everything already there. You are paying an increasing price, so the total is the
+*average* price times the amount — hence one half.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: electrostatic potential and capacitance class 12 one shot](https://www.youtube.com/results?search_query=electrostatic+potential+and+capacitance+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: electrostatic potential and capacitance](https://www.khanacademy.org/science/in-in-class-12th-physics-india/in-in-electrostatic-potential-and-capacitance)
+- **The book the paper is set from** — [NCERT Physics Part I, Chapter 2 (PDF)](https://ncert.nic.in/textbook/pdf/leph102.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 29 §29.9–29.14 for potential, then Ch 31
+  *Capacitors* entire. HC Verma's treatment of the energy stored and of the dielectric slab is
+  clearer than the NCERT's; do his in-chapter examples.
+
+---
+
 ### Electric potential
 
 The **electric potential** at a point is the work done per unit positive charge in bringing a test

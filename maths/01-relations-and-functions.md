@@ -28,6 +28,66 @@ That is the whole chapter. It is short.
 
 ## 2. Brief
 
+### Start here — in plain English
+
+A **relation** is nothing more than a rule that pairs things up. "Is a sibling of" is a relation on
+the set of people. "Is less than" is a relation on numbers. That is the whole definition — a
+collection of ordered pairs. The chapter's difficulty is not the idea; it is that three particular
+properties of relations have names that sound alike, so let us pin them down with the sibling
+example.
+
+**Reflexive** means everything is related to itself. Is "is a sibling of" reflexive? Are you your
+own sibling? No. So it fails. **Symmetric** means whenever a is related to b, b is related back to a.
+If you are my sibling, am I yours? Yes. So it passes. **Transitive** means if a relates to b and b
+relates to c, then a relates to c. If Ravi is Sita's sibling and Sita is Meera's sibling, is Ravi
+Meera's sibling? Yes. Passes.
+
+Compare with "is the father of": not reflexive, not symmetric (obviously), and not transitive
+either — your father's father is your grandfather, not your father. And with "has the same birthday
+as": reflexive, symmetric *and* transitive.
+
+That last kind, which passes all three, is an **equivalence relation**, and it is the one worth
+understanding properly because it does something useful. An equivalence relation always chops the
+set into non-overlapping groups. "Same birthday" splits humanity into 366 groups. "Same remainder
+when divided by 3" splits the integers into three. Nobody is left out, nobody is in two groups at
+once. Those groups are **equivalence classes**, and being able to say what the classes *are* is the
+usual 3-mark question.
+
+Half the marks in this chapter come from checking those three properties on a given relation, and
+the reliable method is: for each property, either prove it in general or produce one counterexample.
+One counterexample is a complete answer — you do not need to explain further. Most lost marks come
+from asserting "not transitive" without naming the offending triple.
+
+Now **functions**. A function is a relation with one extra restriction: every input gets exactly one
+output. A vending machine is a function — press B4 and you always get the same thing. Two words
+describe how a function fills its target set. **One-one** (injective) means no two different inputs
+share an output — nothing is hit twice. **Onto** (surjective) means nothing in the target is missed —
+everything is hit at least once. A function that is both is a **bijection**, and a bijection is
+exactly a perfect pairing, which is why it is the condition for having an inverse: if two inputs gave
+the same output you would not know which to go back to, and if something was never hit you would
+have nothing to go back from.
+
+The picture to keep is arrows from a left-hand set to a right-hand set. One-one means no two arrows
+land on the same dot. Onto means no dot on the right is left bare. Draw that once and you will never
+confuse the two again.
+
+The practical test for one-one on real functions is either algebra — assume f(a) = f(b) and show
+a = b — or calculus: a function that is always increasing (f′ > 0 throughout) cannot repeat a value,
+so it is one-one. That second route is quick and underused. For onto, compare the actual range with
+the stated codomain; a function is onto only if they are equal, which is why f(x) = x² from ℝ to ℝ
+is not onto (it never produces a negative) but is onto if you declare the codomain to be [0, ∞).
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: relations and functions class 12 maths one shot](https://www.youtube.com/results?search_query=relations+and+functions+class+12+maths+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: relations and functions](https://www.khanacademy.org/search?page_search_query=relations%20and%20functions%20class%2012)
+- **The book the paper is set from** — [NCERT Maths Part I, Chapter 1 (PDF)](https://ncert.nic.in/textbook/pdf/lemh101.pdf)
+- **For extra problems** — NCERT Exemplar Chapter 1, and RD Sharma's chapter on relations for drill
+  on checking the three properties. The board asks these almost verbatim from the NCERT exercises,
+  so finish those first.
+
+---
+
 ### Relations
 
 A **relation** R from set A to set B is any subset of A × B. If (a, b) ∈ R we write **a R b**.

@@ -30,6 +30,66 @@ chapter in Mathematics.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+"Drive 5 km" is incomplete information. "Drive 5 km north" is usable. Some quantities need a
+direction to make sense and some do not, and that is the entire distinction between a **vector** and
+a **scalar**. Distance, mass, temperature and speed are scalars — one number each. Displacement,
+force, velocity and acceleration are vectors — a number *and* a direction.
+
+Draw a vector as an arrow: its length is the magnitude, its way of pointing is the direction. Where
+the arrow happens to sit does not matter, so you may slide it around freely, which is what lets you
+add vectors by putting them nose to tail. Walk 3 km east then 4 km north and your displacement is
+the single arrow from start to finish — 5 km, north-east-ish. Notice that 3 + 4 gave 5, because the
+directions were different. That is the one thing to internalise: **vectors do not add like numbers**
+unless they point the same way.
+
+In coordinates a vector is written 3î + 4ĵ + 0k̂, meaning three units along x, four along y, none
+along z. The **magnitude** is Pythagoras in three dimensions, √(3² + 4²) = 5. A **unit vector** is
+that same arrow shrunk to length 1 — you get it by dividing by the magnitude — and its only job is to
+carry direction with no size attached. Whenever a question asks "in the direction of", it wants a
+unit vector.
+
+Then the chapter's two multiplications, which are genuinely different operations that happen to
+share a name, and keeping them apart is most of the work.
+
+The **dot product** a·b = |a||b|cos θ gives a **number**. What it measures is how much of one vector
+points along the other. Two clues to what it is for: it is largest when the vectors are parallel, and
+it is exactly **zero when they are perpendicular** — because cos 90° = 0. That zero test is worth
+more marks than any other single fact in the chapter; almost every "show these are perpendicular"
+question is one dot product. In coordinates it is beautifully simple: multiply matching components
+and add. The physical meaning is work — force dotted with displacement — which is why only the
+component of force along the motion counts.
+
+The **cross product** a × b gives a **vector**, with magnitude |a||b|sin θ and direction
+perpendicular to both, found by the right-hand rule. Its clues are the mirror image: it is zero when
+the vectors are **parallel** (sin 0° = 0), and largest when they are perpendicular. Its magnitude is
+the **area of the parallelogram** the two vectors span — so half of it is the area of the triangle,
+which is how the board's area questions are set. Being a vector product it does not commute:
+a × b = −(b × a), the same size pointing the opposite way.
+
+Keep the two straight by their zeros, because that is how questions are recognised:
+**dot product zero means perpendicular; cross product zero means parallel.** Get that backwards and
+you lose whole questions.
+
+The last idea, **projection**, is the dot product doing its job. The projection of a on b is
+(a·b)/|b| — how long a's shadow is when cast along b's direction. It is asked directly, and it is
+also the mental picture that makes the dot product feel inevitable rather than arbitrary.
+
+This chapter is short, scores well, and is the foundation of the next one. Do not treat it as
+preliminary; 3D Geometry is unusable without it.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: vector algebra class 12 one shot](https://www.youtube.com/results?search_query=vector+algebra+class+12+maths+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: vectors](https://www.khanacademy.org/math/precalculus/x9e81a4f98389efdf:vectors)
+- **The book the paper is set from** — [NCERT Maths Part II, Chapter 10 (PDF)](https://ncert.nic.in/textbook/pdf/lemh204.pdf)
+- **For extra problems** — NCERT exercises, then Exemplar Chapter 10. If the geometric meaning of the
+  two products has not clicked, HC Verma's *Concepts of Physics* Part 1 Ch 2 §2.5–2.9 explains them
+  with forces and torques, which many students find more concrete than the algebra.
+
+---
+
 ### Basics
 
 A **vector** has magnitude and direction; a **scalar** has magnitude only.

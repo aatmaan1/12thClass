@@ -39,6 +39,67 @@ perpendicular / image of a point).**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+This chapter is Chapter 10 put to work. It answers geometric questions about lines and planes in
+space — the distance between two skew lines, the angle at which a line meets a plane, where a line
+pierces a surface — and it answers them with dot and cross products rather than with drawing, which
+is fortunate, because drawing in three dimensions is hard.
+
+The one idea to hold on to is that **a line is a point plus a direction**, and **a plane is a point
+plus a perpendicular**. Everything else follows.
+
+A **line** is described by saying "start here, then head that way": r = a + λb, where a is the
+position vector of a known point on the line, b is its direction, and λ is a dial you turn to slide
+along it. Every point of the line is some value of λ. The cartesian form
+(x − x₁)/a = (y − y₁)/b = (z − z₁)/c is the same statement — the numerators say how far you have
+moved from the known point, the denominators are the direction, and setting the three ratios equal
+just says you moved proportionally in all three axes. If a question gives you two points instead of a
+direction, subtract them: the direction is the arrow from one to the other.
+
+A **plane** is described differently, and this is the step that repays real thought. You cannot
+specify a plane by a direction *in* it — there are infinitely many. What pins a plane down uniquely
+is the direction **perpendicular** to it, called the **normal**. So a plane is "all the points whose
+displacement from a known point is perpendicular to n", which in dot-product language is
+(r − a)·n = 0, and rearranged, r·n = d. In cartesian form ax + by + cz = d, and the numbers a, b, c
+*are* the normal's components — read them straight off. That single observation converts most plane
+questions into vector arithmetic.
+
+Now every standard question is one of these ideas with a dot or cross product attached, and the
+pattern is worth seeing:
+
+- **Angle between two lines** — the angle between their directions, so a dot product of the two b's.
+- **Angle between two planes** — the angle between their *normals*, so a dot product of the two n's.
+- **Angle between a line and a plane** — here is the trap. Dotting the line's direction with the
+  plane's normal gives you the angle from the normal, not from the plane. The angle you want is its
+  complement, so use **sin θ** where you would otherwise use cos. Every year someone loses this mark.
+- **Perpendicular lines** — directions dot to zero. **Parallel lines** — directions cross to zero.
+- **Parallel planes** — same normal (up to a scale factor).
+
+**Distances** are the other family, and there the cross product does the work, because a cross
+product measures the perpendicular part. The shortest distance from a point to a line, and the
+shortest distance between two **skew** lines — lines that neither meet nor run parallel, which only
+exist in three dimensions — both come out of the standard formulae in the formula sheet. For skew
+lines the numerator is a scalar triple product and the denominator is |b₁ × b₂|, and the whole thing
+is the projection of the gap between the lines onto the one direction perpendicular to both. Worth
+knowing as a formula; worth understanding as a shadow.
+
+Practical advice: this chapter is unusually formula-heavy, and the fastest way through it is not
+memorising twelve formulae but recognising which of the five or six *situations* you are in. Read
+the question and ask: is this a line or a plane, an angle or a distance? The formula follows from
+that. And convert between vector and cartesian form fluently — questions often give you one and
+expect the other, and that conversion is nothing more than reading off components.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: three dimensional geometry class 12 one shot](https://www.youtube.com/results?search_query=three+dimensional+geometry+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: lines and planes in 3D](https://www.khanacademy.org/search?page_search_query=lines%20planes%20three%20dimensional%20geometry)
+- **The book the paper is set from** — [NCERT Maths Part II, Chapter 11 (PDF)](https://ncert.nic.in/textbook/pdf/lemh205.pdf)
+- **For extra problems** — NCERT exercises are the closest match to the board's phrasing; then
+  Exemplar Chapter 11 for the skew-lines and image-of-a-point types.
+
+---
+
 ### Direction cosines and direction ratios of a line
 
 For a line through A(x₁, y₁, z₁) and B(x₂, y₂, z₂):

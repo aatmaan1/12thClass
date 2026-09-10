@@ -26,6 +26,65 @@ studies (the graphs make ideal "source material").**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Chapter 10 just finished proving that light is a wave. This chapter proves it is a stream of
+particles. Both are right, and physics has not fully recovered.
+
+The experiment that forced it: shine light on a metal surface and electrons come off. That much a
+wave picture can live with — the wave shakes the electrons loose. But three details refuse to fit.
+
+First, **below a certain frequency nothing happens at all**, no matter how bright the light or how
+long you wait. A wave picture cannot explain that; dim red light for an hour should deliver as much
+energy as bright red light for a minute.
+
+Second, **the electrons come out instantly** — within a nanosecond of the light arriving — even when
+the light is extremely faint. A wave spread over the whole surface would take minutes to concentrate
+enough energy on a single electron.
+
+Third, **making the light brighter produces more electrons but not faster ones.** Their maximum
+energy depends only on the *frequency*. Brightness changes the count, never the speed.
+
+Einstein's explanation was to take light's energy as arriving in indivisible lumps — **photons** —
+each carrying E = hν, and to say that one electron absorbs one photon, all or nothing. Everything
+falls into place. There is a minimum energy needed to escape the metal, called the **work function**
+φ₀; if a single photon carries less than that, no amount of them will do, because you cannot add up
+two failed attempts. That is the threshold. Since it is one photon per electron, there is nothing to
+accumulate, so emission is instantaneous. And whatever energy is left over after paying the escape
+cost becomes kinetic energy: **K_max = hν − φ₀**, Einstein's photoelectric equation. Brightness is
+just photons per second, so it sets how many electrons, never how energetic.
+
+The **stopping potential** is how you measure K_max without catching electrons: apply a reverse
+voltage until even the fastest electron cannot make it across, and eV₀ = K_max. Plot V₀ against
+frequency and you get a straight line whose slope is h/e — the same h for every metal, with only
+the intercept changing. That graph is asked almost every year, and being able to say what the slope
+and the intercept each mean is worth more than reproducing the line.
+
+Then the chapter turns the strangeness around. If a wave can behave like a particle, can a particle
+behave like a wave? De Broglie said yes and gave the wavelength: **λ = h/p**. This is not a
+metaphor. Fire electrons at a crystal and they diffract, producing interference patterns exactly
+like light through slits — which is what electron microscopes exploit. The reason you do not diffract
+when you walk through a doorway is that h is minuscule and your momentum is not: your wavelength
+comes out around 10⁻³⁵ m, unmeasurably small. An electron accelerated through a few volts, though,
+has a wavelength comparable to atomic spacing, and behaves accordingly. The useful shortcut for an
+electron accelerated through V volts is λ = 1.227/√V nm.
+
+The honest summary is that light is neither a wave nor a particle but something for which we have no
+everyday word, and which shows one face or the other depending on what you ask of it. Do not try to
+resolve that; the board does not expect you to. What it expects is that you can state the three
+observations a wave picture cannot explain, and use hν − φ₀ correctly.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: dual nature of radiation and matter class 12 one shot](https://www.youtube.com/results?search_query=dual+nature+of+radiation+and+matter+class+12+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: photoelectric effect](https://www.khanacademy.org/search?page_search_query=photoelectric%20effect%20class%2012)
+- **The book the paper is set from** — [NCERT Physics Part II, Chapter 11 (PDF)](https://ncert.nic.in/textbook/pdf/leph203.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 42 *Photoelectric Effect and Wave–Particle
+  Duality*. §42.1–42.5 walk through the failures of the wave picture one at a time, which is exactly
+  how the board's 3-markers are framed.
+
+---
+
 ### The photoelectric effect
 
 **Definition.** The **emission of electrons** from the surface of a metal when light of a suitable

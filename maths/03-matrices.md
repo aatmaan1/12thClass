@@ -30,6 +30,64 @@ The heavy 5-marker for this unit lives in Ch 4.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+A **matrix** is a table of numbers, and the reason mathematics bothers with it is that a lot of
+real problems arrive already shaped like a table. Three shops, four products, the quantity of each:
+that is a 3 × 4 matrix. Write the prices as a 4 × 1 matrix and one multiplication gives you each
+shop's total bill. The tables are not a new kind of number — they are a way of handling many numbers
+at once with one set of rules.
+
+Getting the **order** right is the foundation: rows first, then columns. A 3 × 4 matrix has three
+rows and four columns, and the entry a₂₃ sits in row 2, column 3. Say "row, column" out loud every
+time until it is automatic; a large fraction of avoidable errors in this chapter are transposition
+slips.
+
+Addition is easy and boring: add matching entries, and it only works if the two matrices are the
+same shape. Multiplying by a plain number is equally easy: every entry gets multiplied.
+
+**Multiplying two matrices** is where the chapter actually begins, and it is nobody's first guess.
+You do *not* multiply matching entries. Instead, to get the entry in row i and column j of the
+answer, you take row i of the first matrix and column j of the second, multiply them term by term,
+and add. Which means the row and the column must be the same length — so **AB only exists when the
+columns of A equal the rows of B**, and the answer has A's rows and B's columns. Check that before
+you compute anything.
+
+This definition looks arbitrary until you see what it is for: a matrix is really a *transformation*,
+an instruction like "rotate by 30° and stretch by 2", and multiplying matrices means doing one
+transformation after the other. That is why the rule combines rows with columns, and it is also why
+**AB ≠ BA in general**. Rotating then stretching is not the same as stretching then rotating. This
+is the property that most distinguishes matrices from ordinary numbers, and questions probing it are
+common. Two related surprises follow: AB can be the zero matrix without either A or B being zero,
+and you cannot cancel — AB = AC does not give B = C.
+
+The **transpose**, written A′ or Aᵗ, flips the matrix about its diagonal, turning rows into columns.
+Two special cases matter. A **symmetric** matrix is unchanged by the flip (A′ = A), so it is a mirror
+image about the diagonal. A **skew-symmetric** matrix flips to its own negative (A′ = −A), which
+forces every diagonal entry to be zero — because each must equal minus itself. That last deduction
+is a favourite one-marker. The one rule to memorise carefully is (AB)′ = B′A′: the order reverses.
+
+Two results generate a large share of the marks in this chapter and are worth knowing as facts. Any
+square matrix splits uniquely into a symmetric part and a skew-symmetric part, ½(A + A′) + ½(A − A′)
+— check for yourself that the first is symmetric and the second skew. And the **elementary row
+operations** route to an inverse: write A alongside the identity matrix, and whatever you do to A to
+turn it into the identity, do to the identity as well; what it becomes is A⁻¹.
+
+Two habits will save you more marks than any formula. Write the order of every matrix above it as
+you work, so an impossible product is caught before you waste five minutes on it. And when a
+question gives you a relation like A² = A or A² = I, try substituting rather than computing — that is
+almost always the intended short route.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: matrices class 12 maths one shot](https://www.youtube.com/results?search_query=matrices+class+12+maths+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: matrices](https://www.khanacademy.org/math/precalculus/x9e81a4f98389efdf:matrices)
+- **The book the paper is set from** — [NCERT Maths Part I, Chapter 3 (PDF)](https://ncert.nic.in/textbook/pdf/lemh103.pdf)
+- **For extra problems** — NCERT Exemplar Chapter 3, then RD Sharma for volume on the
+  symmetric/skew-symmetric decomposition and elementary operations, which reward drill.
+
+---
+
 ### Definition and order
 
 A **matrix** is a rectangular array of numbers. A matrix with m rows and n columns has **order

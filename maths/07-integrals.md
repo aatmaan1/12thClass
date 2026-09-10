@@ -36,6 +36,74 @@ other in Mathematics.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Integration is differentiation run backwards, and it is worth being blunt about the consequence:
+differentiation is a procedure, integration is a search. To differentiate x⁵ you apply a rule and
+you are done. To integrate something you have to *recognise* what it could be the derivative of.
+That is why this chapter is the biggest in the book, why it carries the most marks, and why the only
+route through it is doing problems rather than reading them.
+
+There are two distinct things called integration, and confusing them causes a lot of unnecessary
+suffering.
+
+The **indefinite integral** is the antiderivative: ∫2x dx = x² + C. The answer is a *function*. The
++C is there because differentiating x² + 7 also gives 2x, so there is a whole family of answers
+differing by a constant. Dropping the +C is the most common single mark lost in the entire paper.
+
+The **definite integral** ∫ₐᵇ f(x) dx is a *number*, and it means the area under the graph between
+a and b. The astonishing fact linking the two — the Fundamental Theorem of Calculus — is that you
+can find that area by antidifferentiating and subtracting: F(b) − F(a). Areas and slopes look
+unrelated, and the discovery that they are inverse operations is what made calculus the most
+powerful tool in mathematics.
+
+The rest of the chapter is a toolkit, and knowing *which tool a problem calls for* matters more than
+knowing any one of them. Here is how to tell.
+
+**Substitution** is the chain rule reversed. Look for a chunk whose derivative is also sitting in
+the integrand — if you can see f(g(x)) and g′(x) together, put u = g(x) and the integral collapses.
+∫2x·cos(x²) dx works because 2x is the derivative of x². This is the first thing to try, always.
+
+**Integration by parts** is for a *product* of two unlike things — a polynomial times a
+trigonometric function, or anything times a logarithm. ∫u dv = uv − ∫v du. The whole art is choosing
+which factor to call u, and the guide is **ILATE**: Inverse trig, Logarithm, Algebraic,
+Trigonometric, Exponential — whichever appears first in that list becomes u. The reason is that u
+gets differentiated, and you want the factor that gets *simpler* when differentiated. A logarithm
+becomes 1/x; a polynomial loses a degree; an exponential never simplifies, so it should be the other
+one.
+
+**Partial fractions** is for a ratio of polynomials. Split the fraction into simpler pieces whose
+denominators are the factors, and integrate each — usually into logarithms. Mechanical once set up;
+the setup depends on the factors being linear, repeated or quadratic, and it is worth learning the
+three shapes.
+
+**Special forms** are the ones to recognise on sight, because they will not yield to anything else:
+anything with 1/(x² + a²), 1/(x² − a²), 1/√(a² − x²) and their relatives. There are about eight of
+them, they are in the formula sheet, and they are non-negotiable memorisation. A trigonometric
+substitution derives them, but in an exam you want them instantly.
+
+Finally, the **properties of definite integrals** are the chapter's hidden shortcut, and strong
+candidates are separated from average ones by whether they use them. The most valuable is
+∫₀ᵃ f(x) dx = ∫₀ᵃ f(a − x) dx: replacing x by a − x often turns an impossible integrand into one
+that cancels against the original, and a whole class of 3- and 5-markers is designed around it. The
+even/odd property — ∫₋ₐᵃ of an odd function is zero — can reduce a page of work to one line. Learn to
+*look* for these before you start grinding.
+
+Do not try to shortcut this chapter. Thirty problems a week for a month is the honest cost, and it
+is repaid: Integrals plus Application of Integrals plus Differential Equations is around a quarter
+of the paper.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: integrals class 12 maths one shot](https://www.youtube.com/results?search_query=integrals+class+12+maths+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: integrals](https://www.khanacademy.org/math/integral-calculus/ic-integration)
+- **Why area and slope are inverse** — [search: essence of calculus integration fundamental theorem 3Blue1Brown](https://www.youtube.com/results?search_query=3blue1brown+essence+of+calculus+integration+fundamental+theorem)
+- **The book the paper is set from** — [NCERT Maths Part II, Chapter 7 (PDF)](https://ncert.nic.in/textbook/pdf/lemh201.pdf)
+- **For extra problems** — NCERT first, all exercises, then RD Sharma for volume. This is the one
+  chapter where sheer number of problems attempted is the single best predictor of your mark.
+
+---
+
 ### The 15-second classification
 
 Before writing anything, decide which method applies. This decision is the whole skill.

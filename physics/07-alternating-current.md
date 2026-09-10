@@ -31,6 +31,72 @@ question. Along with Ray Optics, this is one of the two most predictable 5-marke
 
 ## 2. Brief
 
+### Start here — in plain English
+
+The electricity in your wall socket does not flow one way. Fifty times a second it reverses, and the
+voltage traces a smooth sine wave from +325 V to −325 V and back. We call the "230 V" on the label
+the **rms** value, and the first thing this chapter has to explain is why we quote that odd number
+instead of the peak.
+
+The average of a sine wave over a full cycle is zero — as much above as below — so an average is
+useless for describing AC. But the *heating* is not zero: a bulb does not care which way the current
+goes, only how much there is, and heat goes as I². So we square the current, take the average of
+that, and square-root it back. That is the root-mean-square, and it is defined precisely so that
+I_rms through a resistor produces the same heat as a steady DC current of the same value. Hence
+I_rms = I₀/√2, and 230 V rms is a 325 V peak.
+
+Then the chapter's real business: what a resistor, a capacitor and an inductor each do to AC, and
+they do three different things.
+
+A **resistor** is dull, and usefully so. Voltage and current rise and fall together, in step. All
+the energy delivered is dissipated as heat.
+
+A **capacitor** cannot pass DC at all — charge just piles up on the plates and stops. But with AC
+the plates are being charged and discharged fifty times a second, so current sloshes back and forth
+in the wires continuously, and the faster you reverse, the easier it gets. So its opposition,
+X_C = 1/ωC, *falls* as frequency rises. And the current leads the voltage by a quarter cycle: the
+current has to flow first before charge can accumulate to produce a voltage.
+
+An **inductor** is the mirror image. It happily passes DC — it is only a coil of wire — but it fights
+change, so the faster you reverse the harder it resists: X_L = ωL *rises* with frequency. Here the
+voltage leads the current, because the coil's emf appears in response to the current changing.
+
+Put all three in series and you cannot simply add their oppositions, because their peaks happen at
+different moments. This is why the **phasor diagram** exists: draw each voltage as an arrow whose
+angle records its timing, and adding arrows handles the timing automatically. The inductor's arrow
+points up, the capacitor's down, the resistor's along — so the two reactances partly cancel, and the
+total is Z = √(R² + (X_L − X_C)²). That Pythagoras is a picture, not an accident.
+
+**Resonance** is where it gets beautiful. X_L rises with frequency and X_C falls, so at exactly one
+frequency they are equal and cancel completely. At that point the circuit behaves as though the
+capacitor and inductor were not there — impedance drops to just R, and the current shoots up to its
+maximum. That frequency is ω = 1/√(LC). It is how a radio picks one station out of the air: you
+adjust C until the circuit resonates with the station you want, and every other frequency stays
+small.
+
+**Power** in AC has one trap, and the paper loves it. P = V_rms I_rms cos φ, where cos φ is the
+**power factor**. Only the resistor consumes energy; a pure inductor or capacitor gives back
+everything it takes, half a cycle later. So in a purely reactive circuit φ = 90°, cos φ = 0, and the
+average power is exactly zero despite large currents flowing — the famous **wattless current**.
+
+Finally the **transformer**, which is Chapter 6 put to work. Two coils on a shared iron core: the
+first coil's changing current makes a changing flux, the core carries that flux to the second coil,
+and the second coil sees an emf. More turns on the output side means more voltage — and,
+because energy is conserved, correspondingly less current. This is why power lines run at hundreds
+of thousands of volts: for the same power delivered, high voltage means low current, and heating
+loss goes as I²R.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: alternating current class 12 one shot](https://www.youtube.com/results?search_query=alternating+current+class+12+physics+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: alternating current](https://www.khanacademy.org/science/in-in-class-12th-physics-india/x51bd77206da864f3:alternating-current)
+- **The book the paper is set from** — [NCERT Physics Part I, Chapter 7 (PDF)](https://ncert.nic.in/textbook/pdf/leph107.pdf)
+- **HC Verma** — *Concepts of Physics* Part 2, Ch 39 *Alternating Current*. Read §39.2 on rms
+  values and §39.5–39.7 on the series circuit and resonance; his phasor treatment is the one that
+  makes the √(R² + (X_L − X_C)²) obvious rather than arbitrary.
+
+---
+
 ### Alternating current and voltage
 
 ```

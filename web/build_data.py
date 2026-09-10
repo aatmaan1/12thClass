@@ -63,6 +63,7 @@ for subj, num, slug, title, unit, umarks, prio in CH:
         "unit": unit, "unitMarks": umarks, "prio": prio, "appear": ap,
         "deleted": sub(secs[0], "Deleted"),
         "recall": sub(secs[1], "Quick recall box"),
+        "intro": sub(secs[1], "Start here"),
         "s": {k: secs[i].strip() for i, k in enumerate(SEC_KEYS)},
     })
 
@@ -90,6 +91,7 @@ io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json"), "
 print("chapters:", len(chapters), " docs:", len(docs))
 print("bundle bytes: %.2f MB" % (len(js.encode('utf-8'))/1048576))
 print("chapters missing a recall box:", [c["id"] for c in chapters if not c["recall"]])
+print("chapters missing a plain-English intro:", [c["id"] for c in chapters if not c["intro"]])
 print("chapters missing a deleted block:", [c["id"] for c in chapters if not c["deleted"]])
 print("chapters missing an appearance line:", [c["id"] for c in chapters if not c["appear"]])
 print("total marks  maths:", sum({c['unit']:c['unitMarks'] for c in chapters if c['subj']=='maths'}.values()),

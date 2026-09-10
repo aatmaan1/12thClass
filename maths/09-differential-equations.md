@@ -29,6 +29,61 @@ solving question, nearly every year. Highly templated — three methods cover th
 
 ## 2. Brief
 
+### Start here — in plain English
+
+A **differential equation** is an equation containing a derivative. That is the definition, but it
+undersells what is going on. Look at what such an equation is telling you: it does not say what a
+quantity *is*, it says how it *changes*. And an enormous amount of what we know about the world
+arrives in exactly that form.
+
+"A hot cup of tea cools at a rate proportional to how much hotter it is than the room." Nobody hands
+you the temperature at 4 p.m.; they hand you a rule about the rate. Write it as dT/dt = −k(T − T₀)
+and you have a differential equation. Solving it means recovering the actual temperature as a
+function of time. Bacterial growth, radioactive decay, a falling body with air resistance, the
+charge on a capacitor — all of them are stated as rates first. This chapter is how you get from the
+rule to the answer.
+
+Two labels come first, because every question opens by asking for them. The **order** is the highest
+derivative present — a d²y/dx² makes it second order. The **degree** is the power that highest
+derivative is raised to, and it only counts as a degree at all if the equation is polynomial in its
+derivatives. So (d²y/dx²)³ + y = 0 has order 2 and degree 3; but sin(dy/dx) = y has order 1 and *no
+degree defined*, because a sine is not a polynomial. That last case is a favourite one-marker.
+
+Solving comes in exactly two flavours in this syllabus, and recognising which you are looking at is
+the whole game.
+
+**Variables separable** is the first thing to try. If you can shuffle the equation until all the y's
+and dy sit on one side and all the x's and dx on the other, you just integrate both sides and you
+are done. dy/dx = xy separates into dy/y = x dx, giving ln y = x²/2 + C. Anything that factorises
+into (a function of x) × (a function of y) will separate.
+
+**Linear first order** is the other, and it has a fixed recipe. Get the equation into the shape
+dy/dx + Py = Q, where P and Q involve only x. Compute the **integrating factor** e^∫P dx, multiply
+through by it, and the left side collapses into the derivative of a single product — which is the
+whole point of the factor. Then integrate once. The formula y × IF = ∫Q × IF dx is worth memorising,
+but so is the reason it works, because the board sometimes asks you to identify P and Q separately.
+
+Two pieces of practical advice. **Always look for separation first** — it is faster, and some
+equations that look linear will separate. And when a question supplies an extra condition like
+"y = 1 when x = 0", that is there to pin down C: solve generally, then substitute at the very end.
+A general solution offered where a particular one was asked for loses marks even if the calculus is
+perfect.
+
+Note the scope: homogeneous differential equations and the substitution y = vx have been trimmed in
+the rationalised syllabus. Check §1 of this chapter before working through them — if they are out
+for your year, that is a substantial saving, and it makes this chapter one of the best
+marks-per-hour in the paper.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: differential equations class 12 one shot](https://www.youtube.com/results?search_query=differential+equations+class+12+maths+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: differential equations](https://www.khanacademy.org/math/differential-equations)
+- **The book the paper is set from** — [NCERT Maths Part II, Chapter 9 (PDF)](https://ncert.nic.in/textbook/pdf/lemh203.pdf)
+- **For extra problems** — NCERT exercises, then Exemplar Chapter 9. Drill the integrating-factor
+  type until the four steps need no thought; it is close to a guaranteed appearance.
+
+---
+
 ### Definitions
 
 A **differential equation** is an equation involving derivatives of a dependent variable with

@@ -92,6 +92,8 @@ Open it as a `file://` URL and it works too — there is nothing that needs a se
 | Feature | Why |
 | --- | --- |
 | Six tabs per chapter — Scope, Brief, Questions, Solutions, Self-test, Tips | The notes' six-part structure *is* the navigation |
+| Brief opens with **Start here** — plain English, no prior knowledge assumed, plus links out to a video lecture, Khan Academy, the NCERT chapter and the matching HC Verma sections | Formulae are useless to someone who does not yet know what the thing *is* |
+| The quick-recall box is **collapsed** by default | It is a revision aid; on a first read it is noise |
 | 332 board questions, each with the solution behind a **Show solution** toggle | Lets you attempt on paper first. Reading a solution you did not attempt teaches nothing |
 | Answer keys hidden behind a reveal | Makes the self-tests work as tests |
 | Progress counted in **marks**, not chapters | Marks are the only unit the board pays in |

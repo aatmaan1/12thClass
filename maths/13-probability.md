@@ -32,6 +32,68 @@ guaranteed) + one 2/3-mark conditional-probability question + an MCQ.**
 
 ## 2. Brief
 
+### Start here — in plain English
+
+Most of this chapter is about one idea, and it is an idea that human intuition gets wrong almost
+every time: **how new information should change what you believe.**
+
+Here is the standard illustration, and it is worth sitting with. A disease affects 1 person in 1000.
+A test for it is 99% accurate. You test positive. What is the chance you have the disease? Almost
+everyone says 99%. The right answer is about 9%. Out of 1000 people, one has the disease and tests
+positive; of the 999 healthy ones, 1% — about ten people — test positive anyway. So eleven people
+test positive and only one is ill. The test is good; the disease is just rare, and rarity dominates.
+
+That calculation is **Bayes' theorem**, and the chapter builds up to it.
+
+**Conditional probability** is the foundation: P(A|B), read "the probability of A *given* B", is the
+probability of A once you know B has happened. Knowing B shrinks the world to just those outcomes
+where B is true, so you count A's share of that smaller world: P(A|B) = P(A∩B)/P(B). Drawing a card
+and being told it is a face card changes the odds it is a king from 4/52 to 4/12. Nothing has
+changed about the card; what changed is what you know.
+
+**Independence** is the special case where the news is useless. A and B are independent if learning
+B tells you nothing about A, so P(A|B) = P(A), which rearranges into the test you will use:
+**P(A∩B) = P(A)·P(B)**. Two coin tosses are independent. Two cards drawn without replacement are
+not, because the first draw changes what is left in the deck. Watch for the phrase "with
+replacement" or "without" — it decides the whole question.
+
+The **multiplication theorem** is that same relation used forwards, and the **total probability**
+rule is how you handle a situation that could have arisen by several routes: if a ball could have
+come from bag A or bag B, the overall chance of it being red is the chance of each bag times the
+chance of red from that bag, added up. Then **Bayes' theorem** runs that argument *backwards* —
+given the ball is red, which bag did it probably come from? That reversal is the chapter's flagship
+5-mark question, and it always arrives dressed as a story: two machines and a defective item, three
+bags and a coloured ball, two doctors and a diagnosis. The wording changes; the structure never does.
+
+There is a mechanical way to get these right that is worth adopting: **draw the tree**. Branches for
+the possible sources with their prior probabilities, then branches for the observed outcome with its
+conditional probabilities, and multiply along each path. Bayes' theorem is then just "the path I care
+about, divided by all the paths that produce the observation". Students who draw the tree get these
+right; students who reach for the formula mix up which probability is conditioned on which.
+
+The last piece is the **random variable** and its **mean**. A random variable attaches a number to
+each outcome — the number of heads in three tosses, say — and its probability distribution lists the
+values with their probabilities. The mean, or expectation, is Σx·P(x): each value weighted by how
+likely it is. It is the long-run average, and it need not be a value the variable can actually take —
+the expected number of heads in three tosses is 1.5. Two checks before you go further: every
+probability must be between 0 and 1, and they must sum to exactly 1. If your distribution table
+fails either test, stop and find the error.
+
+Note the scope: the binomial distribution and variance have been trimmed in the rationalised
+syllabus. Check §1 of this chapter before studying them.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: probability class 12 one shot Bayes theorem](https://www.youtube.com/results?search_query=probability+class+12+maths+one+shot+bayes+theorem)
+- **Why Bayes' theorem is unintuitive** — [search: Bayes theorem 3Blue1Brown](https://www.youtube.com/results?search_query=bayes+theorem+3blue1brown).
+  The clearest visual explanation available, and it makes the disease example obvious.
+- **Interactive lessons and practice** — [Khan Academy: conditional probability and Bayes](https://www.khanacademy.org/math/statistics-probability/probability-library)
+- **The book the paper is set from** — [NCERT Maths Part II, Chapter 13 (PDF)](https://ncert.nic.in/textbook/pdf/lemh207.pdf)
+- **For extra problems** — NCERT exercises, then Exemplar Chapter 13. Do at least ten full Bayes
+  word problems with trees drawn; it is the highest-value single question type in the paper.
+
+---
+
 ### Conditional probability
 
 The probability of A **given that** B has already occurred:

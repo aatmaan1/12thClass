@@ -32,6 +32,57 @@ rationalised.
 
 ## 2. Brief
 
+### Start here — in plain English
+
+You know that a definite integral gives the area under a curve. This short chapter is that one fact,
+applied carefully. It is the easiest marks in the calculus block, and it is where the most marks are
+thrown away on avoidable errors.
+
+The basic move: the area between the curve y = f(x), the x-axis, and the vertical lines x = a and
+x = b is ∫ₐᵇ f(x) dx. Sometimes it is more convenient to integrate the other way round —
+∫ f(y) dy between two horizontal lines — and knowing which to choose is half the skill. Choose the
+one that makes the boundary a single clean function.
+
+Three things go wrong, and all three are avoidable.
+
+**First, sketch the region.** Always, even when the question does not ask for a diagram. Without a
+sketch you cannot see which curve is on top, you cannot see whether the region is in two pieces, and
+you will not notice that the curves cross inside your interval. The sketch takes ninety seconds and
+it is the difference between a full-mark answer and a plausible wrong one. Examiners also award marks
+for it.
+
+**Second, area is never negative.** Below the x-axis the integral comes out negative, because
+f(x) is negative there. The integral is telling the truth — it is *signed* area — but the question
+asked for area, so you must take the modulus. If a region straddles the axis, split the integral at
+the crossing point and add the absolute values of the two pieces. Do not integrate straight across
+and hand in a small number: the parts cancelled and your answer is meaningless. This is the
+chapter's classic trap, and it is worth writing "region below axis, taking modulus" in your working
+so the examiner sees you knew.
+
+**Third, get the limits from the curves, not from the question.** For the area *between* two curves
+the limits are where they intersect, so you solve f(x) = g(x) first, and the area is
+∫ (upper − lower) dx. Subtracting in the wrong order gives you the negative of the right answer.
+Read off from your sketch which is upper.
+
+The standard shapes recur, and it pays to have met each one before the exam: a circle (x² + y² = a²),
+a parabola (y² = 4ax), an ellipse (x²/a² + y²/b² = 1), and the regions cut out where a line meets one
+of these. For a circle or an ellipse, exploit the symmetry — compute one quadrant and multiply by
+four; it is faster and there is less to get wrong. The integral ∫√(a² − x²) dx is the one to have at
+your fingertips, since almost every circle and ellipse question reduces to it.
+
+The chapter is worth about 5 marks and takes a fraction of the time of Integrals to master. Treat it
+as a guaranteed score rather than an afterthought.
+
+**Learn it from someone else too**
+
+- **Video lecture** — [search: application of integrals class 12 area under curve one shot](https://www.youtube.com/results?search_query=application+of+integrals+class+12+area+under+curve+one+shot)
+- **Interactive lessons and practice** — [Khan Academy: area between curves](https://www.khanacademy.org/math/integral-calculus/ic-int-app)
+- **The book the paper is set from** — [NCERT Maths Part II, Chapter 8 (PDF)](https://ncert.nic.in/textbook/pdf/lemh202.pdf)
+- **For extra problems** — the NCERT exercise plus the miscellaneous exercise is close to exhaustive
+  for this chapter; the board rarely goes beyond those shapes.
+
+---
+
 ### The two basic formulas
 
 **Strips parallel to the y-axis** (integrate with respect to x):
