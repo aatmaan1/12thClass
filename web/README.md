@@ -3,7 +3,9 @@
 A single-page study app built from the markdown notes in this repository. It is a **static site**:
 one HTML file, no framework, no build step on the server, no dependencies to install.
 
-- **`index.html`** — the deployable site. Generated; do not edit by hand.
+- **`../index.html`** — the deployable site, at the **repository root**. Generated; do not edit by
+  hand. It sits at the root because Vercel serves a repository root as a static site with no
+  configuration at all — no rewrites to misfire.
 - **`app.src.html`** — the app template (markup, CSS, JS). Edit this.
 - **`build_data.py`** — extracts the chapters and reference docs from the markdown into `data.json`.
 - **`build.py`** — runs the extractor, bundles the data into the template, writes `index.html`.
@@ -27,13 +29,13 @@ every push to `main` redeploys on its own.
    *Adjust GitHub App Permissions* and grant access to the repository.
 4. Leave every build setting at its default:
    - Framework Preset — **Other**
-   - Root Directory — **`./`** (the repository root, not `web`)
+   - Root Directory — **`./`** (the repository root)
    - Build Command — **empty**
    - Output Directory — **empty**
    - Install Command — **empty**
 
-   The `vercel.json` at the repository root handles routing: it rewrites every path to
-   `/web/index.html`, so the app is served at `/` and the raw markdown is not exposed over HTTP.
+   `index.html` is at the repository root, so Vercel serves it at `/` with no routing
+   configuration. The `vercel.json` at the root only sets a few response headers.
 5. Click **Deploy**. It takes well under a minute — there is nothing to compile.
 
 You will get a URL like `https://12thclass.vercel.app`. Add a custom domain from the project's
@@ -41,8 +43,16 @@ You will get a URL like `https://12thclass.vercel.app`. Add a custom domain from
 
 ### If the deployed page shows a 404
 
-That means `web/index.html` is not on the branch Vercel is deploying. Vercel deploys `main` as
-production; confirm `web/index.html` exists on `main` and redeploy.
+Check, in order:
+
+1. **Is `index.html` on the branch Vercel is deploying?** Vercel deploys `main` as production.
+   Confirm `index.html` exists at the root of `main`.
+2. **Is Root Directory set to `./`?** If it points at `web`, Vercel looks for `web/index.html`,
+   which no longer exists.
+3. **Do not add `rewrites` to `vercel.json`.** An earlier version served the page from
+   `web/index.html` via a rewrite and 404'd on the live deployment — `cleanUrls` strips the `.html`
+   from the rewrite *destination*, so it resolved to nothing. Serving from the root avoids the whole
+   problem.
 
 ---
 
@@ -53,7 +63,7 @@ change the site until you rebuild:
 
 ```bash
 python3 web/build.py
-git add web/index.html web/data.json
+git add index.html web/data.json
 git commit -m "Rebuild study site"
 git push
 ```
@@ -70,7 +80,7 @@ Edit `app.src.html`, then run `python3 web/build.py`. To preview locally:
 
 ```bash
 python3 -m http.server 8000
-# then open http://localhost:8000/web/index.html
+# then open http://localhost:8000/
 ```
 
 Open it as a `file://` URL and it works too — there is nothing that needs a server.

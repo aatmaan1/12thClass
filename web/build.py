@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """
-Build web/index.html — the deployable Marks First study site.
+Build index.html — the deployable Marks First study site.
 
 Reads the chapter and reference markdown from the repository, bundles it into
-the single-page app template, and writes a standalone HTML file that Vercel
-serves as a static site. No build step, no framework, no dependencies.
+the single-page app template, and writes index.html at the REPOSITORY ROOT.
+
+It goes at the root deliberately: Vercel serves a repository root as a static
+site with no configuration, so there are no rewrites to misfire. An earlier
+version wrote to web/index.html and routed to it via a vercel.json rewrite,
+which 404'd on the live deployment.
 
     python3 web/build.py
 
@@ -90,13 +94,13 @@ def main():
 """
     out = head + body + "\n</body>\n</html>\n"
 
-    dest = os.path.join(HERE, "index.html")
+    dest = os.path.join(ROOT, "index.html")
     io.open(dest, "w", encoding="utf-8").write(out)
 
     d = json.loads(data)
     qs = sum(len(re.findall(r"^\*\*Q\d+\.\*\*", c["s"]["pyq"], re.M)) for c in d["chapters"])
     size = len(out.encode("utf-8")) / 1048576
-    print(f"wrote web/index.html  {size:.2f} MB")
+    print(f"wrote index.html (repository root)  {size:.2f} MB")
     print(f"  chapters {len(d['chapters'])}  reference docs {len(d['docs'])}  "
           f"board questions {qs}")
 
