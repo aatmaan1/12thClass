@@ -174,3 +174,97 @@ def test_the_runtime_files_are_where_the_handlers_look_for_them():
                  "api/_data/paid.json"):
         assert (REPO_ROOT / path).exists(), path
         assert path.split("/")[1].startswith("_"), path
+
+
+# ------------------------------------------------- 3. the numbers on the page
+
+
+def test_the_landing_page_only_claims_what_the_notes_contain(real):
+    page = built("index.html")
+    bundle = real["bundle"]
+    assert str(len(bundle["chapters"])) in page
+    assert str(len(questions(bundle))) in page          # 332 board questions
+
+    # the weightage chart is the real CBSE unit weightage, to scale
+    marks_on_page = [int(m) for m in re.findall(r"<b>(\d+)</b></div>", page)]
+    real_units, seen = [], set()
+    for chapter in bundle["chapters"]:
+        key = (chapter["subj"], chapter["unit"])
+        if key not in seen:
+            seen.add(key)
+            real_units.append(chapter["unitMarks"])
+    assert marks_on_page == real_units
+    # and every bar is drawn in proportion to the widest
+    widths = [float(w) for w in re.findall(r'ch-bar" style="width:([\d.]+)%', page)]
+    assert len(widths) == len(real_units)
+    widest = max(real_units)
+    for marks, width in zip(real_units, widths):
+        assert abs(width - 100 * marks / widest) < 0.11
+
+
+def test_the_landing_page_quotes_the_marking_scheme_verbatim(real):
+    """A page arguing "marks are for steps" with an invented example would be
+    arguing against itself."""
+    page = built("index.html")
+    traps = re.findall(r'<div class="trap"><b>(.*?)</b><p>(.*?)</p>', page, re.S)
+    assert len(traps) == 3
+    by_title = {c["title"]: c for c in real["bundle"]["chapters"]}
+    for where, text in traps:
+        chapter = by_title[where.split(" · ", 1)[1]]
+        # the quote is a run of words from that chapter's own answering tips,
+        # with the markdown emphasis dropped and nothing else changed
+        needle = " ".join(html.unescape(text).split()[:8])
+        tips = re.sub(r"\s+", " ", chapter["s"]["tips"].replace("**", "").replace("*", ""))
+        assert needle in tips, f"{where}: {needle!r} is not in the notes"
+
+
+def test_every_ladder_rung_is_something_the_gate_can_unlock(real):
+    product = real["product"]
+    ladder = load_ladder(REAL_PRODUCT / product.ladder)
+    assert {o.slug for o in ladder.offers} == {e.offer for e in product.entitlements}
+    assert ladder.currency == product.currency
+    for offer in ladder.offers:
+        entitlement = product.entitlement(offer.slug)
+        assert entitlement is not None, offer.slug
+        # a rung that grants no content has to be worth buying for its seats
+        if not entitlement.grants:
+            assert entitlement.seats > 1, offer.slug
+    # and the prices on the landing page are the ladder's
+    page = built("index.html")
+    for offer in ladder.offers:
+        assert offer.display() in page, offer.slug
+
+
+def test_the_products_own_translations_are_not_in_the_notes(real):
+    """The notes are a study guide, not half a shopfront.
+
+    The Hindi wording for the paywall and the planner belongs to the product.
+    In the notes' `i18n/` it would ship to anyone reading the repository as
+    notes, and be edited by people editing chapters.
+    """
+    overlay = json.loads(
+        (REAL_PRODUCT / "i18n" / "hi" / "ui.json").read_text(encoding="utf-8")
+    )
+    keys = set(overlay) - {"_note"}
+    assert {"lock.h", "unlock.go", "plan.queueH", "led.inHand"} <= keys
+
+    notes_ui = json.loads(
+        (REPO_ROOT / "i18n" / "hi" / "ui.json").read_text(encoding="utf-8")
+    )
+    assert not (keys & set(notes_ui)), (
+        "these strings are in both the notes and the product overlay"
+    )
+    assert keys <= set(real["bundle"]["langs"]["hi"]["ui"])
+
+
+def test_the_runtime_manifest_says_what_each_key_opens(real):
+    from paywall.build import runtime_manifest
+
+    rebuilt = Product.from_runtime(runtime_manifest(real["product"]))
+    written = Product.from_runtime(
+        json.loads((REPO_ROOT / "api" / "_data" / "product.json").read_text(encoding="utf-8"))
+    )
+    for codes in ("c", "bc", "cu", "cd"):
+        assert rebuilt.grants_for(codes) == real["product"].grants_for(codes)
+        assert written.grants_for(codes) == real["product"].grants_for(codes)
+        assert written.seats_for(codes) == real["product"].seats_for(codes)
