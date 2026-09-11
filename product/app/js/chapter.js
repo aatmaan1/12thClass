@@ -18,6 +18,11 @@ var SECTIONS = [
 ];
 
 function fieldOf(c, path){
+  // the questions and the solutions may exist only in the reader's language
+  if (path === "s.pyq" || path === "s.sol"){
+    var src = qaSource(c);
+    return path === "s.pyq" ? (src.pyq || c.s.pyq) : (src.sol || c.s.sol);
+  }
   return path.indexOf("s.") === 0 ? (c.s || {})[path.slice(2)] : c[path];
 }
 
@@ -78,7 +83,7 @@ function sectionBody(c, s){
   var text = fieldOf(c, s.field) || "";
 
   if (s.id === "start") return '<div class="md">' + md(chIntro(c) || "") + "</div>";
-  if (s.id === "qs") return questions(c);
+  if (s.id === "qs") return (qaSource(c).translated ? "" : notrans()) + questions(c);
   if (s.id === "test") return selfTest(c);
   return notrans() + '<div class="md">' + md(text) + "</div>";
 }

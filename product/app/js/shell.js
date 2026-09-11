@@ -181,6 +181,8 @@ function setLang(l){
   LANG = LANGS.indexOf(l) === -1 ? "en" : l;
   try { localStorage.setItem("mf.lang", LANG); } catch(e){}
   document.documentElement.setAttribute("lang", LANG);
+  // the questions are language-dependent, so they are parsed again
+  CH.forEach(requeue);
   paintChrome();
   render();
 }

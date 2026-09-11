@@ -55,18 +55,27 @@ function chapters(subj){
   return CH.filter(function(c){ return c.subj === subj; });
 }
 
-/* ---------------- questions ---------------- */
+/* ---------------- questions ----------------
+   In the reader's language where it exists, English otherwise. The translated
+   set is attached to the chapter rather than to the language pack, so it is
+   gated exactly like the English: a locked chapter ships neither.
+   ---------------------------------------------------------------------------- */
+function qaSource(c){
+  var tr = (c.tr || {})[LANG];
+  if (tr && (tr.pyq || tr.sol)) return { pyq:tr.pyq, sol:tr.sol, translated:true };
+  return { pyq:c.s.pyq, sol:c.s.sol, translated:LANG === "en" };
+}
 function parseQs(c){
-  var sols = {};
+  var src = qaSource(c), sols = {};
   // A locked chapter ships no questions and no solutions: the fields are
   // absent rather than empty, because the point of the gate is that they are
   // not in this file at all.
-  (c.s.sol || "").split(/\n(?=### Q\d+\b)/).forEach(function(b){
+  (src.sol || "").split(/\n(?=### Q\d+\b)/).forEach(function(b){
     var m = b.match(/^### Q(\d+)\b[^\n]*\n?([\s\S]*)$/);
     if (m) sols[m[1]] = (m[2] || "").trim();
   });
   var out = [];
-  (c.s.pyq || "").split(/\n(?=\*\*Q\d+\.\*\*)/).forEach(function(b){
+  (src.pyq || "").split(/\n(?=\*\*Q\d+\.\*\*)/).forEach(function(b){
     var m = b.match(/^\*\*Q(\d+)\.\*\*\s*(?:\*\(([^)]*)\)\*)?\s*([\s\S]*)$/);
     if (!m) return;
     out.push({ n:m[1], marks:(m[2] || "").replace(/\s*—[\s\S]*/,"").trim(),

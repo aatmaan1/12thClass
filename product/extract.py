@@ -166,6 +166,50 @@ def docs() -> list[dict]:
     return out
 
 
+def translated_qa(directory: str, lang: str, chapter_list: list[dict]) -> list[str]:
+    """Attach a language's board questions and solutions to their chapters.
+
+    One file per chapter, split by two machine markers so the headings never
+    reach a reader. The question numbering must survive translation, because
+    each question is paired with its solution by that number — a mismatch is a
+    build failure rather than a page that quietly shows the wrong working.
+
+    These are attached to the **chapter**, not to the language pack, and that
+    is the whole point: questions and solutions are the paid half of this
+    product in any language. On the chapter they pass through the same gate as
+    the English, so a locked chapter withholds its Hindi solutions and a free
+    sample hands them over. In the language pack — which ships whole, because
+    an interface is not the product — they would be a straight leak.
+    """
+    missing = []
+    for chapter in chapter_list:
+        path = os.path.join(directory, "qa", "%s%02d.md" % (chapter["id"][0], chapter["num"]))
+        if not os.path.exists(path):
+            missing.append(chapter["id"])
+            continue
+        text = io.open(path, encoding="utf-8").read()
+        split = re.search(r"<!--\s*QUESTIONS\s*-->(.*?)<!--\s*SOLUTIONS\s*-->(.*)$", text, re.S)
+        if not split:
+            raise SystemExit(
+                f"{path}: needs both <!-- QUESTIONS --> and <!-- SOLUTIONS --> markers"
+            )
+        pyq, sol = split.group(1).strip(), split.group(2).strip()
+
+        want = re.findall(r"^\*\*Q(\d+)\.\*\*", chapter["s"]["pyq"], re.M)
+        got = re.findall(r"^\*\*Q(\d+)\.\*\*", pyq, re.M)
+        if got != want:
+            raise SystemExit(
+                f"{path}: question numbers {got} do not match the English {want}"
+            )
+        got_sol = re.findall(r"^### Q(\d+)\b", sol, re.M)
+        if got_sol != want:
+            raise SystemExit(
+                f"{path}: solution numbers {got_sol} do not match the questions {want}"
+            )
+        chapter.setdefault("tr", {})[lang] = {"pyq": pyq, "sol": sol}
+    return missing
+
+
 def langs(chapter_list: list[dict], doc_list: list[dict]) -> dict:
     """Fold in every translation under `content/i18n/`.
 
@@ -217,12 +261,15 @@ def langs(chapter_list: list[dict], doc_list: list[dict]) -> dict:
             if doc["id"] not in docnames:
                 raise SystemExit(f"{lang}: no document name for {doc['id']}")
 
+        no_qa = translated_qa(directory, lang, chapter_list)
         out[lang] = {"ui": ui, "titles": titles, "units": units, "docs": docnames,
                      "intros": intros}
         print("  %s: %d ui strings (%d of them the product's own), %d chapter "
-              "names, %d intros%s"
+              "names, %d intros, %d Q&A sets%s%s"
               % (lang, len(ui), overlaid, len(titles), len(intros),
-                 ("  no intro for: " + ",".join(missing)) if missing else ""))
+                 len(chapter_list) - len(no_qa),
+                 ("  no intro for: " + ",".join(missing)) if missing else "",
+                 ("  no Q&A for: " + ",".join(no_qa)) if no_qa else ""))
     return out
 
 

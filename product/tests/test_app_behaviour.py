@@ -367,6 +367,37 @@ def test_the_app_fits_a_phone(app):
     assert app.page.evaluate("document.body.scrollWidth <= document.body.clientWidth + 1")
 
 
+def test_a_free_chapter_shows_its_questions_in_hindi(app):
+    app.open_app("#/ch/m13")
+    app.page.click('[data-lang="hi"]')
+    app.page.wait_for_timeout(600)
+    assert app.page.locator(".qq").count() > 5
+    first = app.page.locator(".qq-b").first.inner_text()
+    assert any("\u0900" <= ch <= "\u097F" for ch in first), "the question is in Devanagari"
+    # no "not translated yet" notice over the questions — but the sections that
+    # genuinely are English only still carry one, which is the point of it
+    assert app.page.locator(".sect#s-qs .notrans").count() == 0
+    assert app.page.locator(".notrans").count() > 0
+
+
+def test_a_locked_chapter_has_no_hindi_questions_until_unlocked(app):
+    app.open_app("#/ch/m1")
+    app.page.click('[data-lang="hi"]')
+    app.page.wait_for_timeout(600)
+    assert app.page.locator(".qq").count() == 0
+    assert app.page.locator(".gate").count() == 5
+
+    app.page.click("#accessBtn")
+    app.page.fill("#keyIn", key_for("c"))
+    app.page.click("[data-dounlock]")
+    app.page.wait_for_timeout(1400)
+    app.open_app("#/ch/m1")
+    app.page.wait_for_timeout(400)
+    assert app.page.locator(".qq").count() > 5
+    assert any("\u0900" <= ch <= "\u097F"
+               for ch in app.page.locator(".qq-b").first.inner_text())
+
+
 def test_the_hindi_planner_is_translated(app):
     app.open_app()
     app.page.click('[data-lang="hi"]')

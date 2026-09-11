@@ -268,3 +268,66 @@ def test_the_runtime_manifest_says_what_each_key_opens(real):
         assert rebuilt.grants_for(codes) == real["product"].grants_for(codes)
         assert written.grants_for(codes) == real["product"].grants_for(codes)
         assert written.seats_for(codes) == real["product"].seats_for(codes)
+
+
+# ------------------------------------------- 4. the translated question bank
+
+
+def test_the_translated_questions_are_gated_like_the_english(real):
+    """Questions and solutions are the paid half in *any* language.
+
+    They are attached to the chapter rather than to the language pack, which
+    ships whole because an interface is not the product. On the chapter they
+    pass through the same gate: a locked chapter withholds its Hindi solutions
+    and a free sample hands them over. In the language pack they would have
+    been a straight leak, and one the English-only leak check would not see.
+    """
+    product, bundle, split = real["product"], real["bundle"], real["split"]
+    samples = set(product.rule("chapters").samples)
+    translated = [c for c in bundle["chapters"] if (c.get("tr") or {}).get("hi")]
+    assert len(translated) == len(bundle["chapters"]), "every chapter has a Hindi set"
+
+    free_chapters = {c["id"]: c for c in split.free["chapters"]}
+    for chapter in translated:
+        free = free_chapters[chapter["id"]]
+        if chapter["id"] in samples:
+            assert free["tr"]["hi"]["sol"] == chapter["tr"]["hi"]["sol"], chapter["id"]
+        else:
+            assert "tr" not in free, chapter["id"]
+            assert split.paid["chapters"][chapter["id"]]["tr"]["hi"]["sol"]
+
+    # and the language pack itself carries no questions at all
+    assert "qa" not in split.free["langs"]["hi"]
+    assert set(split.free["langs"]["hi"]) == {"ui", "titles", "units", "docs", "intros"}
+
+
+def test_no_hindi_solution_of_a_locked_chapter_reaches_the_public_page(real):
+    """The check the English-only leak scan cannot make."""
+    pages = built("index.html") + "\n" + built("app.html")
+    samples = set(real["product"].rule("chapters").samples)
+    checked = 0
+    for chapter in real["bundle"]["chapters"]:
+        if chapter["id"] in samples:
+            continue
+        hindi = (chapter.get("tr") or {}).get("hi") or {}
+        for field in ("pyq", "sol"):
+            text = hindi.get(field) or ""
+            if len(text) < 200:
+                continue
+            middle = len(text) // 2
+            needle = re.sub(r"\s+", " ", text[middle - 60:middle + 60])
+            assert needle not in re.sub(r"\s+", " ", pages), f"{chapter['id']}/{field}"
+            checked += 1
+    assert checked >= 40, "this test should be looking at both fields of 25 chapters"
+
+
+def test_the_question_numbering_survives_translation(real):
+    """Each question is paired with its solution by number, so a mismatch
+    would silently show the wrong working."""
+    for chapter in real["bundle"]["chapters"]:
+        hindi = (chapter.get("tr") or {}).get("hi")
+        if not hindi:
+            continue
+        english = re.findall(r"^\*\*Q(\d+)\.\*\*", chapter["s"]["pyq"], re.M)
+        assert re.findall(r"^\*\*Q(\d+)\.\*\*", hindi["pyq"], re.M) == english, chapter["id"]
+        assert re.findall(r"^### Q(\d+)\b", hindi["sol"], re.M) == english, chapter["id"]
