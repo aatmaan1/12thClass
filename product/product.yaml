@@ -1,0 +1,101 @@
+# Marks First — what is free, what is sold, and what each rung unlocks.
+#
+# The notes at the repository root are the product. This file is the only place
+# that says which parts of them a stranger may read.
+#
+# The split follows from what the product actually is. The planner works out
+# how many marks you are missing and which chapters hold them, and it needs
+# only metadata to do it: each chapter's unit, its weightage, its priority and
+# how often the board asks it. So **the diagnosis is free** — every visitor
+# gets the whole plan, for both subjects, with dates. What is sold is the
+# material that closes the gap it just showed them.
+#
+# That is a better offer than a handful of sample chapters, and a more honest
+# one: nobody is asked to guess whether the product would help before seeing
+# exactly what it would do.
+
+slug: marks-first
+name: Marks First
+tagline: >
+  Find out how many marks you are missing, which chapters hold them, and what
+  to do about it — CBSE Class 12 Maths and Physics
+audience: CBSE Class 12 students sitting Mathematics (041) and Physics (042)
+currency: INR
+
+extractor: extract.py
+app: app/app.src.html
+deploy: ../          # the repository root: Vercel serves it with no config
+ladder: ladder.yaml
+funnel: copy.yaml
+support_email: anuj@zo.xyz
+
+gate:
+  free_collections:
+    - langs          # the interface, and the free intros, in every language
+
+  collections:
+    chapters:
+      key: id
+      # Two chapters end to end, so the sample is the whole experience rather
+      # than a tour of it. Probability and Semiconductor Electronics are
+      # deliberate: both priority-1, both self-contained, and at 8 and 7 unit
+      # marks the least of the paper to give away.
+      samples: [m13, p14]
+      free_fields:
+        - id
+        - subj
+        - num
+        - title
+        - unit
+        - unitMarks
+        - prio
+        - appear         # how often the board asks it — the planner needs it
+        - deleted        # never charge for "this is not in your syllabus"
+        - intro          # the plain-English opening, in both languages
+        - s.scope
+
+    docs:
+      key: id
+      # The blueprint is what a student needs *before* deciding what to study,
+      # and reading it is what makes the rest legible. The frequency explainer
+      # goes with it because it is mostly caveats about our own numbers.
+      samples: [blueprint, pyqi]
+      free_fields:
+        - id
+        - title
+        - blurb
+
+sample_note: >
+  The planner, the syllabus scope and the deleted-topics list are free for all
+  27 chapters. Probability and Semiconductor Electronics are unlocked in full.
+
+packs:
+  - packs.revision
+
+entitlements:
+  core:
+    code: c
+    name: Full access
+    grants: [chapters, docs]
+    seats: 1
+
+  bump:
+    code: b
+    name: The print pack
+    grants: [packs.revision]
+    seats: 1
+    requires: [core]
+
+  upsell:
+    code: u
+    name: Tuition-batch licence
+    grants: []          # no new content: five seats of the same product
+    seats: 5
+    requires: [core]
+
+  downsell:
+    code: d
+    name: Second device
+    grants: []
+    seats: 2
+    requires: [core]

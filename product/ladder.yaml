@@ -1,0 +1,56 @@
+# The ladder for Marks First — the CBSE Class 12 study product.
+#
+# Every rung is something that already exists. The tempting upsell for a study
+# product is "six full mock papers", and `paywall.packs.paper_feasibility`
+# says this question bank cannot honestly produce one: CBSE Maths Section A
+# needs 18 MCQs and the bank holds 12. So the ladder sells the print form of
+# what is here, and access for more than one student — both real, both
+# deliverable the day someone pays.
+#
+# Prices are in rupees and they are guesses until the pre-sell test in
+# offers/marks-first.yaml has run. Price is the real unknown here: ₹299 and
+# ₹799 are different businesses with different buyers, and no amount of
+# reasoning distinguishes them.
+
+slug: marks-first
+product_name: Marks First — CBSE Class 12 Maths & Physics
+audience: CBSE Class 12 students sitting Mathematics (041) and Physics (042)
+currency: INR
+
+offers:
+  - slug: core
+    name: Full access
+    rung: core
+    price: 499
+    description: >
+      All 27 chapters, 332 board questions with full solutions, both formula
+      sheets and the 30 derivations — for one student, until the exam and after
+    deliverable: web
+
+  - slug: bump
+    name: The print pack
+    rung: bump
+    price: 149
+    description: >
+      One page per chapter to print: the recall box, the deleted topics, and
+      how often the chapter is asked. No new material — the same content on
+      paper, for the week when a phone is the enemy.
+    deliverable: packs.revision
+
+  - slug: upsell
+    name: Tuition-batch licence
+    rung: upsell
+    price: 999
+    description: >
+      The same access on five devices instead of one. For a tutor with a
+      batch, a coaching centre, or a family with more than one candidate.
+    deliverable: seats
+
+  - slug: downsell
+    name: One more device
+    rung: downsell
+    price: 249
+    description: >
+      Not five — just a second device. The phone as well as the laptop, or a
+      sibling sitting the same paper next year.
+    deliverable: seats

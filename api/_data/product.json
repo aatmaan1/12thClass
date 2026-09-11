@@ -1,0 +1,51 @@
+{
+  "slug": "marks-first",
+  "name": "Marks First",
+  "audience": "CBSE Class 12 students sitting Mathematics (041) and Physics (042)",
+  "support_email": "anuj@zo.xyz",
+  "entitlements": [
+    {
+      "offer": "core",
+      "code": "c",
+      "name": "Full access",
+      "grants": [
+        "chapters",
+        "docs"
+      ],
+      "seats": 1,
+      "requires": []
+    },
+    {
+      "offer": "bump",
+      "code": "b",
+      "name": "The print pack",
+      "grants": [
+        "packs.revision"
+      ],
+      "seats": 1,
+      "requires": [
+        "core"
+      ]
+    },
+    {
+      "offer": "upsell",
+      "code": "u",
+      "name": "Tuition-batch licence",
+      "grants": [],
+      "seats": 5,
+      "requires": [
+        "core"
+      ]
+    },
+    {
+      "offer": "downsell",
+      "code": "d",
+      "name": "Second device",
+      "grants": [],
+      "seats": 2,
+      "requires": [
+        "core"
+      ]
+    }
+  ]
+}

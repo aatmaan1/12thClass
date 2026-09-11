@@ -1,0 +1,106 @@
+# Sales copy for the Marks First funnel.
+#
+# Kept out of the code because it is the part that gets rewritten most, and
+# out of the product because the page and the product have different jobs. The
+# structure is funnel-hacked rather than invented — outcome-first headline, the
+# problem in the buyer's words, the deliverable, then price — and every claim
+# in it is checkable against products/marks-first/content/.
+#
+# Read by the build. Every claim in it is checkable against the notes at the
+# repository root.
+
+headline: >
+  Stop revising everything. Go and get the marks you are missing.
+
+problem: >
+  You have the NCERT books, ten years of papers, and two reference guides, and
+  no way to tell which of it the board actually pays for. So chapters get read
+  end to end, February runs out, and you walk into the hall having revised
+  everything and mastered nothing.
+
+deliverables:
+  - All 27 chapters — 13 Maths, 14 Physics — each with the exact syllabus scope,
+    the deleted topics in red, and a plain-English introduction that assumes no
+    prior knowledge
+  - 332 real board questions, every one with the full working an examiner
+    expects, hidden until you have attempted it on paper
+  - A self-test per chapter with the answer key behind a reveal, so a test
+    stays a test
+  - Both formula sheets, and the 30 Physics derivations ranked by how often
+    they are actually asked
+  - What repeats — topic-by-topic frequency for both subjects, so revision has
+    an order instead of a mood
+  - Answer templates for every question type in the paper, with the
+    marking-scheme trap that loses marks on each one
+  - Progress counted in marks rather than chapters, with the three-pass method
+    built into every chapter
+  - English and हिन्दी — the whole interface, every chapter and unit name in
+    NCERT Hindi-medium terminology, and every chapter introduction
+
+guarantee: >
+  One payment, no subscription, and it keeps working after the exam. If it is
+  not what you expected, reply to your receipt within seven days for a full
+  refund — the two free chapters are there so it should not come to that.
+
+price_note: one payment · no subscription · works offline once unlocked
+
+sample_url: "/app"
+sample_label: Open the free planner
+
+faq:
+  - q: Is this an official CBSE product?
+    a: >
+      No. It is an independent study guide written against the published CBSE
+      curriculum documents and the 2025-26 sample papers. CBSE publishes the
+      syllabus and one sample paper per subject each year — download both from
+      cbseacademic.nic.in and re-check the deleted-topics list at the start of
+      your session.
+  - q: Are the "what repeats" frequency bands a real count of past papers?
+    a: >
+      They are well-informed pattern estimates, not a machine count of ten
+      years of papers. The guide says so wherever they appear, and two scope
+      points are flagged rather than asserted: polarisation in Wave Optics, and
+      the magnetic-materials block in Physics chapter 5.
+  - q: Does it work without internet?
+    a: >
+      Yes, after the first unlock. The whole guide is stored in the browser, so
+      it opens on a phone with no signal. Progress is saved on the device it
+      was made on — there is no account and nothing is sent anywhere.
+  - q: Can I use it on my phone and my laptop?
+    a: >
+      Full access covers one device. A second is ₹249, offered right after
+      checkout, and the tuition-batch licence covers five for a tutor, a
+      coaching batch, or a family with more than one candidate.
+  - q: What happens after the exam?
+    a: >
+      Nothing. It is a one-time payment with no expiry, so it is still there
+      for a compartment paper, a repeat attempt, or a younger sibling on the
+      batch licence.
+
+# Shown on the thank-you page, in order.
+next_steps:
+  - Paste the key below into the app. It unlocks immediately and stays unlocked
+    on this device, with no account to create.
+  - Read the Exam Blueprint first — paper design, unit weightage, and what the
+    marking scheme actually pays for. It takes fifteen minutes and changes what
+    you do with the next four months.
+  - Then open "What Repeats" for your weaker subject and work the chapters it
+    puts at the top. Priority first, marks at stake second.
+
+# Units of the ladder's currency per US dollar. Providers quote their fixed
+# per-sale fee in dollars, so this is what makes the fee arithmetic right for a
+# rupee ladder. It moves — check it before you rely on the number.
+usd_rate: 88
+
+# Where the money arrives. Fill this in once the products exist in the
+# provider's dashboard — `python -m storefront.cli plan ladders/marks-first.yaml`
+# prints exactly what to create. Until then the build works and every buy
+# button points at this offer page, which is the right failure: a funnel you
+# cannot look at before the paperwork is done is a funnel nobody reviews.
+store:
+  name: ""            # the subdomain, e.g. "marksfirst" for marksfirst.lemonsqueezy.com
+  product_ids: {}     # core: "aaaa-1111", bump: "bbbb-2222", ...
+
+# The deployed origin. Left empty the page calls /api/... on whatever host it
+# is served from, which is what you want on Vercel.
+site_url: ""
