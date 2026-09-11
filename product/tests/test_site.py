@@ -156,6 +156,24 @@ def test_the_host_config_does_not_rewrite_anything():
     assert "routes" not in config
 
 
+def test_the_functions_ship_the_files_they_open_at_runtime():
+    """The handlers find `_lib` and `_data` through a path built at runtime.
+
+    Nothing imports them in a way a bundler can follow, so if this stops being
+    declared the functions deploy and then fail on their first request with a
+    missing-file error that reads like a bad secret.
+    """
+    config = json.loads((REPO_ROOT / "vercel.json").read_text(encoding="utf-8"))
+    pattern = config["functions"]["api/*.py"]["includeFiles"]
+    assert pattern == "api/_*/**"
+    for path in ("api/_lib/paywall/serverless.py", "api/_data/product.json"):
+        assert (REPO_ROOT / path).exists(), path
+        assert path.split("/")[1].startswith("_"), (
+            f"{path} must sit under a leading-underscore directory, or the host "
+            "would serve it as a route"
+        )
+
+
 # ------------------------------------------------- 3. the numbers on the page
 
 

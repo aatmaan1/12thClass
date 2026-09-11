@@ -332,6 +332,13 @@ VERCEL = {
     # files plus cleanUrls has no such interaction: /app serves app.html.
     "cleanUrls": True,
     "trailingSlash": False,
+    # The handlers reach their library and their data through a path they build
+    # at runtime — `sys.path.insert(0, "_lib")`, then `open("_data/paid.json")`.
+    # A bundler that decides what to ship by following imports cannot see
+    # either, so both have to be named. Without this the functions deploy and
+    # then fail on the first request with "product.json is missing", which is
+    # the kind of error that looks like a bad secret and is not.
+    "functions": {"api/*.py": {"includeFiles": "api/_*/**"}},
     "headers": [
         {
             "source": "/(.*)",
