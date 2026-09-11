@@ -332,13 +332,14 @@ VERCEL = {
     # files plus cleanUrls has no such interaction: /app serves app.html.
     "cleanUrls": True,
     "trailingSlash": False,
-    # The handlers reach their library and their data through a path they build
-    # at runtime — `sys.path.insert(0, "_lib")`, then `open("_data/paid.json")`.
-    # A bundler that decides what to ship by following imports cannot see
-    # either, so both have to be named. Without this the functions deploy and
-    # then fail on the first request with "product.json is missing", which is
-    # the kind of error that looks like a bad secret and is not.
-    "functions": {"api/*.py": {"includeFiles": "api/_*/**"}},
+    # No `functions` block. Adding one to declare `includeFiles` for `_lib` and
+    # `_data` — which the handlers reach through a path built at request time,
+    # and which import tracing therefore cannot see — failed the build outright
+    # on this project, where the same commit without it deployed fine. The
+    # config is not the place to solve that: whether those files are bundled is
+    # a question about the host that a live request answers in one second, and
+    # the handler already fails loudly and specifically if they are missing.
+    # Settle it empirically before configuring around it.
     "headers": [
         {
             "source": "/(.*)",
