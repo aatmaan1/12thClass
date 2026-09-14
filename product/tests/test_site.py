@@ -380,3 +380,11 @@ def test_a_chapter_file_splits_on_its_markers():
 
     with pytest.raises(SystemExit):
         extract.marked("<!-- SOLUTIONS -->\nx\n", names)
+
+
+def test_a_chapter_keeps_its_sections_and_its_questions(real):
+    """Both attach to `tr[lang]`, and the second used to assign over the first."""
+    m13 = [c for c in real["bundle"]["chapters"] if c["id"] == "m13"][0]
+    hi = m13["tr"]["hi"]
+    assert {"pyq", "sol"} <= set(hi), "the questions survived the sections"
+    assert {"tips", "test", "recall", "brief"} <= set(hi), "the sections survived the questions"

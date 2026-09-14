@@ -374,9 +374,19 @@ def test_a_free_chapter_shows_its_questions_in_hindi(app):
     assert app.page.locator(".qq").count() > 5
     first = app.page.locator(".qq-b").first.inner_text()
     assert any("\u0900" <= ch <= "\u097F" for ch in first), "the question is in Devanagari"
-    # no "not translated yet" notice over the questions — but the sections that
-    # genuinely are English only still carry one, which is the point of it
-    assert app.page.locator(".sect#s-qs .notrans").count() == 0
+    # m13 is translated end to end, so it carries no notice anywhere
+    assert app.page.locator(".notrans").count() == 0
+    for sec in ("start", "pays", "qs", "test", "recall", "detail", "scope"):
+        text = app.page.locator(".sect#s-" + sec).inner_text()
+        assert any("\u0900" <= ch <= "\u097F" for ch in text), sec
+
+
+def test_a_chapter_with_no_translation_still_says_so(app):
+    """The notice is the honest half of the fallback and has to survive."""
+    app.open_app("#/ch/m1")
+    app.page.click('[data-lang="hi"]')
+    app.page.wait_for_timeout(600)
+    # locked, so only the free sections are on the page to carry one
     assert app.page.locator(".notrans").count() > 0
 
 

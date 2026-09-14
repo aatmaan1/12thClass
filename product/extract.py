@@ -206,7 +206,10 @@ def translated_qa(directory: str, lang: str, chapter_list: list[dict]) -> list[s
             raise SystemExit(
                 f"{path}: solution numbers {got_sol} do not match the questions {want}"
             )
-        chapter.setdefault("tr", {})[lang] = {"pyq": pyq, "sol": sol}
+        # merged, not assigned: the chapter's other translated sections are
+        # already here, and an assignment would drop them on the floor
+        chapter.setdefault("tr", {}).setdefault(lang, {}).update(
+            {"pyq": pyq, "sol": sol})
     return missing
 
 
