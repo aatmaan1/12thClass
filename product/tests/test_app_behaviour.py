@@ -406,3 +406,21 @@ def test_the_hindi_planner_is_translated(app):
     assert "आँकलन" in app.page.locator("h1.pt").inner_text()
     app.grade("m13", 3)
     assert "अंक पीछे" in app.page.locator("h1.pt").inner_text()
+
+
+def test_a_table_inside_a_question_renders_as_a_table(app):
+    """A distribution table is indented under its question, and the list used
+    to end at the blank line above it — so the table came out as a paragraph
+    of raw pipes and the next question was renumbered from one."""
+    app.open_app("#/ch/m13/test")
+    app.page.wait_for_timeout(300)
+    body = app.page.locator(".sect#s-test").inner_text()
+    assert "| P(X) |" not in body, "the table is still raw markdown"
+    assert app.page.locator(".sect#s-test table").count() >= 1
+
+    # and the questions around it keep counting up
+    nums = app.page.evaluate(
+        "Array.from(document.querySelectorAll('.sect#s-test ol'))"
+        ".map(function(o){ return o.start; })"
+    )
+    assert nums, "the self-test is a numbered list"

@@ -210,6 +210,85 @@ def translated_qa(directory: str, lang: str, chapter_list: list[dict]) -> list[s
     return missing
 
 
+#: The sections a chapter file may carry, and where a translation of each
+#: belongs. Free fields ride in the language pack, which ships whole; paid
+#: fields hang off the chapter, where the gate withholds them exactly as it
+#: withholds the English. Getting that the wrong way round publishes the
+#: product, which is how the Hindi question bank nearly shipped.
+TR_FREE = {"INTRO": "intros", "SCOPE": "scopes",
+           "DELETED": "deleteds", "APPEAR": "appears"}
+TR_PAID = {"TIPS": "tips", "TEST": "test", "RECALL": "recall", "DETAIL": "brief"}
+
+
+def marked(text: str, names) -> dict:
+    """Split a file on `<!-- NAME -->` markers into the sections it declares.
+
+    A file with no marker at all is the whole intro, which is what every
+    translated chapter looked like before there was anything else to carry.
+    """
+    found = list(re.finditer(r"^[ \t]*<!--\s*([A-Z]+)\s*-->[ \t]*$", text, re.M))
+    if not found:
+        return {"INTRO": re.sub(r"^\s*###[^\n]*\n", "", text).strip()}
+    out = {}
+    for n, m in enumerate(found):
+        end = found[n + 1].start() if n + 1 < len(found) else len(text)
+        name = m.group(1)
+        if name not in names:
+            raise SystemExit("unknown marker <!-- %s -->; expected one of %s"
+                             % (name, ", ".join(sorted(names))))
+        body = text[m.end():end].strip()
+        if body:
+            out[name] = body
+    return out
+
+
+def translated_sections(directory: str, lang: str, chapter_list: list[dict]) -> dict:
+    """Attach a language's chapter sections, each to the side its price is on.
+
+    Returns the free half, keyed by field then chapter id, for the language
+    pack. The paid half is written onto the chapter as `tr[lang]`, next to the
+    questions and solutions, so one gate covers every language.
+    """
+    free = {name: {} for name in TR_FREE.values()}
+    for chapter in chapter_list:
+        path = os.path.join(
+            directory, "chapters", "%s%02d.md" % (chapter["id"][0], chapter["num"])
+        )
+        if not os.path.exists(path):
+            continue
+        text = io.open(path, encoding="utf-8").read()
+        secs = marked(text, set(TR_FREE) | set(TR_PAID))
+        for marker, field in TR_FREE.items():
+            if marker in secs:
+                free[field][chapter["id"]] = secs[marker]
+        for marker, field in TR_PAID.items():
+            if marker in secs:
+                chapter.setdefault("tr", {}).setdefault(lang, {})[field] = secs[marker]
+    return free
+
+
+def translated_docs(directory: str, lang: str, doc_list: list[dict]) -> list[str]:
+    """Attach a language's document bodies to the documents themselves.
+
+    A document body is sold except for the two free samples, so the
+    translation sits on the document and is gated with it.
+    """
+    done = []
+    root = os.path.join(directory, "docs")
+    if not os.path.isdir(root):
+        return done
+    for doc in doc_list:
+        path = os.path.join(root, doc["id"] + ".md")
+        if not os.path.exists(path):
+            continue
+        body = io.open(path, encoding="utf-8").read()
+        body = re.sub(r"^# [^\n]*\n", "", body, count=1).strip()
+        if body:
+            doc.setdefault("tr", {})[lang] = {"body": body}
+            done.append(doc["id"])
+    return done
+
+
 def langs(chapter_list: list[dict], doc_list: list[dict]) -> dict:
     """Fold in every translation under `content/i18n/`.
 
@@ -241,16 +320,9 @@ def langs(chapter_list: list[dict], doc_list: list[dict]) -> dict:
         units = ui.pop("units", {})
         docnames = ui.pop("docs", {})
 
-        intros, missing = {}, []
-        for chapter in chapter_list:
-            path = os.path.join(
-                directory, "chapters", "%s%02d.md" % (chapter["id"][0], chapter["num"])
-            )
-            if os.path.exists(path):
-                text = io.open(path, encoding="utf-8").read()
-                intros[chapter["id"]] = re.sub(r"^\s*###[^\n]*\n", "", text).strip()
-            else:
-                missing.append(chapter["id"])
+        free = translated_sections(directory, lang, chapter_list)
+        intros = free["intros"]
+        missing = [c["id"] for c in chapter_list if c["id"] not in intros]
 
         for chapter in chapter_list:
             if chapter["id"] not in titles:
@@ -262,14 +334,25 @@ def langs(chapter_list: list[dict], doc_list: list[dict]) -> dict:
                 raise SystemExit(f"{lang}: no document name for {doc['id']}")
 
         no_qa = translated_qa(directory, lang, chapter_list)
-        out[lang] = {"ui": ui, "titles": titles, "units": units, "docs": docnames,
-                     "intros": intros}
+        docs_done = translated_docs(directory, lang, doc_list)
+        out[lang] = dict({"ui": ui, "titles": titles, "units": units,
+                          "docs": docnames}, **free)
+        paid = {}
+        for chapter in chapter_list:
+            for field in (chapter.get("tr", {}).get(lang) or {}):
+                paid[field] = paid.get(field, 0) + 1
         print("  %s: %d ui strings (%d of them the product's own), %d chapter "
-              "names, %d intros, %d Q&A sets%s%s"
+              "names, %d intros, %d Q&A sets, %d documents"
               % (lang, len(ui), overlaid, len(titles), len(intros),
-                 len(chapter_list) - len(no_qa),
-                 ("  no intro for: " + ",".join(missing)) if missing else "",
-                 ("  no Q&A for: " + ",".join(no_qa)) if no_qa else ""))
+                 len(chapter_list) - len(no_qa), len(docs_done)))
+        for field in sorted(TR_FREE.values()) + sorted(TR_PAID.values()):
+            n = len(free[field]) if field in free else paid.get(field, 0)
+            if n and field != "intros":
+                print("       %-9s %d of %d chapters" % (field, n, len(chapter_list)))
+        if missing:
+            print("       no intro for: " + ",".join(missing))
+        if no_qa:
+            print("       no Q&A for: " + ",".join(no_qa))
     return out
 
 

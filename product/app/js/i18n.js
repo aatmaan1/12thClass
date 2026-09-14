@@ -138,9 +138,33 @@ function chTitle(c){ return (L() && L().titles[c.id]) || c.title; }
 function unitName(u){ return (L() && L().units[u]) || u; }
 function docTitle(d){ return (L() && L().docs[d.id] && L().docs[d.id][0]) || d.title; }
 function docBlurb(d){ return (L() && L().docs[d.id] && L().docs[d.id][1]) || d.blurb; }
-function chIntro(c){ return (L() && L().intros[c.id]) || c.intro; }
+function chIntro(c){ return tr(c, "intro").text; }
 function subjLabel(s){ return T(SUBJ[s].k); }
-function notrans(){
-  if (LANG === "en") return "";
+
+/* ---------------- one chapter field, in the reader's language ----------------
+   Where a translation lives depends on what it costs. The free sections sit in
+   the language pack, which ships whole; the sold ones sit on the chapter, so a
+   locked chapter withholds its Hindi exactly as it withholds its English.
+   Both are read through here, so a caller never has to know which is which.
+   -------------------------------------------------------------------------- */
+var TR_PACK = { intro:"intros", "s.scope":"scopes", deleted:"deleteds",
+                appear:"appears" };
+var TR_CHAP = { "s.tips":"tips", "s.test":"test", recall:"recall",
+                "s.brief":"brief", "s.pyq":"pyq", "s.sol":"sol" };
+
+function english(c, path){
+  return (path.indexOf("s.") === 0 ? (c.s || {})[path.slice(2)] : c[path]) || "";
+}
+function tr(c, path){
+  var en = english(c, path);
+  if (LANG === "en") return { text:en, translated:true };
+  var t = null;
+  if (TR_PACK[path]) t = L() && (L()[TR_PACK[path]] || {})[c.id];
+  else if (TR_CHAP[path]) t = ((c.tr || {})[LANG] || {})[TR_CHAP[path]];
+  return t ? { text:t, translated:true } : { text:en, translated:false };
+}
+function notrans(on){
+  // Silent in English, and silent wherever the section really is translated.
+  if (LANG === "en" || on === true) return "";
   return '<p class="notrans"><span>' + T("lang.notTranslated") + "</span></p>";
 }

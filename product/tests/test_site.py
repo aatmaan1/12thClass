@@ -296,9 +296,13 @@ def test_the_translated_questions_are_gated_like_the_english(real):
             assert "tr" not in free, chapter["id"]
             assert split.paid["chapters"][chapter["id"]]["tr"]["hi"]["sol"]
 
-    # and the language pack itself carries no questions at all
-    assert "qa" not in split.free["langs"]["hi"]
-    assert set(split.free["langs"]["hi"]) == {"ui", "titles", "units", "docs", "intros"}
+    # and the language pack itself carries nothing that is sold. It ships
+    # whole, to everyone, so this set is the whole of the gate for it.
+    free_keys = {"ui", "titles", "units", "docs", "intros", "scopes",
+                 "deleteds", "appears"}
+    assert set(split.free["langs"]["hi"]) <= free_keys, "a new key in the pack"
+    for sold in ("pyq", "sol", "tips", "test", "recall", "brief", "qa"):
+        assert sold not in split.free["langs"]["hi"], sold
 
 
 def test_no_hindi_solution_of_a_locked_chapter_reaches_the_public_page(real):
@@ -331,3 +335,48 @@ def test_the_question_numbering_survives_translation(real):
         english = re.findall(r"^\*\*Q(\d+)\.\*\*", chapter["s"]["pyq"], re.M)
         assert re.findall(r"^\*\*Q(\d+)\.\*\*", hindi["pyq"], re.M) == english, chapter["id"]
         assert re.findall(r"^### Q(\d+)\b", hindi["sol"], re.M) == english, chapter["id"]
+
+
+def test_a_translated_section_is_gated_by_what_it_costs(real):
+    """Where a translation lives has to follow the price of what it translates.
+
+    The free sections ride in the language pack, which ships whole to every
+    visitor. The sold ones ride on the chapter, where the gate withholds them.
+    Put a sold section in the pack and it is published in every language at
+    once — invisibly, because a leak check written against English will not
+    find a word of it.
+    """
+    import extract
+
+    assert set(extract.TR_FREE) == {"INTRO", "SCOPE", "DELETED", "APPEAR"}
+    assert set(extract.TR_PAID) == {"TIPS", "TEST", "RECALL", "DETAIL"}
+
+    product = real["product"]
+    free_fields = set(product.rule("chapters").free_fields)
+    # every marker the free half claims is a field the gate also gives away
+    for field in extract.TR_FREE.values():
+        english = {"intros": "intro", "scopes": "s.scope",
+                   "deleteds": "deleted", "appears": "appear"}[field]
+        assert english in free_fields, field
+    # and none of the sold ones is
+    for field in extract.TR_PAID.values():
+        for spelling in (field, "s." + field):
+            assert spelling not in free_fields, field
+
+
+def test_a_chapter_file_splits_on_its_markers():
+    """The file format, including the one that predates it having sections."""
+    import extract
+
+    names = set(extract.TR_FREE) | set(extract.TR_PAID)
+
+    plain = extract.marked("### यहाँ\n\nbody text\n", names)
+    assert plain == {"INTRO": "body text"}, "an unmarked file is all intro"
+
+    split = extract.marked(
+        "<!-- INTRO -->\nhello\n<!-- TEST -->\nq1\n<!-- SCOPE -->\n\n", names
+    )
+    assert split == {"INTRO": "hello", "TEST": "q1"}, "an empty section is absent"
+
+    with pytest.raises(SystemExit):
+        extract.marked("<!-- SOLUTIONS -->\nx\n", names)

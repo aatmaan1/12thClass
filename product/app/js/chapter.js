@@ -17,14 +17,7 @@ var SECTIONS = [
   { id:"scope",  key:"scope",  field:"s.scope", lock:null }
 ];
 
-function fieldOf(c, path){
-  // the questions and the solutions may exist only in the reader's language
-  if (path === "s.pyq" || path === "s.sol"){
-    var src = qaSource(c);
-    return path === "s.pyq" ? (src.pyq || c.s.pyq) : (src.sol || c.s.sol);
-  }
-  return path.indexOf("s.") === 0 ? (c.s || {})[path.slice(2)] : c[path];
-}
+function fieldOf(c, path){ return tr(c, path).text; }
 
 function chapterView(c){
   var g = gradeOf(c.id);
@@ -80,12 +73,12 @@ function chapterView(c){
 
 function sectionBody(c, s){
   if (s.lock && isLocked(c, s.field)) return gate(s.lock);
-  var text = fieldOf(c, s.field) || "";
+  var got = tr(c, s.field);
 
-  if (s.id === "start") return '<div class="md">' + md(chIntro(c) || "") + "</div>";
-  if (s.id === "qs") return (qaSource(c).translated ? "" : notrans()) + questions(c);
+  if (s.id === "start") return notrans(got.translated) + '<div class="md">' + md(got.text) + "</div>";
+  if (s.id === "qs") return notrans(qaSource(c).translated) + questions(c);
   if (s.id === "test") return selfTest(c);
-  return notrans() + '<div class="md">' + md(text) + "</div>";
+  return notrans(got.translated) + '<div class="md">' + md(got.text) + "</div>";
 }
 
 function questions(c){
@@ -105,9 +98,10 @@ function questions(c){
 }
 
 function selfTest(c){
-  var cut = (c.s.test || "").split(/\n### Answer key\s*\n/);
+  var got = tr(c, "s.test");
+  var cut = got.text.split(/\n### (?:Answer key|उत्तर कुंजी)\s*\n/);
   var score = plan.scores[c.id];
-  return notrans() + '<div class="md">' + md(cut[0]) + "</div>" +
+  return notrans(got.translated) + '<div class="md">' + md(cut[0]) + "</div>" +
     '<div class="card noprint" style="margin-top:18px;display:flex;gap:13px;' +
       'align-items:center;flex-wrap:wrap">' +
       '<p style="margin:0;flex:1;min-width:180px;font-size:13.5px"><strong style="color:var(--ink)">' +
@@ -155,7 +149,11 @@ function libView(){
 function docView(d){
   var body = isLocked(d, "body")
     ? '<div style="margin-top:26px">' + gate("doc") + "</div>"
-    : notrans() + '<div class="md" style="margin-top:26px">' + md(d.body || "") + "</div>";
+    : (function(){
+        var t = ((d.tr || {})[LANG] || {}).body;
+        return notrans(LANG === "en" || !!t) +
+          '<div class="md" style="margin-top:26px">' + md(t || d.body || "") + "</div>";
+      })();
   return '<button class="back noprint" data-home>&larr; ' + T("ch.back") + "</button>" +
     '<p class="eyebrow">' + T("doc.eyebrow") + "</p>" +
     '<h1 class="pt">' + esc(docTitle(d)) + "</h1>" +

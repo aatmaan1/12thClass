@@ -440,6 +440,12 @@ function cells(line){
   if (out.length && out[out.length-1].trim() === "") out.pop();
   return out.map(function(c){ return c.trim(); });
 }
+function dedent(line){ return line.replace(/^\s{1,4}/, ""); }
+function block(lines){
+  // A multi-line item may hold a table or a fence, so it goes back through the
+  // block parser; a plainly wrapped one loses its paragraph and stays tight.
+  return md(lines.join("\n")).replace(/^<p>([\s\S]*?)<\/p>/, "$1");
+}
 function md(src){
   if (!src) return "";
   var L = String(src).replace(/\r/g,"").split("\n"), h = "", i = 0, para = [];
@@ -463,13 +469,13 @@ function md(src){
       h += "<h" + lv + ">" + inline(hd[2]) + "</h" + lv + ">";
       i++; continue;
     }
-    if (/^\|/.test(ln) && i+1 < L.length && /^\|[\s:|-]+\|?\s*$/.test(L[i+1])){
+    if (/^\s*\|/.test(ln) && i+1 < L.length && /^\s*\|[\s:|-]+\|?\s*$/.test(L[i+1])){
       flush();
       var head = cells(ln); i += 2;
       var t = '<div class="tablewrap"><table><thead><tr>';
       head.forEach(function(c){ t += "<th>" + inline(c) + "</th>"; });
       t += "</tr></thead><tbody>";
-      while (i < L.length && /^\|/.test(L[i])){
+      while (i < L.length && /^\s*\|/.test(L[i])){
         var r = cells(L[i++]);
         t += "<tr>";
         head.forEach(function(_,k){ t += "<td>" + inline(r[k] || "") + "</td>"; });
@@ -488,18 +494,32 @@ function md(src){
     var li = ln.match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
     if (li){
       flush();
-      var ord = /\d/.test(li[2]), items = [];
+      var ord = /\d/.test(li[2]), items = [], first = ord ? parseInt(li[2], 10) : 1;
       while (i < L.length){
         var m2 = L[i].match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
-        if (!m2){
-          if (/^\s{2,}\S/.test(L[i]) && items.length){ items[items.length-1] += " " + L[i].trim(); i++; continue; }
-          break;
+        if (m2 && /\d/.test(m2[2]) === ord){ items.push([m2[3]]); i++; continue; }
+        if (!items.length) break;
+        if (/^\s{2,}\S/.test(L[i])){ items[items.length - 1].push(dedent(L[i])); i++; continue; }
+        // A blank line ends the list only if nothing indented follows it. A
+        // question that carries a distribution table looks exactly like this,
+        // and breaking here left the table outside the list, as a paragraph
+        // of raw pipes, with the next question renumbered from one.
+        if (/^\s*$/.test(L[i])){
+          var j = i;
+          while (j < L.length && /^\s*$/.test(L[j])) j++;
+          var nxt = j < L.length ? L[j].match(/^(\s*)([-*+]|\d+[.)])\s+/) : null;
+          if (nxt && /\d/.test(nxt[2]) === ord && !nxt[1]){ i = j; continue; }
+          if (j < L.length && !nxt && /^\s{2,}\S/.test(L[j])){
+            items[items.length - 1].push(""); i = j; continue;
+          }
         }
-        if (/\d/.test(m2[2]) !== ord) break;
-        items.push(m2[3]); i++;
+        break;
       }
-      var tag = ord ? "ol" : "ul", lh = "<" + tag + ">";
-      items.forEach(function(x){ lh += "<li>" + inline(x) + "</li>"; });
+      var tag = ord ? "ol" : "ul";
+      var lh = "<" + tag + (ord && first !== 1 ? ' start="' + first + '"' : "") + ">";
+      items.forEach(function(x){
+        lh += "<li>" + (x.length > 1 ? block(x) : inline(x[0])) + "</li>";
+      });
       h += lh + "</" + tag + ">";
       continue;
     }
