@@ -400,3 +400,34 @@ def test_a_misnamed_translation_file_fails_the_build(tmp_path):
         extract.translated_sections(str(tmp_path), "hi",
                                     [{"id": "m1", "num": 1}])
     assert "m1.md" in str(bad.value)
+
+
+def test_every_shipped_language_is_complete(real):
+    """"When Hindi is selected we want everything to be in Hindi."
+
+    The fallback to English is deliberate and honest — it says so on the page
+    — but it is a safety net, not a resting place. A chapter or a document
+    added later would land in the net silently, and nobody reads a page in
+    the language they do not speak, so the gap would ship. This asserts the
+    net is empty.
+    """
+    import extract
+
+    bundle = real["bundle"]
+    for lang, pack in bundle["langs"].items():
+        missing = []
+        for chapter in bundle["chapters"]:
+            got = chapter.get("tr", {}).get(lang, {})
+            for field in extract.TR_PAID.values():
+                if not got.get(field):
+                    missing.append("%s %s" % (chapter["id"], field))
+            for field in extract.TR_FREE.values():
+                if not (pack.get(field) or {}).get(chapter["id"]):
+                    missing.append("%s %s" % (chapter["id"], field))
+            for field in ("pyq", "sol"):
+                if not got.get(field):
+                    missing.append("%s %s" % (chapter["id"], field))
+        for doc in bundle["docs"]:
+            if not doc.get("tr", {}).get(lang, {}).get("body"):
+                missing.append("doc " + doc["id"])
+        assert not missing, "%s is missing: %s" % (lang, ", ".join(missing))
