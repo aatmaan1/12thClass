@@ -388,3 +388,15 @@ def test_a_chapter_keeps_its_sections_and_its_questions(real):
     hi = m13["tr"]["hi"]
     assert {"pyq", "sol"} <= set(hi), "the questions survived the sections"
     assert {"tips", "test", "recall", "brief"} <= set(hi), "the sections survived the questions"
+
+
+def test_a_misnamed_translation_file_fails_the_build(tmp_path):
+    """Silently ignoring one is how a chapter's Hindi goes missing unnoticed."""
+    import extract
+
+    (tmp_path / "chapters").mkdir()
+    (tmp_path / "chapters" / "m1.md").write_text("क", encoding="utf-8")
+    with pytest.raises(SystemExit) as bad:
+        extract.translated_sections(str(tmp_path), "hi",
+                                    [{"id": "m1", "num": 1}])
+    assert "m1.md" in str(bad.value)

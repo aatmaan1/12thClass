@@ -253,6 +253,14 @@ def translated_sections(directory: str, lang: str, chapter_list: list[dict]) -> 
     questions and solutions, so one gate covers every language.
     """
     free = {name: {} for name in TR_FREE.values()}
+    root = os.path.join(directory, "chapters")
+    want = {"%s%02d.md" % (c["id"][0], c["num"]) for c in chapter_list}
+    stray = sorted(set(os.listdir(root)) - want) if os.path.isdir(root) else []
+    if stray:
+        # A misnamed file is worse than a missing one: it is a translation
+        # somebody wrote that the build quietly ignores.
+        raise SystemExit("%s/chapters: not a chapter file: %s (expected m01…m13, p01…p14)"
+                         % (directory, ", ".join(stray)))
     for chapter in chapter_list:
         path = os.path.join(
             directory, "chapters", "%s%02d.md" % (chapter["id"][0], chapter["num"])
