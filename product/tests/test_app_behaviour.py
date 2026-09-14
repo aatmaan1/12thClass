@@ -382,12 +382,31 @@ def test_a_free_chapter_shows_its_questions_in_hindi(app):
 
 
 def test_a_chapter_with_no_translation_still_says_so(app):
-    """The notice is the honest half of the fallback and has to survive."""
-    app.open_app("#/ch/m1")
+    """The notice is the honest half of the fallback and has to survive.
+
+    Driven by removing a chapter's Hindi at runtime rather than by naming an
+    untranslated chapter, so the test does not quietly stop testing anything
+    as the translation is finished.
+    """
+    app.open_app("#/ch/m13")
     app.page.click('[data-lang="hi"]')
     app.page.wait_for_timeout(600)
-    # locked, so only the free sections are on the page to carry one
-    assert app.page.locator(".notrans").count() > 0
+    assert app.page.locator(".notrans").count() == 0, "translated to begin with"
+
+    app.page.evaluate(
+        "(function(){"
+        "  var c = byId['m13'];"
+        "  delete c.tr;"
+        "  ['intros','scopes','deleteds','appears'].forEach(function(k){"
+        "    if (DATA.langs.hi[k]) delete DATA.langs.hi[k]['m13'];"
+        "  });"
+        "  requeue(c); render();"
+        "})()"
+    )
+    app.page.wait_for_timeout(300)
+    assert app.page.locator(".notrans").count() > 0, "the notice came back"
+    body = app.page.locator(".sect#s-detail").inner_text()
+    assert "Conditional probability" in body, "and the English is what it fell back to"
 
 
 def test_a_locked_chapter_has_no_hindi_questions_until_unlocked(app):
