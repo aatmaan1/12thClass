@@ -1,0 +1,537 @@
+<title>Marks First</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,400..700;1,400..600&family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap">
+<style>
+/* ==========================================================================
+   Marks First — the planner
+   The design comes from the thing being sold: a CBSE answer script. Marks are
+   awarded in steps by a marking scheme and totalled in the margin in red, so
+   the page has a margin that totals marks, a mono face for every number that
+   is a mark, and red reserved for marks that are still at risk. Paper is the
+   cool grey-green of an Indian examination form, not cream.
+   ========================================================================== */
+
+/*__TOKENS__*/
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--body);
+  font:400 15.5px/1.62 var(--sans);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+html[lang="hi"] body{line-height:1.76}
+html[lang="hi"] .md{line-height:1.84}
+[hidden]{display:none!important}
+button{font-family:inherit}
+
+/* ============ TOP BAR ============ */
+.bar{position:sticky;top:0;z-index:40;background:var(--card);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;
+  padding:0 22px;height:56px}
+.brand{display:flex;align-items:baseline;gap:9px;border:0;background:none;padding:0;
+  cursor:pointer;color:inherit;text-align:left;flex:none}
+.brand b{font:700 19px/1 var(--serif);color:var(--ink);letter-spacing:-.01em}
+.brand span{font:400 10.5px/1 var(--mono);color:var(--faint);letter-spacing:.04em}
+.brand:hover b{color:var(--accent-ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex:none}
+.seg button{border:0;background:none;cursor:pointer;color:var(--muted);
+  font:500 12.5px/1 var(--sans);padding:9px 13px}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button:hover{color:var(--ink);background:var(--sunk)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.find{flex:1;min-width:0;display:flex;align-items:center;gap:8px;max-width:330px;
+  border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:0 11px;height:36px}
+.find input{border:0;background:none;color:var(--ink);font:400 13.5px/1 var(--sans);
+  width:100%;min-width:0}
+.find input:focus{outline:0}
+.find svg{flex:none;color:var(--faint)}
+.bar-r{margin-left:auto;display:flex;align-items:center;gap:8px;flex:none}
+.chip{border:1px solid var(--line);background:none;color:var(--muted);cursor:pointer;
+  font:400 11px/1 var(--mono);padding:8px 10px;border-radius:7px;letter-spacing:.03em;
+  white-space:nowrap}
+.chip:hover{color:var(--ink);border-color:var(--faint)}
+.chip.on{color:var(--secured);border-color:var(--secured)}
+.lang{display:inline-flex;gap:1px}
+.lang button{border:0;background:none;cursor:pointer;color:var(--faint);
+  font:400 11px/1 var(--mono);padding:8px 7px;border-radius:6px}
+.lang button[aria-pressed="true"]{color:var(--ink);background:var(--sunk)}
+.burger{display:none}
+
+/* ============ FRAME ============ */
+.frame{display:grid;grid-template-columns:var(--margin) minmax(0,1fr);
+  align-items:start;max-width:1180px;margin:0 auto}
+.stage{min-width:0;padding:34px 40px 90px}
+
+/* ============ THE MARGIN: a marks ledger ============ */
+/* An examiner totals a script down the margin. So does this. */
+.ledger{position:sticky;top:56px;padding:34px 0 40px 26px;border-right:1px solid var(--hair)}
+.led-k{font:400 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 14px}
+.led-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  padding:7px 0;border-bottom:1px dotted var(--hair)}
+.led-row:last-of-type{border-bottom:0}
+.led-row span{font:400 12.5px/1.3 var(--sans);color:var(--muted)}
+.led-row b{font:500 15px/1 var(--mono);color:var(--ink)}
+.led-row.big b{font-size:26px;letter-spacing:-.02em}
+.led-row.big span{font-size:13px}
+.led-row.secured b{color:var(--secured)}
+.led-row.risk b{color:var(--mark)}
+.led-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--sunk);
+  margin:14px 0 6px}
+.led-bar i{display:block;height:100%}
+.led-bar i.s{background:var(--secured)}
+.led-bar i.r{background:var(--mark);opacity:.75}
+.led-note{font:400 11px/1.5 var(--mono);color:var(--faint);margin:10px 0 0}
+.led-field{margin-top:20px}
+.led-field label{display:block;font:400 10px/1 var(--mono);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.led-field input{width:100%;border:1px solid var(--line);border-radius:7px;
+  background:var(--card);color:var(--ink);font:400 13px/1 var(--mono);padding:9px 10px}
+.led-cta{display:block;width:100%;margin-top:20px;border:0;border-radius:8px;
+  background:var(--accent);color:var(--on-accent);font:600 13px/1 var(--sans);padding:12px;
+  cursor:pointer;text-align:center;text-decoration:none}
+.led-cta:hover{filter:brightness(1.08)}
+
+/* ============ HEADINGS AND BLOCKS ============ */
+.eyebrow{font:400 10.5px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent-ink);margin:0 0 12px}
+h1.pt{font:600 clamp(25px,3.4vw,34px)/1.14 var(--serif);color:var(--ink);
+  letter-spacing:-.018em;margin:0;text-wrap:balance}
+.lede{font:400 16px/1.6 var(--sans);color:var(--muted);margin:12px 0 0;max-width:64ch}
+h2.sec{font:600 11px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);margin:0}
+.block{margin-top:38px}
+.block-h{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  flex-wrap:wrap;padding-bottom:11px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.block-h p{margin:0;font:400 12px/1.4 var(--mono);color:var(--faint)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:18px 20px}
+
+/* ============ THE RATING PASS ============ */
+.rate{display:flex;flex-direction:column}
+.rate-u{font:400 10px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);padding:18px 2px 8px;display:flex;justify-content:space-between;gap:10px}
+.rate-u i{font-style:normal;color:var(--muted)}
+.rr{display:grid;grid-template-columns:26px minmax(0,1fr) auto auto;gap:12px;align-items:center;
+  padding:9px 2px;border-bottom:1px solid var(--hair)}
+.rr:last-child{border-bottom:0}
+.rr-n{font:400 11.5px/1 var(--mono);color:var(--faint);text-align:right}
+.rr-t{min-width:0}
+.rr-t button{border:0;background:none;padding:0;cursor:pointer;text-align:left;
+  font:500 14.5px/1.3 var(--sans);color:var(--ink);display:block;width:100%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rr-t button:hover{color:var(--accent-ink)}
+.rr-t em{display:block;font:400 10.5px/1.4 var(--mono);font-style:normal;color:var(--faint);
+  margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rr-m{font:500 13px/1 var(--mono);color:var(--muted);white-space:nowrap}
+.rr-m u{text-decoration:none;color:var(--faint);font-size:10.5px}
+.grade{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;flex:none}
+.grade button{border:0;background:none;cursor:pointer;color:var(--faint);
+  font:400 10.5px/1 var(--mono);padding:8px 9px;letter-spacing:.02em}
+.grade button+button{border-left:1px solid var(--line)}
+.grade button:hover{background:var(--sunk);color:var(--ink)}
+.grade button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.grade button[aria-pressed="true"][data-g="3"]{background:var(--secured);color:var(--on-solid)}
+.grade button[aria-pressed="true"][data-g="1"]{background:var(--mark);color:var(--on-solid)}
+
+/* ============ THE QUEUE ============ */
+.queue{display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.qi{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:14px;align-items:center;
+  background:var(--card);border:0;padding:15px 18px;cursor:pointer;text-align:left;
+  font:inherit;color:inherit;width:100%}
+.qi:hover{background:var(--accent-soft)}
+.qi-n{font:500 15px/1 var(--mono);color:var(--faint)}
+.qi-t{min-width:0}
+.qi-t b{display:block;font:600 15.5px/1.3 var(--sans);color:var(--ink);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qi-t span{display:block;font:400 11.5px/1.5 var(--mono);color:var(--muted);margin-top:3px}
+.qi-m{text-align:right;white-space:nowrap}
+.qi-m b{display:block;font:500 17px/1 var(--mono);color:var(--mark)}
+.qi-m span{display:block;font:400 9.5px/1 var(--mono);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);margin-top:5px}
+.cut{display:flex;align-items:center;gap:12px;padding:12px 18px;background:var(--secured-soft);
+  font:400 11.5px/1.4 var(--mono);color:var(--secured)}
+
+/* ============ THE SCHEDULE ============ */
+.sched{width:100%;border-collapse:collapse;font-size:13.5px}
+.sched th{font:400 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--faint);text-align:left;padding:0 12px 9px 0;font-weight:400}
+.sched td{padding:10px 12px 10px 0;border-top:1px solid var(--hair);vertical-align:top}
+.sched td.d{font:400 12px/1.4 var(--mono);color:var(--muted);white-space:nowrap}
+.sched td.c{color:var(--ink);font-weight:500}
+.sched td.p{font:400 11.5px/1.4 var(--mono);color:var(--faint)}
+
+/* ============ CHAPTER PAGE ============ */
+.back{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);
+  background:var(--card);color:var(--muted);cursor:pointer;border-radius:7px;
+  font:400 11.5px/1 var(--mono);padding:8px 11px;margin-bottom:20px}
+.back:hover{color:var(--accent-ink);border-color:var(--accent)}
+.crumb{font:400 11.5px/1 var(--mono);color:var(--faint);margin:0 0 11px;
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.crumb b{color:var(--muted);font-weight:400}
+.tags{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:15px}
+.tag{font:400 10.5px/1 var(--mono);letter-spacing:.04em;padding:6px 9px;border-radius:6px;
+  background:var(--sunk);color:var(--muted);white-space:nowrap}
+.tag.risk{background:var(--mark-soft);color:var(--mark)}
+.tag.ok{background:var(--secured-soft);color:var(--secured)}
+.tag.free{background:var(--accent-soft);color:var(--accent-ink)}
+/* the appearance line is a sentence, not a label: it wraps */
+.tag.wrap{white-space:normal;max-width:68ch;line-height:1.5}
+.jump{position:sticky;top:56px;z-index:20;background:var(--paper);display:flex;gap:3px;
+  overflow-x:auto;border-bottom:1px solid var(--line);margin:26px 0 0;
+  padding-top:8px;scrollbar-width:none}
+.jump::-webkit-scrollbar{display:none}
+.jump a{color:var(--muted);text-decoration:none;white-space:nowrap;
+  font:500 12.5px/1 var(--sans);padding:11px 9px;border-bottom:2px solid transparent;
+  display:flex;align-items:center;gap:6px}
+.jump a:hover{color:var(--ink)}
+.jump a[aria-current="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.sect{padding-top:34px;scroll-margin-top:112px}
+.sect>h2{font:600 19px/1.25 var(--serif);color:var(--ink);letter-spacing:-.01em;margin:0 0 4px}
+.sect>p.why{font:400 12.5px/1.5 var(--mono);color:var(--faint);margin:0 0 18px}
+
+/* the deleted-topics warning: the one thing never charged for */
+.warn{background:var(--ochre-soft);border:1px solid var(--ochre);border-radius:11px;
+  padding:15px 17px;margin:22px 0 0}
+.warn-h{font:400 10.5px/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ochre);margin:0 0 10px}
+.warn .md{font-size:14px}
+.warn .md p:last-child{margin-bottom:0}
+
+/* ============ QUESTIONS ============ */
+.qlist{display:flex;flex-direction:column;gap:12px}
+.qq{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.qq-h{display:flex;align-items:baseline;gap:12px;padding:15px 18px 6px}
+.qq-n{font:500 12px/1.4 var(--mono);color:var(--accent-ink);flex:none}
+.qq-m{margin-left:auto;font:400 10.5px/1 var(--mono);color:var(--mark);
+  background:var(--mark-soft);padding:5px 8px;border-radius:5px;white-space:nowrap;flex:none}
+.qq-b{padding:0 18px 6px 42px}
+.qq-b .md{font-size:14.5px}
+.qq-f{padding:0 18px 15px 42px}
+.reveal{border:1px solid var(--line);background:none;color:var(--muted);cursor:pointer;
+  font:400 11.5px/1 var(--mono);padding:9px 13px;border-radius:7px}
+.reveal:hover{border-color:var(--accent);color:var(--accent-ink)}
+.reveal[aria-expanded="true"]{border-color:var(--secured);color:var(--secured);
+  background:var(--secured-soft)}
+.sol{border-top:1px solid var(--line);background:var(--sunk);padding:16px 18px 4px 42px}
+.sol-l{font:400 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--secured);margin:0 0 12px}
+.sol .md{font-size:14.5px}
+
+/* ============ MARKDOWN ============ */
+.md{font-size:15px;line-height:1.68;color:var(--body);max-width:68ch}
+.md>*:first-child{margin-top:0}
+.md h3{font:600 17px/1.3 var(--serif);color:var(--ink);margin:30px 0 10px;
+  letter-spacing:-.008em;text-wrap:balance}
+.md h4{font:600 13px/1.35 var(--sans);color:var(--ink);margin:22px 0 7px}
+.md h5,.md h6{font:600 12px/1.35 var(--sans);color:var(--ink);margin:18px 0 6px}
+.md p{margin:0 0 13px}
+.md strong{color:var(--ink);font-weight:600}
+.md a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px}
+.md ul,.md ol{margin:0 0 14px;padding-left:21px}
+.md li{margin:0 0 6px}
+.md hr{border:0;border-top:1px solid var(--line);margin:26px 0}
+.md code{font:400 .88em/1.5 var(--mono);background:var(--sunk);color:var(--ink);
+  padding:2px 5px;border-radius:4px;white-space:nowrap}
+.md blockquote{margin:16px 0;padding:13px 16px;background:var(--accent-soft);
+  border-left:3px solid var(--accent);border-radius:0 8px 8px 0}
+.md blockquote>*:last-child{margin-bottom:0}
+.mdpre{margin:16px 0;background:var(--sunk);border:1px solid var(--hair);border-radius:9px;
+  overflow-x:auto;max-width:68ch}
+.mdpre pre{margin:0;padding:15px 17px;font:400 12.5px/1.62 var(--mono);color:var(--ink);
+  white-space:pre;tab-size:2}
+.tablewrap{margin:16px 0;overflow-x:auto;border:1px solid var(--line);border-radius:9px;
+  max-width:68ch}
+.md table{border-collapse:collapse;width:100%;font-size:13.5px}
+.md th{background:var(--sunk);color:var(--ink);font:600 10.5px/1.3 var(--sans);
+  letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:10px 13px;
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.md td{padding:10px 13px;border-bottom:1px solid var(--hair);vertical-align:top}
+.md tr:last-child td{border-bottom:0}
+.md td code{white-space:normal}
+
+/* ============ THE GATE ============ */
+.gate{background:var(--card);border:1px solid var(--accent);border-radius:12px;
+  padding:21px 22px;max-width:68ch}
+.gate-k{display:flex;align-items:center;gap:8px;font:400 10.5px/1 var(--mono);
+  letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 12px}
+.gate h3{font:600 18px/1.3 var(--serif);color:var(--ink);margin:0 0 9px}
+.gate p{margin:0 0 12px;font-size:14px;max-width:60ch}
+.gate p:last-of-type{margin-bottom:0}
+.gate-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.buy{border:0;background:var(--accent);color:var(--on-accent);font:600 13.5px/1 var(--sans);
+  padding:13px 19px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-block}
+.buy:hover{filter:brightness(1.08)}
+.plain{border:0;background:none;color:var(--muted);font:500 12.5px/1 var(--sans);
+  padding:10px 1px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.plain:hover{color:var(--accent-ink)}
+.lk{flex:none;color:var(--faint);display:inline-flex}
+
+/* ============ SEARCH + LIBRARY ============ */
+.hits{display:flex;flex-direction:column;gap:9px}
+.hit{display:block;width:100%;text-align:left;background:var(--card);
+  border:1px solid var(--line);border-radius:10px;padding:13px 16px;cursor:pointer;
+  font:inherit;color:inherit}
+.hit:hover{border-color:var(--accent)}
+.hit b{display:block;font:600 14px/1.3 var(--sans);color:var(--ink)}
+.hit span{display:block;font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.55}
+.hit mark{background:var(--accent-soft);color:var(--accent-ink);padding:1px 2px;border-radius:2px}
+.hit em{display:block;font:400 10.5px/1 var(--mono);font-style:normal;color:var(--faint);margin-top:7px}
+.shelf{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(238px,1fr))}
+.dcard{background:var(--card);border:1px solid var(--line);border-radius:11px;
+  padding:16px 17px;cursor:pointer;text-align:left;font:inherit;color:inherit;
+  display:flex;flex-direction:column;gap:6px}
+.dcard:hover{border-color:var(--accent)}
+.dcard b{font:600 14.5px/1.3 var(--sans);color:var(--ink);display:flex;
+  align-items:center;justify-content:space-between;gap:9px}
+.dcard span{font-size:12.5px;color:var(--muted);line-height:1.5}
+.notrans{display:flex;gap:9px;align-items:flex-start;margin:0 0 18px;padding:11px 14px;
+  background:var(--ochre-soft);border-radius:9px;font-size:12.5px;color:var(--ochre);max-width:68ch}
+
+/* ============ ACCESS DIALOG ============ */
+dialog.dlg{border:1px solid var(--line);border-radius:14px;background:var(--card);
+  color:var(--body);padding:0;max-width:468px;width:calc(100vw - 32px);box-shadow:var(--lift);
+  font:400 15px/1.6 var(--sans)}
+dialog.dlg::backdrop{background:rgba(8,14,13,.55)}
+.dlg-b{padding:22px}
+.dlg-b h2{font:600 20px/1.25 var(--serif);color:var(--ink);margin:0 0 9px}
+.dlg-b p{margin:0 0 12px;font-size:13.5px}
+.dlg-b p:last-child{margin-bottom:0}
+.dlg-b code{font:400 12px/1.5 var(--mono);background:var(--sunk);color:var(--ink);
+  padding:3px 6px;border-radius:5px;word-break:break-all}
+.keyin{width:100%;font:400 13px/1.45 var(--mono);padding:11px 12px;border-radius:8px;
+  border:1px solid var(--line);background:var(--paper);color:var(--ink);margin:6px 0 0;
+  letter-spacing:.03em}
+.msg{font-size:12.5px;margin:12px 0 0;line-height:1.55}
+.msg.bad{color:var(--mark)}
+.msg.good{color:var(--secured)}
+.dlg-row{display:flex;gap:13px;align-items:center;flex-wrap:wrap;margin-top:17px}
+.dlg-x{margin-left:auto}
+.small{font:400 11.5px/1.55 var(--mono);color:var(--faint)}
+
+/* ============ THE PRINT PACK ============ */
+.sheet{border:1px solid var(--line);border-radius:11px;padding:18px 20px;margin:0 0 13px;
+  background:var(--card);break-inside:avoid}
+.sheet-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin:0 0 12px;
+  padding-bottom:10px;border-bottom:1px solid var(--hair)}
+.sheet-h b{font:600 16px/1.3 var(--serif);color:var(--ink)}
+.sheet-h span{font:400 11px/1 var(--mono);color:var(--faint)}
+@media print{
+  .bar,.ledger,.jump,.back,.noprint{display:none!important}
+  .frame{display:block;max-width:none}
+  .stage{padding:0!important}
+  body{background:#fff;color:#000}
+  .sheet{border:0;border-radius:0;padding:0;margin:0;background:none;break-after:page}
+  .sheet:last-child{break-after:auto}
+  .md a{text-decoration:none;color:#000}
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+  .frame{grid-template-columns:minmax(0,1fr)}
+  /* the margin becomes a strip: the totals still lead, they just lie down */
+  .ledger{position:static;border-right:0;border-bottom:1px solid var(--line);
+    padding:16px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+    gap:4px 22px;align-items:end}
+  .ledger .led-k{grid-column:1/-1;margin:0}
+  .ledger .led-bar{grid-column:1/-1;margin:6px 0 2px}
+  .ledger .led-note,.ledger .led-cta{grid-column:1/-1}
+  .led-row{border-bottom:0;padding:4px 0;display:block}
+  .led-row b{display:block}
+  .led-row.big b{font-size:23px}
+  .led-field{margin-top:8px}
+  .stage{padding:26px 20px 80px}
+  .find{max-width:none}
+  .bar{gap:10px;padding:0 16px}
+}
+@media (max-width:720px){
+  .bar{height:auto;flex-wrap:wrap;padding:10px 16px;gap:9px}
+  .find{order:3;flex-basis:100%}
+  .bar-r{order:2}
+  .jump{top:0}
+  .sect{scroll-margin-top:70px}
+}
+@media (max-width:520px){
+  .stage{padding:22px 16px 70px}
+  .rr{grid-template-columns:22px minmax(0,1fr);gap:8px}
+  .rr-m{grid-column:2;font-size:11.5px}
+  .rr .grade{grid-column:2;justify-self:start}
+  .qq-b,.qq-f,.sol{padding-left:18px}
+  .brand span{display:none}
+}
+</style>
+
+<header class="bar">
+  <button class="brand" id="brand">
+    <b>Marks First</b><span id="brandSub"></span>
+  </button>
+  <div class="seg" id="subjSeg" role="group" aria-label="Subject">
+    <button id="tabM" aria-pressed="true">Mathematics</button>
+    <button id="tabP" aria-pressed="false">Physics</button>
+  </div>
+  <div class="find">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6" stroke="currentColor" stroke-width="1.6"></circle><path d="M10.4 10.4 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <input id="q" type="search" autocomplete="off" placeholder="Search" aria-label="Search">
+  </div>
+  <div class="bar-r">
+    <div class="lang" id="langSw" role="group" aria-label="Language"></div>
+    <button class="chip" id="themeBtn">Theme</button>
+    <button class="chip" id="accessBtn">Access</button>
+  </div>
+</header>
+
+<div class="frame">
+  <aside class="ledger" id="ledger" aria-label="Marks ledger"></aside>
+  <main class="stage" id="stage"></main>
+</div>
+
+<dialog class="dlg" id="accessDlg" aria-labelledby="accessH">
+  <form class="dlg-b" id="accessForm" method="dialog">
+    <h2 id="accessH">Unlock the full guide</h2>
+    <div id="accessBody"></div>
+  </form>
+</dialog>
+
+<script>
+const DATA = /*__DATA__*/;
+const PAYWALL = /*__PAYWALL__*/;
+</script>
+<script>
+"use strict";
+/* ==========================================================================
+   Marks First
+   A planner, not a notes app. The arithmetic is the product: every chapter
+   carries a share of its unit's marks, you say how solid you are on each, and
+   the page works out how many marks you are missing and which chapters hold
+   them. The notes are what you use to close the gap.
+   ========================================================================== */
+
+var C1 = "", C2 = "";
+
+/* ---------------- markdown ---------------- */
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function inline(s){
+  s = esc(s);
+  var code = [];
+  s = s.replace(/`([^`]+)`/g, function(m,c){ return C1 + (code.push(c) - 1) + C2; });
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function(m,t,h){
+    return /^(https?:|mailto:)/.test(h)
+      ? '<a href="' + h + '" target="_blank" rel="noopener">' + t + "</a>" : t;
+  });
+  s = s.replace(/\*\*((?:[^*]|\*(?!\*))+?)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/(^|[\s(–—>‘“])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+  s = s.replace(new RegExp(C1 + "(\\d+)" + C2, "g"), function(m,i){
+    return "<code>" + code[+i] + "</code>";
+  });
+  return s;
+}
+function cells(line){
+  var out = [], cur = "", i;
+  for (i = 0; i < line.length; i++){
+    if (line[i] === "\\" && line[i+1] === "|"){ cur += "|"; i++; continue; }
+    if (line[i] === "|"){ out.push(cur); cur = ""; continue; }
+    cur += line[i];
+  }
+  out.push(cur);
+  if (out.length && out[0].trim() === "") out.shift();
+  if (out.length && out[out.length-1].trim() === "") out.pop();
+  return out.map(function(c){ return c.trim(); });
+}
+function dedent(line){ return line.replace(/^\s{1,4}/, ""); }
+function block(lines){
+  // A multi-line item may hold a table or a fence, so it goes back through the
+  // block parser; a plainly wrapped one loses its paragraph and stays tight.
+  return md(lines.join("\n")).replace(/^<p>([\s\S]*?)<\/p>/, "$1");
+}
+function md(src){
+  if (!src) return "";
+  var L = String(src).replace(/\r/g,"").split("\n"), h = "", i = 0, para = [];
+  function flush(){ if (para.length){ h += "<p>" + inline(para.join(" ")) + "</p>"; para.length = 0; } }
+  while (i < L.length){
+    var ln = L[i];
+    if (/^```/.test(ln)){
+      flush(); i++;
+      var buf = [];
+      while (i < L.length && !/^```/.test(L[i])) buf.push(L[i++]);
+      i++;
+      h += '<div class="mdpre"><pre>' + esc(buf.join("\n")) + "</pre></div>";
+      continue;
+    }
+    if (/^\s*$/.test(ln)){ flush(); i++; continue; }
+    if (/^(-{3,}|\*{3,}|_{3,})\s*$/.test(ln)){ flush(); h += "<hr>"; i++; continue; }
+    var hd = ln.match(/^(#{2,6})\s+(.*)$/);
+    if (hd){
+      flush();
+      var lv = Math.min(hd[1].length + 1, 6);
+      h += "<h" + lv + ">" + inline(hd[2]) + "</h" + lv + ">";
+      i++; continue;
+    }
+    if (/^\s*\|/.test(ln) && i+1 < L.length && /^\s*\|[\s:|-]+\|?\s*$/.test(L[i+1])){
+      flush();
+      var head = cells(ln); i += 2;
+      var t = '<div class="tablewrap"><table><thead><tr>';
+      head.forEach(function(c){ t += "<th>" + inline(c) + "</th>"; });
+      t += "</tr></thead><tbody>";
+      while (i < L.length && /^\s*\|/.test(L[i])){
+        var r = cells(L[i++]);
+        t += "<tr>";
+        head.forEach(function(_,k){ t += "<td>" + inline(r[k] || "") + "</td>"; });
+        t += "</tr>";
+      }
+      h += t + "</tbody></table></div>";
+      continue;
+    }
+    if (/^\s*>/.test(ln)){
+      flush();
+      var qb = [];
+      while (i < L.length && /^\s*>/.test(L[i])) qb.push(L[i++].replace(/^\s*>\s?/,""));
+      h += "<blockquote>" + md(qb.join("\n")) + "</blockquote>";
+      continue;
+    }
+    var li = ln.match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
+    if (li){
+      flush();
+      var ord = /\d/.test(li[2]), items = [], first = ord ? parseInt(li[2], 10) : 1;
+      while (i < L.length){
+        var m2 = L[i].match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
+        if (m2 && /\d/.test(m2[2]) === ord){ items.push([m2[3]]); i++; continue; }
+        if (!items.length) break;
+        if (/^\s{2,}\S/.test(L[i])){ items[items.length - 1].push(dedent(L[i])); i++; continue; }
+        // A blank line ends the list only if nothing indented follows it. A
+        // question that carries a distribution table looks exactly like this,
+        // and breaking here left the table outside the list, as a paragraph
+        // of raw pipes, with the next question renumbered from one.
+        if (/^\s*$/.test(L[i])){
+          var j = i;
+          while (j < L.length && /^\s*$/.test(L[j])) j++;
+          var nxt = j < L.length ? L[j].match(/^(\s*)([-*+]|\d+[.)])\s+/) : null;
+          if (nxt && /\d/.test(nxt[2]) === ord && !nxt[1]){ i = j; continue; }
+          if (j < L.length && !nxt && /^\s{2,}\S/.test(L[j])){
+            items[items.length - 1].push(""); i = j; continue;
+          }
+        }
+        break;
+      }
+      var tag = ord ? "ol" : "ul";
+      var lh = "<" + tag + (ord && first !== 1 ? ' start="' + first + '"' : "") + ">";
+      items.forEach(function(x){
+        lh += "<li>" + (x.length > 1 ? block(x) : inline(x[0])) + "</li>";
+      });
+      h += lh + "</" + tag + ">";
+      continue;
+    }
+    para.push(ln.trim()); i++;
+  }
+  flush();
+  return h;
+}
+/*__I18N__*/
+/*__MODEL__*/
+/*__PLANNER__*/
+/*__CHAPTER__*/
+/*__PAYWALL_JS__*/
+/*__SHELL__*/
+</script>

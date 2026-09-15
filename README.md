@@ -3,11 +3,12 @@
 A complete, exam-first study system for **CBSE Class 12 Mathematics (Code 041)** and
 **Physics (Code 042)**, built around what the board actually asks.
 
-The notes in this repository are in English. The study site built from them
-([`web/`](web/README.md)) also offers **हिन्दी** — the whole interface, all 27 chapter and unit
-names in NCERT Hindi-medium terminology, and the plain-English *Start here* introduction for every
-chapter. Hindi text lives under [`i18n/hi/`](i18n/hi/); the site says so wherever a section is
-still English only.
+The notes in this repository are in English. The site built from them
+([`product/`](product/README.md)) also offers **हिन्दी** — the whole interface, all 27 chapter and
+unit names in NCERT Hindi-medium terminology, and the plain-English *Start here* introduction for
+every chapter. Hindi names for the chapters, units and documents live under
+[`i18n/hi/`](i18n/hi/); the site's own wording lives with the site, under
+[`product/i18n/`](product/i18n/).
 
 Every chapter note follows the same six-part shape:
 
@@ -119,6 +120,47 @@ Written in plain text so it reads correctly in any editor, on GitHub, and on a p
 
 Vectors are written **bold** or with a hat for unit vectors; in your answer sheet always put the
 arrow over the letter, since the marking scheme distinguishes vector from scalar answers.
+
+---
+
+## The site built from these notes
+
+`product/` turns these notes into a deployable site, and the whole of it is generated
+and committed because the host builds nothing:
+
+| | |
+| --- | --- |
+| [`index.html`](index.html) | the landing page |
+| [`app.html`](app.html) | **Marks First** — the planner and the guide |
+| `api/` | three endpoints: unlock, claim, and the payment provider's webhook |
+| [`product/`](product/README.md) | the build, the app source, the gate and the licence layer |
+
+```bash
+python3 product/build.py     # after editing any chapter, then commit what changes
+```
+
+**The notes are the source of truth and the build only reads them.** Editing a chapter
+here changes the site on the next build; adding a *new* chapter also needs a row in the
+table in `product/extract.py`, which is where its unit, weightage and priority live.
+
+### What is free and what is not
+
+The **planner is free and always will be** — for all 27 chapters, in both languages, with
+no account. So are the syllabus scope, the deleted-topics warning on every chapter, the
+plain-English opening to each, the exam blueprint, and two chapters end to end.
+
+Sold, as one payment: the exam-language detail, the quick-recall boxes, all 332 board
+questions, every solution, the self-tests and their keys, the answering tips, both formula
+sheets, the derivations list and the frequency analyses. The reasoning behind that line —
+give away the diagnosis, sell the cure — is in [`product/README.md`](product/README.md).
+
+Nothing has been deployed through this branch yet and no payment has been processed.
+
+> **One thing to decide before charging for any of it.** This repository is public, so
+> every solution in it is readable on GitHub whatever the site does. The paywall gates the
+> deployed site, not the repository. Either make the repository private before taking
+> money, or treat the paid half as protected only against casual copying — and say so
+> rather than implying otherwise.
 
 ---
 
